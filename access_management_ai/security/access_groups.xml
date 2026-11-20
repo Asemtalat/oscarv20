@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================== -->
+    <!-- Organization Roles (Hierarchical User Roles)   -->
+    <!-- ============================================== -->
+    <record id="module_category_org_roles" model="ir.module.category">
+        <field name="name">Organization Roles</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="res_groups_privilege_org_roles" model="res.groups.privilege">
+        <field name="name">Organization Roles</field>
+        <field name="category_id" ref="module_category_org_roles"/>
+    </record>
+
+    <!-- 6. Guest -->
+    <record id="group_org_guest" model="res.groups">
+        <field name="name">Guest</field>
+        <field name="privilege_id" ref="res_groups_privilege_org_roles"/>
+        <field name="comment">External or temporary user with minimal access.</field>
+    </record>
+
+    <!-- 5. Employee -->
+    <record id="group_org_employee" model="res.groups">
+        <field name="name">Employee</field>
+        <field name="privilege_id" ref="res_groups_privilege_org_roles"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_org_guest')), Command.link(ref('base.group_user'))]"/>
+        <field name="comment">Standard internal employee.</field>
+    </record>
+
+    <!-- 4. Team Leader -->
+    <record id="group_org_team_leader" model="res.groups">
+        <field name="name">Team Leader</field>
+        <field name="privilege_id" ref="res_groups_privilege_org_roles"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_org_employee'))]"/>
+        <field name="comment">Manages a specific team.</field>
+    </record>
+
+    <!-- 3. Department Manager -->
+    <record id="group_org_department_manager" model="res.groups">
+        <field name="name">Department Manager</field>
+        <field name="privilege_id" ref="res_groups_privilege_org_roles"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_org_team_leader'))]"/>
+        <field name="comment">Manages an entire department.</field>
+    </record>
+
+    <!-- ============================================== -->
+    <!-- Access Management Roles                        -->
+    <!-- ============================================== -->
+    <record id="module_category_access_management" model="ir.module.category">
+        <field name="name">Access Management</field>
+        <field name="sequence">90</field>
+    </record>
+
+    <record id="res_groups_privilege_access_management" model="res.groups.privilege">
+        <field name="name">Access Management</field>
+        <field name="category_id" ref="module_category_access_management"/>
+    </record>
+
+    <!-- 3. Access Viewer -->
+    <record id="group_access_user" model="res.groups">
+        <field name="name">Access Viewer</field>
+        <field name="privilege_id" ref="res_groups_privilege_access_management"/>
+        <field name="comment">View access rules and logs in read-only.</field>
+    </record>
+
+    <!-- 2. Access Administrator -->
+    <record id="group_access_manager" model="res.groups">
+        <field name="name">Access Administrator</field>
+        <field name="privilege_id" ref="res_groups_privilege_access_management"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_org_department_manager')), Command.link(ref('base.group_system')), Command.link(ref('group_access_user'))]"/>
+        <field name="comment">Full control to create and manage access rules, roles, mass assignment, and import/export.</field>
+    </record>
+
+    <!-- 1. Super Administrator -->
+    <record id="group_super_admin" model="res.groups">
+        <field name="name">Super Administrator</field>
+        <field name="privilege_id" ref="res_groups_privilege_access_management"/>
+        <field name="implied_ids" eval="[Command.link(ref('group_access_manager'))]"/>
+        <field name="comment">Highest level of administrative access.</field>
+        <field name="user_ids" eval="[Command.link(ref('base.user_root')), Command.link(ref('base.user_admin'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Multi-company: a user only sees rules scoped to (one of) their
+         allowed companies, or rules that target every company. -->
+    <record id="access_management_company_rule" model="ir.access">
+        <field name="name">Access Management: multi-company</field>
+        <field name="model_id" ref="model_access_management"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Multi-company: Roles -->
+    <record id="access_role_company_rule" model="ir.access">
+        <field name="name">Access Role: multi-company</field>
+        <field name="model_id" ref="model_access_role"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Multi-company: Access Groups -->
+    <record id="access_group_company_rule" model="ir.access">
+        <field name="name">Access Group: multi-company</field>
+        <field name="model_id" ref="model_access_management_group"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Multi-company: Login Logs -->
+    <record id="access_log_company_rule" model="ir.access">
+        <field name="name">Access Log: multi-company</field>
+        <field name="model_id" ref="model_access_login_log"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Multi-company: Missing Data Logs -->
+    <record id="access_missing_data_log_company_rule" model="ir.access">
+        <field name="name">Missing Data Log: multi-company</field>
+        <field name="model_id" ref="model_access_missing_data_log"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Multi-company: Audit Logs -->
+    <record id="access_audit_log_company_rule" model="ir.access">
+        <field name="name">Audit Log: multi-company</field>
+        <field name="model_id" ref="model_access_audit_log"/>
+        <field name="operation">crud</field>
+        <field name="domain">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+    <!-- Child records and aggregate rows must respect their parent scope,
+         including direct RPC searches that do not open the parent form. -->
+    <record id="access_model_line_company_rule" model="ir.access">
+        <field name="name">Model restrictions: parent scope</field>
+        <field name="model_id" ref="model_access_management_model"/>
+        <field name="operation">crud</field>
+        <field name="domain">[('rule_id', 'access', 'read')]</field>
+    </record>
+    <record id="access_field_line_company_rule" model="ir.access">
+        <field name="name">Field restrictions: parent scope</field>
+        <field name="model_id" ref="model_access_management_field"/>
+        <field name="operation">crud</field>
+        <field name="domain">[('rule_id', 'access', 'read')]</field>
+    </record>
+    <record id="access_element_line_company_rule" model="ir.access">
+        <field name="name">Element restrictions: parent scope</field>
+        <field name="model_id" ref="model_access_management_element"/>
+        <field name="operation">crud</field>
+        <field name="domain">[('rule_id', 'access', 'read')]</field>
+    </record>
+    <record id="access_global_element_company_rule" model="ir.access">
+        <field name="name">Global elements: parent scope</field>
+        <field name="model_id" ref="model_access_management_global_element"/>
+        <field name="operation">crud</field>
+        <field name="domain">[('profile_id', 'access', 'read')]</field>
+    </record>
+    <record id="access_role_line_company_rule" model="ir.access">
+        <field name="name">Role assignments: parent scope</field>
+        <field name="model_id" ref="model_access_role_line"/>
+        <field name="operation">crud</field>
+        <field name="domain">[('role_id', 'access', 'read')]</field>
+    </record>
+    <record id="access_report_company_rule" model="ir.access">
+        <field name="name">Access analysis: parent scope</field>
+        <field name="model_id" ref="model_access_management_report"/>
+        <field name="operation">r</field>
+        <field name="domain">[('rule_id', 'access', 'read')]</field>
+    </record>
+</odoo>

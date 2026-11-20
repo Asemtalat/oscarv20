@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Demo Users -->
+    <record id="demo_user_readonly" model="res.users">
+        <field name="name">Read Only User</field>
+        <field name="login">readonly</field>
+        <field name="password">readonly</field>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+    
+    <record id="demo_user_restricted" model="res.users">
+        <field name="name">Restricted Sales User</field>
+        <field name="login">restricted</field>
+        <field name="password">restricted</field>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+    </record>
+
+    <!-- Demo Profiles -->
+    <record id="demo_profile_readonly" model="access.management">
+        <field name="name">Global Read Only Demo</field>
+        <field name="readonly" eval="True"/>
+        <field name="user_ids" eval="[(6, 0, [ref('access_management_ai.demo_user_readonly')])]"/>
+    </record>
+    
+    <record id="demo_profile_sales" model="access.management">
+        <field name="name">Restricted Sales Access Demo</field>
+        <field name="global_hide_print" eval="True"/>
+        <field name="global_hide_action" eval="True"/>
+        <field name="global_hide_export" eval="True"/>
+        <field name="global_hide_delete" eval="True"/>
+        <field name="user_ids" eval="[(6, 0, [ref('access_management_ai.demo_user_restricted')])]"/>
+    </record>
+
+    <!-- Comprehensive Demo Configuration -->
+    <record id="demo_profile_comprehensive" model="access.management">
+        <field name="name">Comprehensive Showcase Demo</field>
+        <field name="active" eval="True"/>
+        <field name="readonly" eval="False"/>
+        <field name="global_hide_print" eval="True"/>
+        <field name="global_hide_action" eval="True"/>
+        <field name="global_hide_export" eval="True"/>
+        <field name="global_hide_import" eval="True"/>
+        <field name="global_hide_delete" eval="True"/>
+        <field name="global_hide_spreadsheet" eval="True"/>
+        <field name="global_hide_favorites" eval="True"/>
+        <field name="global_hide_searchbar" eval="True"/>
+        <field name="global_hide_search_panel" eval="True"/>
+        <field name="global_hide_add_property" eval="True"/>
+        <field name="global_hide_filter_delete" eval="True"/>
+        
+        <field name="restrict_developer_mode" eval="True"/>
+        <field name="password_expiry_days">90</field>
+        <!-- Assign to our restricted user to show it off -->
+        <field name="user_ids" eval="[(4, ref('access_management_ai.demo_user_restricted'))]"/>
+    </record>
+
+    <record id="demo_model_comprehensive" model="access.management.model">
+        <field name="rule_id" ref="demo_profile_comprehensive"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_read">[('is_company','=',False)]</field>
+        <field name="warn_mode" eval="True"/>
+        <field name="warn_message">You are not allowed to edit partners.</field>
+        <field name="soft_restrict" eval="True"/>
+        
+        <field name="chatter_hide" eval="False"/>
+        <field name="chatter_hide_send_message" eval="True"/>
+        <field name="chatter_hide_log_note" eval="True"/>
+        <field name="chatter_hide_activities" eval="True"/>
+    </record>
+
+    <record id="demo_field_comprehensive" model="access.management.field">
+        <field name="rule_id" ref="demo_profile_comprehensive"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="field_id" ref="base.field_res_partner__email"/>
+        <field name="is_invisible" eval="True"/>
+        <field name="invisible_condition">type == 'contact'</field>
+        <field name="is_readonly" eval="True"/>
+        <field name="restrict_export" eval="True"/>
+        <field name="remove_external_link" eval="True"/>
+    </record>
+
+    <record id="demo_element_comprehensive" model="access.management.element">
+        <field name="rule_id" ref="demo_profile_comprehensive"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="view_type">form</field>
+        <field name="element_type">page</field>
+        <field name="element_ref">sales_purchases</field>
+        <field name="invisible_condition">is_company == true</field>
+    </record>
+</odoo>

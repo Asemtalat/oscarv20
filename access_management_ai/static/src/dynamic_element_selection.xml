@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="access_management_ai.DynamicElementSelection">
+        <t t-if="this.props.readonly">
+            <span t-out="this.props.record.data[this.props.name]" />
+        </t>
+        <t t-else="">
+            <select class="o_input" t-on-change="this.onChange">
+                <option value="" t-att-selected="!this.props.record.data[this.props.name]">-- Select Element --</option>
+                <t t-foreach="this.state.choices" t-as="choice" t-key="choice.value">
+                    <option t-att-value="choice.value" t-att-selected="choice.value === this.props.record.data[this.props.name]" t-out="choice.label" />
+                </t>
+            </select>
+        </t>
+    </t>
+</templates>

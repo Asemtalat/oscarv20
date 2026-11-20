@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_password_expiry_reminder" model="mail.template">
+        <field name="name">Access Management: Password Expiry Reminder</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="subject">Your Odoo password expires soon</field>
+        <field name="email_from">{{ (object.company_id.email or user.email_formatted) }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html"><![CDATA[
+            <div>
+                <p>Dear <t t-out="object.name or ''"/>,</p>
+                <p>
+                    Your Odoo password will expire on
+                    <strong><t t-out="object.password_expiry_date or ''"/></strong>.
+                    Please reset it before then to avoid losing access.
+                </p>
+                <p>This is an automated message from Access Management.</p>
+            </div>
+        ]]></field>
+    </record>
+</odoo>

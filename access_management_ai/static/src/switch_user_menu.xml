@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="access_management_ai.SwitchUserMenu">
+    <div class="o_am_switch_user_menu d-none d-md-block">
+        <Dropdown
+            position="'bottom-end'"
+            state="this.dropdown"
+            beforeOpen.bind="this.onBeforeOpen"
+            menuClass="'o_am_switch_user_dropdown'"
+        >
+            <button class="o_am_switch_user_btn"
+                    t-att-title="this.buttonTitle"
+                    t-att-aria-label="this.buttonTitle">
+                <i class="fa fa-users" role="img"/>
+                <span t-if="this.switchFrom" class="o_am_switch_user_badge badge text-bg-warning ms-1">ON</span>
+            </button>
+            <t t-set-slot="content">
+                <div class="o_am_switch_user_panel p-2">
+                    <div class="o_am_switch_user_header px-1 pb-2 mb-2 border-bottom">
+                        <div class="fw-bold">Switch User</div>
+                        <div class="text-muted small">
+                            Signed in as <t t-out="this.currentUserName"/>
+                        </div>
+                    </div>
+
+                    <t t-if="this.switchFrom">
+                        <button class="btn btn-warning w-100 mb-2"
+                                type="button"
+                                t-on-click="this.switchBack">
+                            <i class="fa fa-undo me-1"/>
+                            Switch back to <t t-out="this.switchFrom.name"/>
+                        </button>
+                    </t>
+
+                    <t t-if="this.canSearchUsers">
+                        <div class="input-group input-group-sm mb-2">
+                            <span class="input-group-text"><i class="fa fa-search"/></span>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Search users…"
+                                   t-att-value="this.state.search"
+                                   t-on-input="this.onSearchInput"/>
+                        </div>
+                        <div class="o_am_switch_user_list">
+                            <t t-if="this.state.loading">
+                                <div class="text-muted text-center py-3 small">Loading…</div>
+                            </t>
+                            <t t-elif="!this.state.users.length">
+                                <div class="text-muted text-center py-3 small">No users found.</div>
+                            </t>
+                            <t t-else="">
+                                <t t-foreach="this.state.users" t-as="u" t-key="u.id">
+                                    <DropdownItem
+                                        class="'o_am_switch_user_item d-flex flex-column align-items-start'"
+                                        onSelected="() => this.switchToUser(u.id, u.name)"
+                                    >
+                                        <span class="fw-bold text-truncate w-100" t-out="u.name"/>
+                                        <span class="text-muted small text-truncate w-100" t-out="u.login"/>
+                                    </DropdownItem>
+                                </t>
+                            </t>
+                        </div>
+                    </t>
+                    <t t-elif="!this.switchFrom">
+                        <div class="text-muted small px-1">
+                            Only Access Administrators can switch users.
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </Dropdown>
+    </div>
+</t>
+
+</templates>

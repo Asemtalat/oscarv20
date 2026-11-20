@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="access_management_ai.AmSystraySelector">
+        <div class="am-systray-selector d-flex flex-wrap gap-2">
+            <t t-foreach="this.state.availableItems" t-as="item" t-key="item.key">
+                <button type="button" t-on-click="() => this.toggleKey(item.key)"
+                     t-att-title="item.help"
+                     t-attf-class="btn btn-sm rounded-pill d-flex align-items-center gap-1 #{this.selectedKeys.includes(item.key) ? 'btn-primary shadow-sm' : 'btn-outline-secondary bg-white'}">
+                    
+                    <!-- Icon for state -->
+                    <i t-if="this.selectedKeys.includes(item.key)" class="fa fa-eye-slash"/>
+                    <i t-else="" class="fa fa-eye"/>
+                    
+                    <span t-out="item.label"/>
+                </button>
+            </t>
+            
+            <t t-if="this.state.availableItems.length === 0">
+                <span class="text-muted fst-italic">No systray items detected in the current environment.</span>
+            </t>
+        </div>
+    </t>
+
+</templates>

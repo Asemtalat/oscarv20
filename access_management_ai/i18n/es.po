@@ -1,0 +1,1712 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* access_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-24 09:41:48\n"
+"PO-Revision-Date: 2026-07-24 09:41:48\n"
+"Last-Translator: \n"
+"Language-Team: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: views/access_management_views.xml:255
+#: models/access_management.py:21
+#: report/access_rule_report.xml:66
+#. module: access_management_ai
+msgid "Companies"
+msgstr "Companies"
+
+#: models/access_management.py:22
+#. module: access_management_ai
+msgid "Limit this rule to these companies. Leave empty to apply in every company."
+msgstr "Limit this rule to these companies. Leave empty to apply in every company."
+
+#: views/access_management_views.xml:253
+#: models/access_management.py:26
+#: report/access_rule_report.xml:62
+#: views/access_role_views.xml:29
+#: wizard/group_assign.py:14
+#: models/access_role.py:43
+#: views/access_role_views.xml:51
+#. module: access_management_ai
+msgid "Users"
+msgstr "Users"
+
+#: models/access_management.py:27
+#. module: access_management_ai
+msgid "Users this rule applies to."
+msgstr "Users this rule applies to."
+
+#: models/access_management.py:30
+#: views/access_management_views.xml:254
+#: models/access_role.py:36
+#: report/access_rule_report.xml:64
+#: wizard/group_assign.py:21
+#: views/access_role_views.xml:42
+#. module: access_management_ai
+msgid "Groups"
+msgstr "Groups"
+
+#: models/access_management.py:31
+#. module: access_management_ai
+msgid "Every user member of these groups is subject to this rule."
+msgstr "Every user member of these groups is subject to this rule."
+
+#: models/access_management.py:36
+#: report/access_rule_report.xml:114
+#. module: access_management_ai
+msgid "Hidden Menus"
+msgstr "Hidden Menus"
+
+#: models/access_management.py:37
+#. module: access_management_ai
+msgid "These menus (and their sub-menus) are hidden from the targeted users."
+msgstr "These menus (and their sub-menus) are hidden from the targeted users."
+
+#: models/access_management.py:42
+#. module: access_management_ai
+msgid "Hidden Reports"
+msgstr "Hidden Reports"
+
+#: models/access_management.py:45
+#. module: access_management_ai
+msgid "Hidden Actions"
+msgstr "Hidden Actions"
+
+#: models/access_management.py:48
+#. module: access_management_ai
+msgid "Hidden Server Actions"
+msgstr "Hidden Server Actions"
+
+#: models/access_management.py:51
+#. module: access_management_ai
+msgid "Hidden Client Actions"
+msgstr "Hidden Client Actions"
+
+#: models/access_management.py:54
+#. module: access_management_ai
+msgid "Hidden URL Actions"
+msgstr "Hidden URL Actions"
+
+#: models/access_management.py:267
+#: models/access_management.py:57
+#. module: access_management_ai
+msgid "Hide Chatter"
+msgstr "Hide Chatter"
+
+#: models/access_management.py:58
+#: models/access_management.py:268
+#. module: access_management_ai
+msgid "Hide Send Message"
+msgstr "Hide Send Message"
+
+#: models/access_management.py:59
+#: models/access_management.py:269
+#. module: access_management_ai
+msgid "Hide Log Note"
+msgstr "Hide Log Note"
+
+#: models/access_management.py:60
+#: models/access_management.py:270
+#. module: access_management_ai
+msgid "Hide Activities"
+msgstr "Hide Activities"
+
+#: models/access_management.py:61
+#: models/access_management.py:271
+#. module: access_management_ai
+msgid "Hide Followers"
+msgstr "Hide Followers"
+
+#: models/access_management.py:63
+#. module: access_management_ai
+msgid "Hide Send Message Everywhere"
+msgstr "Hide Send Message Everywhere"
+
+#: models/access_management.py:64
+#. module: access_management_ai
+msgid "Hide Log Note Everywhere"
+msgstr "Hide Log Note Everywhere"
+
+#: models/access_management.py:65
+#. module: access_management_ai
+msgid "Hide Activities Everywhere"
+msgstr "Hide Activities Everywhere"
+
+#: models/access_management.py:69
+#. module: access_management_ai
+msgid "Hide Import Everywhere"
+msgstr "Hide Import Everywhere"
+
+#: models/access_management.py:70
+#. module: access_management_ai
+msgid "Hide Export Everywhere"
+msgstr "Hide Export Everywhere"
+
+#: models/access_management.py:71
+#. module: access_management_ai
+msgid "Hide Spreadsheet Everywhere"
+msgstr "Hide Spreadsheet Everywhere"
+
+#: models/access_management.py:72
+#. module: access_management_ai
+msgid "Hide Filters Everywhere"
+msgstr "Hide Filters Everywhere"
+
+#: models/access_management.py:73
+#. module: access_management_ai
+msgid "Hide Group By Everywhere"
+msgstr "Hide Group By Everywhere"
+
+#: models/access_management.py:74
+#. module: access_management_ai
+msgid "Hide Favorites Everywhere"
+msgstr "Hide Favorites Everywhere"
+
+#: models/access_management.py:75
+#. module: access_management_ai
+msgid "Hide Search Panel Everywhere"
+msgstr "Hide Search Panel Everywhere"
+
+#: models/access_management.py:76
+#. module: access_management_ai
+msgid "Hide Add Property Everywhere"
+msgstr "Hide Add Property Everywhere"
+
+#: models/access_management.py:77
+#. module: access_management_ai
+msgid "Hide Delete Everywhere"
+msgstr "Hide Delete Everywhere"
+
+#: models/access_management.py:79
+#. module: access_management_ai
+msgid "Hide Delete on Saved Filters"
+msgstr "Hide Delete on Saved Filters"
+
+#: models/access_management.py:80
+#. module: access_management_ai
+msgid "Prevent targeted users from deleting saved filters, group-by and favorites."
+msgstr "Prevent targeted users from deleting saved filters, group-by and favorites."
+
+#: models/access_management.py:81
+#. module: access_management_ai
+msgid "Hide Chatter Attachments Everywhere"
+msgstr "Hide Chatter Attachments Everywhere"
+
+#: models/access_management.py:82
+#. module: access_management_ai
+msgid "Hide Chatter Search Everywhere"
+msgstr "Hide Chatter Search Everywhere"
+
+#: models/access_management.py:84
+#. module: access_management_ai
+msgid "Block Module Install / Update / Uninstall"
+msgstr "Block Module Install / Update / Uninstall"
+
+#: models/access_management.py:85
+#. module: access_management_ai
+msgid "Prevent targeted users from changing installed applications."
+msgstr "Prevent targeted users from changing installed applications."
+
+#: models/access_management.py:87
+#. module: access_management_ai
+msgid "Global Hidden Buttons / Tabs / Links"
+msgstr "Global Hidden Buttons / Tabs / Links"
+
+#: models/access_management.py:88
+#. module: access_management_ai
+msgid "Comma-separated technical names or labels hidden across all models."
+msgstr "Comma-separated technical names or labels hidden across all models."
+
+#: models/access_management.py:92
+#: report/access_rule_report.xml:68
+#. module: access_management_ai
+msgid "All Internal Users"
+msgstr "All Internal Users"
+
+#: models/access_management.py:93
+#. module: access_management_ai
+msgid "Apply this profile to every internal user (current and future)."
+msgstr "Apply this profile to every internal user (current and future)."
+
+#: report/access_rule_report.xml:70
+#: models/access_management.py:95
+#. module: access_management_ai
+msgid "All Portal Users"
+msgstr "All Portal Users"
+
+#: models/access_management.py:96
+#. module: access_management_ai
+msgid "Apply this profile to every portal user (current and future)."
+msgstr "Apply this profile to every portal user (current and future)."
+
+#: models/access_management.py:99
+#. module: access_management_ai
+msgid "Active From"
+msgstr "Active From"
+
+#: models/access_management.py:100
+#. module: access_management_ai
+msgid "Active Until"
+msgstr "Active Until"
+
+#: models/access_management.py:101
+#. module: access_management_ai
+msgid "Timezone"
+msgstr "Timezone"
+
+#: models/access_management.py:102
+#. module: access_management_ai
+msgid "Daily From"
+msgstr "Daily From"
+
+#: models/access_management.py:102
+#. module: access_management_ai
+msgid "Daily active window start (hour, in the timezone above)."
+msgstr "Daily active window start (hour, in the timezone above)."
+
+#: models/access_management.py:103
+#. module: access_management_ai
+msgid "Daily To"
+msgstr "Daily To"
+
+#: models/access_management.py:103
+#. module: access_management_ai
+msgid "Daily active window end (hour)."
+msgstr "Daily active window end (hour)."
+
+#: report/access_rule_report.xml:92
+#: models/access_management.py:107
+#. module: access_management_ai
+msgid "Password Expiry (days)"
+msgstr "Password Expiry (days)"
+
+#: models/access_management.py:108
+#. module: access_management_ai
+msgid "Force targeted users to reset their password after this many days. 0 = never."
+msgstr "Force targeted users to reset their password after this many days. 0 = never."
+
+#: models/access_management.py:109
+#: report/access_rule_report.xml:90
+#: models/res_users.py:25
+#. module: access_management_ai
+msgid "Disable Developer Mode"
+msgstr "Disable Developer Mode"
+
+#: models/access_management.py:111
+#. module: access_management_ai
+msgid "Prevent Login for All"
+msgstr "Prevent Login for All"
+
+#: models/access_management.py:112
+#. module: access_management_ai
+msgid "Block login for all users targeted by this profile."
+msgstr "Block login for all users targeted by this profile."
+
+#: report/access_rule_report.xml:94
+#: models/access_management.py:114
+#. module: access_management_ai
+msgid "Hidden Systray Items"
+msgstr "Hidden Systray Items"
+
+#: models/access_management.py:115
+#. module: access_management_ai
+msgid "Comma-separated systray registry keys to hide (e.g. mail.messaging_menu,SwitchCompanyMenu)."
+msgstr "Comma-separated systray registry keys to hide (e.g. mail.messaging_menu,SwitchCompanyMenu)."
+
+#: models/access_management.py:117
+#: report/access_rule_report.xml:120
+#. module: access_management_ai
+msgid "Model Restrictions"
+msgstr "Model Restrictions"
+
+#: report/access_rule_report.xml:165
+#: models/access_management.py:118
+#. module: access_management_ai
+msgid "Field Restrictions"
+msgstr "Field Restrictions"
+
+#: views/access_management_views.xml:151
+#: models/access_management.py:119
+#. module: access_management_ai
+msgid "UI Elements"
+msgstr "UI Elements"
+
+#: models/access_management.py:219
+#: models/access_management.py:347
+#: report/access_rule_report.xml:201
+#: report/access_rule_report.xml:124
+#: report/access_rule_report.xml:169
+#: views/access_report_views.xml:31
+#: models/access_management.py:401
+#: models/access_report.py:12
+#. module: access_management_ai
+msgid "Model"
+msgstr "Model"
+
+#: models/access_management.py:402
+#: models/access_management.py:348
+#: models/access_management.py:220
+#: models/access_report.py:13
+#. module: access_management_ai
+msgid "Model Name"
+msgstr "Model Name"
+
+#: models/access_management.py:223
+#: report/access_rule_report.xml:125
+#. module: access_management_ai
+msgid "Create"
+msgstr "Create"
+
+#: report/access_rule_report.xml:126
+#: models/access_management.py:224
+#. module: access_management_ai
+msgid "Edit"
+msgstr "Edit"
+
+#: report/access_rule_report.xml:127
+#: models/access_management.py:225
+#: report/access_rule_report.xml:82
+#. module: access_management_ai
+msgid "Delete"
+msgstr "Delete"
+
+#: models/access_management.py:228
+#: report/access_rule_report.xml:128
+#. module: access_management_ai
+msgid "Archive"
+msgstr "Archive"
+
+#: report/access_rule_report.xml:129
+#: models/access_management.py:229
+#. module: access_management_ai
+msgid "Duplicate"
+msgstr "Duplicate"
+
+#: wizard/access_transfer_views.xml:9
+#: report/access_rule_report.xml:130
+#: wizard/access_transfer_views.xml:23
+#: models/access_management.py:230
+#. module: access_management_ai
+msgid "Export"
+msgstr "Export"
+
+#: models/access_management.py:231
+#. module: access_management_ai
+msgid "Hide Import"
+msgstr "Hide Import"
+
+#: models/access_management.py:232
+#. module: access_management_ai
+msgid "Hide Insert in Spreadsheet"
+msgstr "Hide Insert in Spreadsheet"
+
+#: models/access_management.py:235
+#. module: access_management_ai
+msgid "Hide List View"
+msgstr "Hide List View"
+
+#: models/access_management.py:236
+#. module: access_management_ai
+msgid "Hide Form View"
+msgstr "Hide Form View"
+
+#: models/access_management.py:237
+#. module: access_management_ai
+msgid "Hide Kanban View"
+msgstr "Hide Kanban View"
+
+#: models/access_management.py:238
+#. module: access_management_ai
+msgid "Hide Calendar View"
+msgstr "Hide Calendar View"
+
+#: models/access_management.py:239
+#. module: access_management_ai
+msgid "Hide Pivot View"
+msgstr "Hide Pivot View"
+
+#: models/access_management.py:240
+#. module: access_management_ai
+msgid "Hide Graph View"
+msgstr "Hide Graph View"
+
+#: models/access_management.py:241
+#. module: access_management_ai
+msgid "Hide Gantt View"
+msgstr "Hide Gantt View"
+
+#: models/access_management.py:242
+#. module: access_management_ai
+msgid "Hide Map View"
+msgstr "Hide Map View"
+
+#: models/access_management.py:243
+#. module: access_management_ai
+msgid "Hide Activity View"
+msgstr "Hide Activity View"
+
+#: models/access_management.py:244
+#. module: access_management_ai
+msgid "Hide Hierarchy View"
+msgstr "Hide Hierarchy View"
+
+#: models/access_management.py:259
+#. module: access_management_ai
+msgid "Hide Search Bar"
+msgstr "Hide Search Bar"
+
+#: models/access_management.py:260
+#. module: access_management_ai
+msgid "Hide Filters"
+msgstr "Hide Filters"
+
+#: models/access_management.py:261
+#. module: access_management_ai
+msgid "Hide Group By"
+msgstr "Hide Group By"
+
+#: models/access_management.py:262
+#. module: access_management_ai
+msgid "Hide Favorites"
+msgstr "Hide Favorites"
+
+#: models/access_management.py:263
+#. module: access_management_ai
+msgid "Hide Search Panel"
+msgstr "Hide Search Panel"
+
+#: models/access_management.py:264
+#. module: access_management_ai
+msgid "Hide Add Property"
+msgstr "Hide Add Property"
+
+#: models/access_management.py:272
+#. module: access_management_ai
+msgid "Hide Attachments"
+msgstr "Hide Attachments"
+
+#: models/access_management.py:273
+#. module: access_management_ai
+msgid "Hide Search Messages"
+msgstr "Hide Search Messages"
+
+#: models/access_management.py:277
+#. module: access_management_ai
+msgid "Read Domain"
+msgstr "Read Domain"
+
+#: models/access_management.py:278
+#. module: access_management_ai
+msgid "Odoo domain expression restricting which records are visible. "
+msgstr "Odoo domain expression restricting which records are visible. "
+
+#: models/access_management.py:282
+#. module: access_management_ai
+msgid "Write Domain"
+msgstr "Write Domain"
+
+#: models/access_management.py:283
+#. module: access_management_ai
+msgid "Domain restricting which records can be edited. Same context as Read Domain."
+msgstr "Domain restricting which records can be edited. Same context as Read Domain."
+
+#: models/access_management.py:285
+#. module: access_management_ai
+msgid "Create Domain"
+msgstr "Create Domain"
+
+#: models/access_management.py:286
+#. module: access_management_ai
+msgid "Domain restricting record creation. Same context as Read Domain."
+msgstr "Domain restricting record creation. Same context as Read Domain."
+
+#: models/access_management.py:288
+#. module: access_management_ai
+msgid "Delete Domain"
+msgstr "Delete Domain"
+
+#: models/access_management.py:289
+#. module: access_management_ai
+msgid "Domain restricting record deletion. Same context as Read Domain."
+msgstr "Domain restricting record deletion. Same context as Read Domain."
+
+#: models/access_management.py:291
+#. module: access_management_ai
+msgid "Date Filter Field"
+msgstr "Date Filter Field"
+
+#: models/access_management.py:292
+#. module: access_management_ai
+msgid "Technical date or datetime field used by the predefined date filter."
+msgstr "Technical date or datetime field used by the predefined date filter."
+
+#: models/access_management.py:298
+#. module: access_management_ai
+msgid "Date Filter Period"
+msgstr "Date Filter Period"
+
+#: models/access_management.py:300
+#. module: access_management_ai
+msgid "Hierarchy Parent Field"
+msgstr "Hierarchy Parent Field"
+
+#: models/access_management.py:301
+#. module: access_management_ai
+msgid "Technical Many2one parent field, e.g. parent_id."
+msgstr "Technical Many2one parent field, e.g. parent_id."
+
+#: models/access_management.py:303
+#. module: access_management_ai
+msgid "Hierarchy User Field"
+msgstr "Hierarchy User Field"
+
+#: models/access_management.py:304
+#. module: access_management_ai
+msgid "Technical Many2one field pointing to res.users, e.g. user_id."
+msgstr "Technical Many2one field pointing to res.users, e.g. user_id."
+
+#: models/access_management.py:308
+#. module: access_management_ai
+msgid "Hierarchy Scope"
+msgstr "Hierarchy Scope"
+
+#: models/access_management.py:310
+#. module: access_management_ai
+msgid "Soft Restrict"
+msgstr "Soft Restrict"
+
+#: models/access_management.py:311
+#. module: access_management_ai
+msgid "Apply the record domains only to this model, without cascading to inherited/parent models."
+msgstr "Apply the record domains only to this model, without cascading to inherited/parent models."
+
+#: models/access_management.py:313
+#. module: access_management_ai
+msgid "Warn Instead of Block"
+msgstr "Warn Instead of Block"
+
+#: models/access_management.py:314
+#. module: access_management_ai
+msgid "When enabled, restricted CRUD operations show a warning notification instead of "
+msgstr "When enabled, restricted CRUD operations show a warning notification instead of "
+
+#: models/access_management.py:317
+#. module: access_management_ai
+msgid "Warning Message"
+msgstr "Warning Message"
+
+#: models/access_management.py:318
+#. module: access_management_ai
+msgid "Custom warning message shown when the user attempts a restricted operation. "
+msgstr "Custom warning message shown when the user attempts a restricted operation. "
+
+#: report/access_rule_report.xml:169
+#: models/access_management.py:350
+#. module: access_management_ai
+msgid "Field"
+msgstr "Field"
+
+#: models/access_management.py:352
+#. module: access_management_ai
+msgid "Field Name"
+msgstr "Field Name"
+
+#: report/access_rule_report.xml:170
+#: models/access_management.py:354
+#. module: access_management_ai
+msgid "Invisible"
+msgstr "Invisible"
+
+#: report/access_rule_report.xml:171
+#: models/access_management.py:355
+#. module: access_management_ai
+msgid "Read-only"
+msgstr "Read-only"
+
+#: report/access_rule_report.xml:172
+#: models/access_management.py:356
+#. module: access_management_ai
+msgid "Required"
+msgstr "Required"
+
+#: models/access_management.py:414
+#: models/access_management.py:358
+#. module: access_management_ai
+msgid "Invisible If"
+msgstr "Invisible If"
+
+#: models/access_management.py:358
+#. module: access_management_ai
+msgid "Python expression, e.g. state == "
+msgstr "Python expression, e.g. state == "
+
+#: models/access_management.py:359
+#. module: access_management_ai
+msgid "Read-only If"
+msgstr "Read-only If"
+
+#: models/access_management.py:360
+#. module: access_management_ai
+msgid "Required If"
+msgstr "Required If"
+
+#: models/access_management.py:363
+#. module: access_management_ai
+msgid "Remove Internal/External Link"
+msgstr "Remove Internal/External Link"
+
+#: models/access_management.py:364
+#. module: access_management_ai
+msgid "For relational fields, removes the open (internal link) button."
+msgstr "For relational fields, removes the open (internal link) button."
+
+#: models/access_management.py:366
+#. module: access_management_ai
+msgid "Disable Create/Create & Edit"
+msgstr "Disable Create/Create & Edit"
+
+#: models/access_management.py:367
+#. module: access_management_ai
+msgid "For relational fields, removes the "
+msgstr "For relational fields, removes the "
+
+#: models/access_management.py:369
+#. module: access_management_ai
+msgid "Dropdown Domain"
+msgstr "Dropdown Domain"
+
+#: models/access_management.py:370
+#. module: access_management_ai
+msgid "For relational fields, restricts the selectable records (Odoo domain)."
+msgstr "For relational fields, restricts the selectable records (Odoo domain)."
+
+#: models/access_management.py:372
+#. module: access_management_ai
+msgid "Exclude From Export"
+msgstr "Exclude From Export"
+
+#: models/access_management.py:373
+#. module: access_management_ai
+msgid "Remove this field from the export field list for users targeted by this rule."
+msgstr "Remove this field from the export field list for users targeted by this rule."
+
+#: models/access_management.py:405
+#: report/access_rule_report.xml:201
+#. module: access_management_ai
+msgid "View"
+msgstr "View"
+
+#: models/access_management.py:409
+#. module: access_management_ai
+msgid "Element Type"
+msgstr "Element Type"
+
+#: report/access_rule_report.xml:202
+#: models/access_management.py:411
+#. module: access_management_ai
+msgid "Name / Label"
+msgstr "Name / Label"
+
+#: models/access_management.py:412
+#. module: access_management_ai
+msgid "Matches the node "
+msgstr "Matches the node "
+
+#: models/access_management.py:415
+#. module: access_management_ai
+msgid "Python expression; leave empty to always hide."
+msgstr "Python expression; leave empty to always hide."
+
+#: models/access_role.py:31
+#. module: access_management_ai
+msgid "Description"
+msgstr "Description"
+
+#: models/access_role.py:32
+#. module: access_management_ai
+msgid "Color"
+msgstr "Color"
+
+#: models/access_role.py:37
+#. module: access_management_ai
+msgid "Security groups granted to every user who has this role."
+msgstr "Security groups granted to every user who has this role."
+
+#: models/access_role.py:40
+#: views/access_role_views.xml:46
+#. module: access_management_ai
+msgid "Included Roles"
+msgstr "Included Roles"
+
+#: models/access_role.py:41
+#. module: access_management_ai
+msgid "Other roles whose groups are also granted by this role."
+msgstr "Other roles whose groups are also granted by this role."
+
+#: models/access_role.py:44
+#: views/access_role_views.xml:12
+#. module: access_management_ai
+msgid "# Users"
+msgstr "# Users"
+
+#: models/access_log.py:11
+#: views/access_log_views.xml:87
+#: models/access_role.py:114
+#: security/access_management_security.xml:15
+#. module: access_management_ai
+msgid "User"
+msgstr "User"
+
+#: models/access_role.py:115
+#. module: access_management_ai
+msgid "From"
+msgstr "From"
+
+#: models/access_role.py:115
+#. module: access_management_ai
+msgid "Grant the role only from this date (inclusive)."
+msgstr "Grant the role only from this date (inclusive)."
+
+#: models/access_role.py:116
+#. module: access_management_ai
+msgid "To"
+msgstr "To"
+
+#: models/access_role.py:116
+#. module: access_management_ai
+msgid "Grant the role only until this date (inclusive)."
+msgstr "Grant the role only until this date (inclusive)."
+
+#: views/res_users_views.xml:38
+#: models/access_role.py:117
+#: views/access_role_views.xml:57
+#. module: access_management_ai
+msgid "Active Now"
+msgstr "Active Now"
+
+#: models/res_users.py:18
+#. module: access_management_ai
+msgid "View Only"
+msgstr "View Only"
+
+#: models/res_users.py:19
+#. module: access_management_ai
+msgid "The user can browse data but cannot create, edit, delete or "
+msgstr "The user can browse data but cannot create, edit, delete or "
+
+#: models/res_users.py:22
+#. module: access_management_ai
+msgid "Prevent Login"
+msgstr "Prevent Login"
+
+#: models/res_users.py:23
+#. module: access_management_ai
+msgid "Block this user from logging in (existing sessions are unaffected)."
+msgstr "Block this user from logging in (existing sessions are unaffected)."
+
+#: models/res_users.py:26
+#. module: access_management_ai
+msgid "Force the developer/debug mode off for this user."
+msgstr "Force the developer/debug mode off for this user."
+
+#: models/res_users.py:28
+#. module: access_management_ai
+msgid "Block External API"
+msgstr "Block External API"
+
+#: models/res_users.py:29
+#. module: access_management_ai
+msgid "Block this user from authenticating through XML-RPC/JSON-RPC and "
+msgstr "Block this user from authenticating through XML-RPC/JSON-RPC and "
+
+#: models/res_users.py:31
+#. module: access_management_ai
+msgid "Password Last Changed"
+msgstr "Password Last Changed"
+
+#: models/res_users.py:33
+#. module: access_management_ai
+msgid "Password Expires On"
+msgstr "Password Expires On"
+
+#: wizard/group_assign.py:22
+#: views/res_users_views.xml:32
+#: models/res_users.py:36
+#: views/access_role_views.xml:111
+#. module: access_management_ai
+msgid "Roles"
+msgstr "Roles"
+
+#: models/res_users.py:37
+#. module: access_management_ai
+msgid "Security roles granted to this user. Each role adds its groups; "
+msgstr "Security roles granted to this user. Each role adds its groups; "
+
+#: models/res_users.py:172
+#. module: access_management_ai
+msgid "Only Access Management administrators can use Login as."
+msgstr "Only Access Management administrators can use Login as."
+
+#: models/res_users.py:174
+#. module: access_management_ai
+msgid "You cannot log in as the superuser."
+msgstr "You cannot log in as the superuser."
+
+#: models/res_users.py:183
+#. module: access_management_ai
+msgid "Only Access Management administrators can terminate sessions."
+msgstr "Only Access Management administrators can terminate sessions."
+
+#: models/access_log.py:12
+#. module: access_management_ai
+msgid "Login"
+msgstr "Login"
+
+#: views/access_log_views.xml:88
+#: views/access_log_views.xml:56
+#: models/access_log.py:15
+#. module: access_management_ai
+msgid "Event"
+msgstr "Event"
+
+#: views/access_log_views.xml:89
+#: models/access_log.py:16
+#. module: access_management_ai
+msgid "Date"
+msgstr "Date"
+
+#: models/access_log.py:17
+#. module: access_management_ai
+msgid "IP Address"
+msgstr "IP Address"
+
+#: models/access_log.py:18
+#. module: access_management_ai
+msgid "Browser"
+msgstr "Browser"
+
+#: models/access_log.py:19
+#. module: access_management_ai
+msgid "Platform"
+msgstr "Platform"
+
+#: models/access_log.py:20
+#. module: access_management_ai
+msgid "Country"
+msgstr "Country"
+
+#: models/access_log.py:21
+#. module: access_management_ai
+msgid "City"
+msgstr "City"
+
+#: models/access_log.py:22
+#. module: access_management_ai
+msgid "Session"
+msgstr "Session"
+
+#: models/access_report.py:11
+#. module: access_management_ai
+msgid "Profile"
+msgstr "Profile"
+
+#: models/access_report.py:14
+#. module: access_management_ai
+msgid "Restrictions"
+msgstr "Restrictions"
+
+#: models/access_report.py:15
+#. module: access_management_ai
+msgid "Number of restrictions configured on this model in this profile."
+msgstr "Number of restrictions configured on this model in this profile."
+
+#: models/ir_export.py:28
+#. module: access_management_ai
+msgid "Export is disabled for this model and user."
+msgstr "Export is disabled for this model and user."
+
+#: models/ir_module.py:15
+#. module: access_management_ai
+msgid "You are not allowed to install, update, or uninstall modules."
+msgstr "You are not allowed to install, update, or uninstall modules."
+
+#: models/ir_module.py:25
+#. module: access_management_ai
+msgid "You are not allowed to modify module management records."
+msgstr "You are not allowed to modify module management records."
+
+#: views/access_management_views.xml:4
+#. module: access_management_ai
+msgid "access.management.list"
+msgstr "access.management.list"
+
+#: views/access_management_views.xml:19
+#: views/access_management_views.xml:269
+#: views/access_management_views.xml:208
+#: views/access_management_views.xml:5
+#: report/access_rule_report.xml:21
+#: views/access_management_views.xml:249
+#. module: access_management_ai
+msgid "access.management"
+msgstr "access.management"
+
+#: views/access_management_views.xml:18
+#. module: access_management_ai
+msgid "access.management.form"
+msgstr "access.management.form"
+
+#: views/access_role_views.xml:105
+#: views/access_role_views.xml:24
+#: views/access_role_views.xml:82
+#: views/access_management_views.xml:23
+#: views/access_management_views.xml:257
+#: views/access_management_views.xml:225
+#. module: access_management_ai
+msgid "Archived"
+msgstr "Archived"
+
+#: views/access_management_views.xml:27
+#. module: access_management_ai
+msgid "e.g. Salesperson restrictions"
+msgstr "e.g. Salesperson restrictions"
+
+#: views/access_management_views.xml:42
+#. module: access_management_ai
+msgid "Apply To &amp; Controls"
+msgstr "Apply To &amp; Controls"
+
+#: views/access_management_views.xml:48
+#. module: access_management_ai
+msgid "mail.messaging_menu,SwitchCompanyMenu"
+msgstr "mail.messaging_menu,SwitchCompanyMenu"
+
+#: views/access_management_views.xml:49
+#: report/access_rule_report.xml:72
+#. module: access_management_ai
+msgid "Global UI Restrictions"
+msgstr "Global UI Restrictions"
+
+#: views/access_management_views.xml:66
+#. module: access_management_ai
+msgid "action_confirm,send_email"
+msgstr "action_confirm,send_email"
+
+#: views/access_management_views.xml:68
+#. module: access_management_ai
+msgid "Schedule (Time &amp; Timezone)"
+msgstr "Schedule (Time &amp; Timezone)"
+
+#: views/access_management_views.xml:77
+#. module: access_management_ai
+msgid "Menus"
+msgstr "Menus"
+
+#: views/access_management_views.xml:81
+#. module: access_management_ai
+msgid "Models"
+msgstr "Models"
+
+#: views/access_management_views.xml:133
+#. module: access_management_ai
+msgid "Fields"
+msgstr "Fields"
+
+#: views/access_management_views.xml:163
+#. module: access_management_ai
+msgid "name"
+msgstr "name"
+
+#: views/access_management_views.xml:166
+#. module: access_management_ai
+msgid "Reports &amp; Actions"
+msgstr "Reports &amp; Actions"
+
+#: views/access_management_views.xml:180
+#. module: access_management_ai
+msgid "Chatter"
+msgstr "Chatter"
+
+#: views/access_management_views.xml:191
+#. module: access_management_ai
+msgid "Audit Trail"
+msgstr "Audit Trail"
+
+#: views/access_management_views.xml:207
+#. module: access_management_ai
+msgid "access.management.kanban"
+msgstr "access.management.kanban"
+
+#: views/access_management_views.xml:236
+#. module: access_management_ai
+msgid "models"
+msgstr "models"
+
+#: views/access_management_views.xml:237
+#. module: access_management_ai
+msgid "fields"
+msgstr "fields"
+
+#: views/access_management_views.xml:238
+#. module: access_management_ai
+msgid "UI"
+msgstr "UI"
+
+#: views/access_management_views.xml:248
+#. module: access_management_ai
+msgid "access.management.search"
+msgstr "access.management.search"
+
+#: views/access_management_views.xml:251
+#. module: access_management_ai
+msgid "Search Access Rules"
+msgstr "Search Access Rules"
+
+#: views/access_report_views.xml:30
+#: views/access_management_views.xml:252
+#. module: access_management_ai
+msgid "Rule"
+msgstr "Rule"
+
+#: views/access_management_views.xml:256
+#. module: access_management_ai
+msgid "Active"
+msgstr "Active"
+
+#: views/access_management_views.xml:258
+#. module: access_management_ai
+msgid "Scheduled"
+msgstr "Scheduled"
+
+#: views/access_management_views.xml:259
+#. module: access_management_ai
+msgid "Global Controls"
+msgstr "Global Controls"
+
+#: views/access_management_views.xml:262
+#. module: access_management_ai
+msgid "Status"
+msgstr "Status"
+
+#: wizard/group_assign.py:23
+#: views/access_management_views.xml:268
+#. module: access_management_ai
+msgid "Access Rules"
+msgstr "Access Rules"
+
+#: views/access_role_views.xml:113
+#: views/access_management_views.xml:270
+#. module: access_management_ai
+msgid "list,kanban,form"
+msgstr "list,kanban,form"
+
+#: views/access_management_views.xml:273
+#. module: access_management_ai
+msgid "Create your first access rule"
+msgstr "Create your first access rule"
+
+#: views/access_role_views.xml:4
+#. module: access_management_ai
+msgid "access.role.list"
+msgstr "access.role.list"
+
+#: views/access_role_views.xml:5
+#: views/access_role_views.xml:69
+#: views/access_role_views.xml:20
+#: views/access_role_views.xml:100
+#: views/access_role_views.xml:112
+#. module: access_management_ai
+msgid "access.role"
+msgstr "access.role"
+
+#: views/access_role_views.xml:19
+#. module: access_management_ai
+msgid "access.role.form"
+msgstr "access.role.form"
+
+#: views/access_role_views.xml:34
+#. module: access_management_ai
+msgid "e.g. Warehouse Manager"
+msgstr "e.g. Warehouse Manager"
+
+#: views/access_role_views.xml:39
+#. module: access_management_ai
+msgid "What this role is for..."
+msgstr "What this role is for..."
+
+#: views/access_role_views.xml:49
+#. module: access_management_ai
+msgid "Users of this role also receive the groups of the included roles."
+msgstr "Users of this role also receive the groups of the included roles."
+
+#: views/access_role_views.xml:68
+#. module: access_management_ai
+msgid "access.role.kanban"
+msgstr "access.role.kanban"
+
+#: views/access_role_views.xml:99
+#. module: access_management_ai
+msgid "access.role.search"
+msgstr "access.role.search"
+
+#: views/access_role_views.xml:115
+#. module: access_management_ai
+msgid "Create your first role"
+msgstr "Create your first role"
+
+#: views/access_role_views.xml:116
+#. module: access_management_ai
+msgid "Bundle security groups into a role, then grant it to users in two clicks."
+msgstr "Bundle security groups into a role, then grant it to users in two clicks."
+
+#: views/access_log_views.xml:4
+#. module: access_management_ai
+msgid "access.login.log.list"
+msgstr "access.login.log.list"
+
+#: views/access_log_views.xml:36
+#: views/access_log_views.xml:48
+#: views/access_log_views.xml:77
+#: views/access_log_views.xml:96
+#: views/access_log_views.xml:5
+#: views/access_log_views.xml:24
+#. module: access_management_ai
+msgid "access.login.log"
+msgstr "access.login.log"
+
+#: views/access_log_views.xml:23
+#. module: access_management_ai
+msgid "access.login.log.graph"
+msgstr "access.login.log.graph"
+
+#: views/access_log_views.xml:26
+#: views/access_log_views.xml:38
+#. module: access_management_ai
+msgid "Login Activity"
+msgstr "Login Activity"
+
+#: views/access_log_views.xml:35
+#. module: access_management_ai
+msgid "access.login.log.pivot"
+msgstr "access.login.log.pivot"
+
+#: views/access_log_views.xml:47
+#. module: access_management_ai
+msgid "access.login.log.form"
+msgstr "access.login.log.form"
+
+#: views/access_log_views.xml:62
+#. module: access_management_ai
+msgid "Client"
+msgstr "Client"
+
+#: views/access_log_views.xml:76
+#. module: access_management_ai
+msgid "access.login.log.search"
+msgstr "access.login.log.search"
+
+#: views/access_log_views.xml:83
+#. module: access_management_ai
+msgid "Logins"
+msgstr "Logins"
+
+#: views/access_log_views.xml:84
+#. module: access_management_ai
+msgid "Logouts"
+msgstr "Logouts"
+
+#: views/access_log_views.xml:85
+#. module: access_management_ai
+msgid "Failed"
+msgstr "Failed"
+
+#: views/access_log_views.xml:95
+#. module: access_management_ai
+msgid "Login Audit"
+msgstr "Login Audit"
+
+#: views/access_log_views.xml:97
+#. module: access_management_ai
+msgid "list,form,graph,pivot"
+msgstr "list,form,graph,pivot"
+
+#: views/access_report_views.xml:4
+#. module: access_management_ai
+msgid "access.management.report.list"
+msgstr "access.management.report.list"
+
+#: views/access_report_views.xml:38
+#: views/access_report_views.xml:61
+#: views/access_report_views.xml:5
+#: views/access_report_views.xml:21
+#: views/access_report_views.xml:50
+#. module: access_management_ai
+msgid "access.management.report"
+msgstr "access.management.report"
+
+#: views/access_report_views.xml:20
+#. module: access_management_ai
+msgid "access.management.report.search"
+msgstr "access.management.report.search"
+
+#: views/access_report_views.xml:23
+#. module: access_management_ai
+msgid "Search Access Analysis"
+msgstr "Search Access Analysis"
+
+#: views/access_report_views.xml:27
+#. module: access_management_ai
+msgid "Restricted Models"
+msgstr "Restricted Models"
+
+#: views/access_report_views.xml:37
+#. module: access_management_ai
+msgid "access.management.report.pivot"
+msgstr "access.management.report.pivot"
+
+#: views/access_report_views.xml:40
+#: views/access_report_views.xml:52
+#. module: access_management_ai
+msgid "Access Heatmap"
+msgstr "Access Heatmap"
+
+#: views/access_report_views.xml:49
+#. module: access_management_ai
+msgid "access.management.report.graph"
+msgstr "access.management.report.graph"
+
+#: views/access_report_views.xml:60
+#. module: access_management_ai
+msgid "Access Dashboard"
+msgstr "Access Dashboard"
+
+#: views/access_report_views.xml:62
+#. module: access_management_ai
+msgid "pivot,graph,list"
+msgstr "pivot,graph,list"
+
+#: views/res_users_views.xml:4
+#. module: access_management_ai
+msgid "res.users.form.access.management"
+msgstr "res.users.form.access.management"
+
+#: views/res_users_views.xml:5
+#. module: access_management_ai
+msgid "res.users"
+msgstr "res.users"
+
+#: views/res_users_views.xml:9
+#: security/access_management_security.xml:9
+#: security/access_management_security.xml:4
+#. module: access_management_ai
+msgid "Access Management"
+msgstr "Access Management"
+
+#: views/res_users_views.xml:14
+#. module: access_management_ai
+msgid "Login as"
+msgstr "Login as"
+
+#: views/res_users_views.xml:17
+#. module: access_management_ai
+msgid "Terminate Sessions"
+msgstr "Terminate Sessions"
+
+#: views/res_users_views.xml:21
+#. module: access_management_ai
+msgid "User Controls"
+msgstr "User Controls"
+
+#: views/res_users_views.xml:27
+#. module: access_management_ai
+msgid "Password"
+msgstr "Password"
+
+#: wizard/access_transfer.py:47
+#. module: access_management_ai
+msgid "Profiles to Export"
+msgstr "Profiles to Export"
+
+#: wizard/access_transfer.py:48
+#. module: access_management_ai
+msgid "Export File"
+msgstr "Export File"
+
+#: wizard/access_transfer.py:49
+#. module: access_management_ai
+msgid "Export Filename"
+msgstr "Export Filename"
+
+#: wizard/access_transfer.py:50
+#. module: access_management_ai
+msgid "Import File"
+msgstr "Import File"
+
+#: wizard/access_transfer.py:51
+#. module: access_management_ai
+msgid "Import Filename"
+msgstr "Import Filename"
+
+#: wizard/access_transfer.py:136
+#. module: access_management_ai
+msgid "Please upload a JSON export file first."
+msgstr "Please upload a JSON export file first."
+
+#: wizard/access_transfer.py:163
+#. module: access_management_ai
+msgid "Imported Profiles"
+msgstr "Imported Profiles"
+
+#: wizard/access_transfer_views.xml:4
+#. module: access_management_ai
+msgid "access.management.transfer.form"
+msgstr "access.management.transfer.form"
+
+#: wizard/access_transfer_views.xml:35
+#: wizard/access_transfer_views.xml:5
+#. module: access_management_ai
+msgid "access.management.transfer"
+msgstr "access.management.transfer"
+
+#: wizard/access_transfer_views.xml:7
+#. module: access_management_ai
+msgid "Import / Export Profiles"
+msgstr "Import / Export Profiles"
+
+#: wizard/access_transfer_views.xml:12
+#. module: access_management_ai
+msgid "Leave empty to export all profiles"
+msgstr "Leave empty to export all profiles"
+
+#: wizard/access_transfer_views.xml:17
+#: report/access_rule_report.xml:131
+#: wizard/access_transfer_views.xml:25
+#. module: access_management_ai
+msgid "Import"
+msgstr "Import"
+
+#: wizard/access_transfer_views.xml:27
+#. module: access_management_ai
+msgid "Close"
+msgstr "Close"
+
+#: wizard/access_transfer_views.xml:34
+#. module: access_management_ai
+msgid "Import / Export"
+msgstr "Import / Export"
+
+#: wizard/access_transfer_views.xml:36
+#: wizard/group_assign_views.xml:37
+#: wizard/group_assign_views.xml:49
+#. module: access_management_ai
+msgid "form"
+msgstr "form"
+
+#: wizard/group_assign_views.xml:38
+#: wizard/group_assign_views.xml:50
+#: wizard/access_transfer_views.xml:37
+#. module: access_management_ai
+msgid "new"
+msgstr "new"
+
+#: wizard/group_assign.py:17
+#. module: access_management_ai
+msgid "Operation"
+msgstr "Operation"
+
+#: wizard/group_assign.py:18
+#. module: access_management_ai
+msgid "Add: grant the selection on top of what users already have.\n"
+msgstr "Add: grant the selection on top of what users already have.\n"
+
+#: wizard/group_assign.py:24
+#. module: access_management_ai
+msgid "Role From"
+msgstr "Role From"
+
+#: wizard/group_assign.py:25
+#. module: access_management_ai
+msgid "Role To"
+msgstr "Role To"
+
+#: wizard/group_assign.py:69
+#. module: access_management_ai
+msgid "Select at least one group, role or access rule to apply."
+msgstr "Select at least one group, role or access rule to apply."
+
+#: wizard/group_assign.py:79
+#. module: access_management_ai
+msgid "Affected Users"
+msgstr "Affected Users"
+
+#: wizard/group_assign_views.xml:4
+#. module: access_management_ai
+msgid "access.group.assign.form"
+msgstr "access.group.assign.form"
+
+#: wizard/group_assign_views.xml:5
+#: wizard/group_assign_views.xml:36
+#: wizard/group_assign_views.xml:48
+#. module: access_management_ai
+msgid "access.group.assign"
+msgstr "access.group.assign"
+
+#: wizard/group_assign_views.xml:7
+#: wizard/group_assign_views.xml:47
+#: wizard/group_assign_views.xml:35
+#. module: access_management_ai
+msgid "Mass Assignment"
+msgstr "Mass Assignment"
+
+#: wizard/group_assign_views.xml:26
+#. module: access_management_ai
+msgid "Apply"
+msgstr "Apply"
+
+#: wizard/group_assign_views.xml:28
+#. module: access_management_ai
+msgid "Cancel"
+msgstr "Cancel"
+
+#: wizard/group_assign_views.xml:52
+#. module: access_management_ai
+msgid "list,form"
+msgstr "list,form"
+
+#: data/mail_template_data.xml:5
+#. module: access_management_ai
+msgid "Access Management: Password Expiry Reminder"
+msgstr "Access Management: Password Expiry Reminder"
+
+#: data/mail_template_data.xml:7
+#. module: access_management_ai
+msgid "Your Odoo password expires soon"
+msgstr "Your Odoo password expires soon"
+
+#: data/mail_template_data.xml:8
+#. module: access_management_ai
+msgid "{{ (object.company_id.email or user.email_formatted) }}"
+msgstr "{{ (object.company_id.email or user.email_formatted) }}"
+
+#: data/mail_template_data.xml:9
+#. module: access_management_ai
+msgid "{{ object.email }}"
+msgstr "{{ object.email }}"
+
+#: data/mail_template_data.xml:19
+#. module: access_management_ai
+msgid "This is an automated message from Access Management."
+msgstr "This is an automated message from Access Management."
+
+#: security/access_management_security.xml:23
+#. module: access_management_ai
+msgid "Administrator"
+msgstr "Administrator"
+
+#: security/access_management_security.xml:34
+#. module: access_management_ai
+msgid "Access Management: multi-company"
+msgstr "Access Management: multi-company"
+
+#: security/access_management_security.xml:36
+#. module: access_management_ai
+msgid "['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
+msgstr "['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
+
+#: report/access_rule_report.xml:5
+#. module: access_management_ai
+msgid "Access Rule (Landscape)"
+msgstr "Access Rule (Landscape)"
+
+#: report/access_rule_report.xml:6
+#. module: access_management_ai
+msgid "A4"
+msgstr "A4"
+
+#: report/access_rule_report.xml:7
+#. module: access_management_ai
+msgid "Landscape"
+msgstr "Landscape"
+
+#: report/access_rule_report.xml:20
+#. module: access_management_ai
+msgid "Access Rule"
+msgstr "Access Rule"
+
+#: report/access_rule_report.xml:22
+#. module: access_management_ai
+msgid "qweb-pdf"
+msgstr "qweb-pdf"
+
+#: report/access_rule_report.xml:23
+#: report/access_rule_report.xml:24
+#. module: access_management_ai
+msgid "access_management_ai.report_access_rule"
+msgstr "access_management_ai.report_access_rule"
+
+#: report/access_rule_report.xml:27
+#. module: access_management_ai
+msgid "report"
+msgstr "report"
+
+#: report/access_rule_report.xml:29
+#. module: access_management_ai
+msgid "'Access Rule - %s' % (object.name or '')"
+msgstr "'Access Rule - %s' % (object.name or '')"
+
+#: report/access_rule_report.xml:52
+#. module: access_management_ai
+msgid "(Archived)"
+msgstr "(Archived)"
+
+#: report/access_rule_report.xml:60
+#. module: access_management_ai
+msgid "Applies To"
+msgstr "Applies To"
+
+#: report/access_rule_report.xml:74
+#. module: access_management_ai
+msgid "Import;"
+msgstr "Import;"
+
+#: report/access_rule_report.xml:75
+#. module: access_management_ai
+msgid "Export;"
+msgstr "Export;"
+
+#: report/access_rule_report.xml:76
+#. module: access_management_ai
+msgid "Spreadsheet;"
+msgstr "Spreadsheet;"
+
+#: report/access_rule_report.xml:77
+#. module: access_management_ai
+msgid "Filters;"
+msgstr "Filters;"
+
+#: report/access_rule_report.xml:78
+#. module: access_management_ai
+msgid "Group By;"
+msgstr "Group By;"
+
+#: report/access_rule_report.xml:79
+#. module: access_management_ai
+msgid "Favorites;"
+msgstr "Favorites;"
+
+#: report/access_rule_report.xml:80
+#. module: access_management_ai
+msgid "Search Panel;"
+msgstr "Search Panel;"
+
+#: report/access_rule_report.xml:81
+#. module: access_management_ai
+msgid "Add Property;"
+msgstr "Add Property;"
+
+#: report/access_rule_report.xml:83
+#. module: access_management_ai
+msgid "None"
+msgstr "None"
+
+#: report/access_rule_report.xml:88
+#. module: access_management_ai
+msgid "Controls &amp; Schedule"
+msgstr "Controls &amp; Schedule"
+
+#: report/access_rule_report.xml:96
+#. module: access_management_ai
+msgid "Active Window"
+msgstr "Active Window"
+
+#: report/access_rule_report.xml:101
+#. module: access_management_ai
+msgid "Daily Window"
+msgstr "Daily Window"
+
+#: report/access_rule_report.xml:132
+#. module: access_management_ai
+msgid "Spreadsheet"
+msgstr "Spreadsheet"
+
+#: report/access_rule_report.xml:133
+#. module: access_management_ai
+msgid "Hidden Views"
+msgstr "Hidden Views"
+
+#: report/access_rule_report.xml:134
+#. module: access_management_ai
+msgid "Record Domains"
+msgstr "Record Domains"
+
+#: report/access_rule_report.xml:173
+#. module: access_management_ai
+msgid "Conditions"
+msgstr "Conditions"
+
+#: report/access_rule_report.xml:174
+#. module: access_management_ai
+msgid "Exclude Export"
+msgstr "Exclude Export"
+
+#: report/access_rule_report.xml:197
+#. module: access_management_ai
+msgid "Hidden UI Elements"
+msgstr "Hidden UI Elements"
+
+#: report/access_rule_report.xml:201
+#. module: access_management_ai
+msgid "Type"
+msgstr "Type"
+
+#: report/access_rule_report.xml:202
+#. module: access_management_ai
+msgid "Condition"
+msgstr "Condition"
+
+#: report/access_rule_report.xml:220
+#. module: access_management_ai
+msgid "Hidden Reports &amp; Actions"
+msgstr "Hidden Reports &amp; Actions"
+
+#: report/access_rule_report.xml:222
+#. module: access_management_ai
+msgid "Reports:"
+msgstr "Reports:"
+
+#: report/access_rule_report.xml:224
+#. module: access_management_ai
+msgid "Actions:"
+msgstr "Actions:"
+
+#: report/access_rule_report.xml:226
+#. module: access_management_ai
+msgid "Server:"
+msgstr "Server:"
+
+#: report/access_rule_report.xml:228
+#. module: access_management_ai
+msgid "Client:"
+msgstr "Client:"
+
+#: report/access_rule_report.xml:230
+#. module: access_management_ai
+msgid "URL:"
+msgstr "URL:"
+
+#: report/access_rule_report.xml:235
+#. module: access_management_ai
+msgid "Chatter (global)"
+msgstr "Chatter (global)"
+
+#: report/access_rule_report.xml:242
+#. module: access_management_ai
+msgid "No chatter restrictions"
+msgstr "No chatter restrictions"
+

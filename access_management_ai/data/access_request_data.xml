@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Access Requests -->
+    <record id="seq_access_request" model="ir.sequence">
+        <field name="name">Access Request</field>
+        <field name="code">access.request</field>
+        <field name="prefix">REQ-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    
+    <!-- Scheduled Action for Expiring Access -->
+    <record id="ir_cron_check_expiring_access" model="ir.cron">
+        <field name="name">Access Management: Check Expiring Access Requests</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_check_expiring_access()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Email Templates -->
+    <record id="mail_template_access_submitted_requester" model="mail.template">
+        <field name="name">Access Request: Submitted (Requester)</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Access Request Submitted - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    Your access request <strong><t t-out="object.name"/></strong> has been successfully submitted and is pending approval.
+                    <br/><br/>
+                    <strong>Role/Profile Requested:</strong> <t t-out="object.role_id.name or object.profile_id.name or 'N/A'"/>
+                    <br/>
+                    <strong>Reason for Request:</strong> <t t-out="object.request_reason"/>
+                    <br/>
+                    <strong>Valid From:</strong> <t t-out="object.date_from"/>
+                    <br/>
+                    <strong>Valid To:</strong> <t t-out="object.date_to or 'No Expiration'"/>
+                    <br/><br/>
+                    You will receive another email once your request has been reviewed.
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_submitted_approver" model="mail.template">
+        <field name="name">Access Request: Submitted (Approver)</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">New Access Request Awaiting Approval - {{ object.name }}</field>
+        <field name="email_to">{{ ctx.get('approver_email', '') }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello,<br/><br/>
+                    A new access request <strong><t t-out="object.name"/></strong> has been submitted by <strong><t t-out="object.user_id.name or ''"/></strong> and requires your review.
+                    <br/><br/>
+                    <strong>Role/Profile Requested:</strong> <t t-out="object.role_id.name or object.profile_id.name or 'N/A'"/>
+                    <br/>
+                    <strong>Reason for Request:</strong> <t t-out="object.request_reason"/>
+                    <br/>
+                    <strong>Valid From:</strong> <t t-out="object.date_from"/>
+                    <br/>
+                    <strong>Valid To:</strong> <t t-out="object.date_to or 'No Expiration'"/>
+                    <br/><br/>
+                    Please log into Odoo to approve or reject this request.
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_approved" model="mail.template">
+        <field name="name">Access Request: Approved</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Access Request Approved - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    Your access request <strong><t t-out="object.name"/></strong> has been approved.
+                    <br/><br/>
+                    <strong>Role/Profile:</strong> <t t-out="object.role_id.name or object.profile_id.name or 'N/A'"/>
+                    <br/>
+                    <strong>Valid From:</strong> <t t-out="object.date_from"/>
+                    <br/>
+                    <strong>Valid To:</strong> <t t-out="object.date_to or 'No Expiration'"/>
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_rejected" model="mail.template">
+        <field name="name">Access Request: Rejected</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Access Request Rejected - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    Your access request <strong><t t-out="object.name"/></strong> has been rejected.
+                    <br/><br/>
+                    <strong>Reason:</strong> <t t-out="object.rejection_reason or 'No reason provided.'"/>
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_revoked" model="mail.template">
+        <field name="name">Access Request: Revoked</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Access Revoked - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    Your access for <strong><t t-out="object.name"/></strong> has been revoked by an administrator.
+                    <br/><br/>
+                    <strong>Role/Profile:</strong> <t t-out="object.role_id.name or object.profile_id.name or 'N/A'"/>
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_reminder" model="mail.template">
+        <field name="name">Access Request: Expiration Reminder</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Reminder: Access Expiring Soon - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    This is a reminder that your access for <strong><t t-out="object.name"/></strong> will expire on <strong><t t-out="object.date_to"/></strong>.
+                    <br/><br/>
+                    Please submit a new request if you need to extend your access.
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <record id="mail_template_access_expired" model="mail.template">
+        <field name="name">Access Request: Expired</field>
+        <field name="model_id" ref="model_access_request"/>
+        <field name="subject">Access Expired - {{ object.name }}</field>
+        <field name="email_to">{{ object.user_id.email_formatted }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Hello <t t-out="object.user_id.name or ''"/>,<br/><br/>
+                    Your access for <strong><t t-out="object.name"/></strong> has expired as of <strong><t t-out="object.date_to"/></strong>.
+                    <br/><br/>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

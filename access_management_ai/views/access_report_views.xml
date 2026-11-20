@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_report_list" model="ir.ui.view">
+        <field name="name">access.management.report.list</field>
+        <field name="model">access.management.report</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" delete="false" default_order="restriction_count desc">
+                <field name="rule_id"/>
+                <field name="model_id"/>
+                <field name="model_name" optional="show"/>
+                <field name="severity" widget="badge"
+                       decoration-success="severity == 'none'"
+                       decoration-info="severity == 'low'"
+                       decoration-warning="severity == 'medium'"
+                       decoration-danger="severity == 'high'"/>
+                <field name="restriction_count" widget="badge"
+                       decoration-success="restriction_count == 0"
+                       decoration-warning="restriction_count &gt; 0 and restriction_count &lt; 5"
+                       decoration-danger="restriction_count &gt;= 5"/>
+                <field name="blocked_ops_count" optional="show"/>
+                <field name="field_count" optional="show"/>
+                <field name="element_count" optional="show"/>
+                <field name="perm_create" optional="hide"/>
+                <field name="perm_write" optional="hide"/>
+                <field name="perm_unlink" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_access_report_search" model="ir.ui.view">
+        <field name="name">access.management.report.search</field>
+        <field name="model">access.management.report</field>
+        <field name="arch" type="xml">
+            <search string="Search Access Analysis">
+                <field name="rule_id"/>
+                <field name="model_id"/>
+                <field name="model_name"/>
+                <field name="severity"/>
+
+                <filter name="restricted" string="Restricted Models"
+                        domain="[('restriction_count', '&gt;', 0)]"/>
+                <filter name="heavy" string="Heavily Restricted"
+                        domain="[('restriction_count', '&gt;=', 5)]"/>
+                <separator/>
+                <filter name="no_create" string="Create Blocked"
+                        domain="[('perm_create', '=', False)]"/>
+                <filter name="no_write" string="Edit Blocked"
+                        domain="[('perm_write', '=', False)]"/>
+                <filter name="no_unlink" string="Delete Blocked"
+                        domain="[('perm_unlink', '=', False)]"/>
+                <filter name="no_export" string="Export Blocked"
+                        domain="[('allow_export', '=', False)]"/>
+                <separator/>
+                <filter name="has_fields" string="Has Field Rules"
+                        domain="[('field_count', '&gt;', 0)]"/>
+                <filter name="has_elements" string="Has UI Elements"
+                        domain="[('element_count', '&gt;', 0)]"/>
+                <filter name="has_domain" string="Has Domains"
+                        domain="[('has_domain', '=', True)]"/>
+                <filter name="warn_mode" string="Warn Mode"
+                        domain="[('warn_mode', '=', True)]"/>
+                <filter name="hide_views" string="Hidden Views"
+                        domain="['|', '|', ('hide_list', '=', True), ('hide_form', '=', True), ('hide_kanban', '=', True)]"/>
+
+                <separator/>
+                <filter name="group_rule" string="Rule" context="{'group_by': 'rule_id'}"/>
+                <filter name="group_model" string="Model" context="{'group_by': 'model_id'}"/>
+                <filter name="group_severity" string="Severity" context="{'group_by': 'severity'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_access_report_pivot" model="ir.ui.view">
+        <field name="name">access.management.report.pivot</field>
+        <field name="model">access.management.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Access Heatmap" sample="1">
+                <field name="model_id" type="row"/>
+                <field name="rule_id" type="col"/>
+                <field name="restriction_count" type="measure"/>
+                <field name="field_count" type="measure"/>
+                <field name="element_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_access_report_graph" model="ir.ui.view">
+        <field name="name">access.management.report.graph</field>
+        <field name="model">access.management.report</field>
+        <field name="arch" type="xml">
+            <graph string="Access Heatmap" type="bar" sample="1">
+                <field name="model_id"/>
+                <field name="restriction_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_access_report_kanban" model="ir.ui.view">
+        <field name="name">access.management.report.kanban</field>
+        <field name="model">access.management.report</field>
+        <field name="arch" type="xml">
+            <kanban create="false" group_create="false" group_delete="false" group_edit="false"
+                    default_group_by="rule_id"
+                    class="o_kanban_dashboard o_access_report_kanban"
+                    sample="1">
+                <field name="rule_id"/>
+                <field name="model_id"/>
+                <field name="model_name"/>
+                <field name="restriction_count"/>
+                <field name="severity"/>
+                <field name="blocked_ops_count"/>
+                <field name="hidden_views_count"/>
+                <field name="field_count"/>
+                <field name="element_count"/>
+                <field name="perm_create"/>
+                <field name="perm_write"/>
+                <field name="perm_unlink"/>
+                <field name="allow_archive"/>
+                <field name="allow_duplicate"/>
+                <field name="allow_export"/>
+                <field name="hide_import"/>
+                <field name="hide_print"/>
+                <field name="hide_action"/>
+                <field name="hide_list"/>
+                <field name="hide_form"/>
+                <field name="hide_kanban"/>
+                <field name="hide_chatter"/>
+                <field name="has_domain"/>
+                <field name="has_hierarchy"/>
+                <field name="soft_restrict"/>
+                <field name="warn_mode"/>
+                <field name="rule_active"/>
+                <field name="rule_readonly"/>
+                <field name="rule_prevent_login"/>
+                <field name="rule_user_count"/>
+                <field name="rule_menu_count"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click o_access_report_card o_am_dash_#{record.severity.raw_value || 'none'}">
+                            <div class="o_am_dash_accent"/>
+                            <div class="o_am_dash_body">
+                                <div class="o_am_dash_header">
+                                    <div class="o_am_dash_title">
+                                        <i class="fa fa-cube o_am_dash_icon" title="Model"/>
+                                        <div class="o_am_dash_title_text">
+                                            <strong class="o_am_dash_name text-truncate"><field name="model_id"/></strong>
+                                            <code class="o_am_dash_tech text-truncate" t-att-title="record.model_name.raw_value">
+                                                <field name="model_name"/>
+                                            </code>
+                                        </div>
+                                    </div>
+                                    <div class="o_am_dash_score">
+                                        <span class="o_am_dash_score_value"><field name="restriction_count"/></span>
+                                        <span class="o_am_dash_score_label">flags</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_dash_badges">
+                                    <span t-if="record.severity.raw_value == 'none'" class="badge text-bg-success">Full access</span>
+                                    <span t-if="record.severity.raw_value == 'low'" class="badge text-bg-info">Light</span>
+                                    <span t-if="record.severity.raw_value == 'medium'" class="badge text-bg-warning">Partial</span>
+                                    <span t-if="record.severity.raw_value == 'high'" class="badge text-bg-danger">Heavy</span>
+                                    <span t-if="record.rule_readonly.raw_value" class="badge text-bg-warning">Rule read-only</span>
+                                    <span t-if="record.rule_prevent_login.raw_value" class="badge text-bg-danger">Login blocked</span>
+                                    <span t-if="!record.rule_active.raw_value" class="badge text-bg-secondary">Rule archived</span>
+                                </div>
+
+                                <div class="o_am_dash_section">
+                                    <div class="o_am_dash_section_label">Operations</div>
+                                    <div class="o_am_dash_chips">
+                                        <span t-attf-class="o_am_dash_chip #{record.perm_create.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.perm_create.raw_value ? 'fa-check' : 'fa-ban'}"/> Create
+                                        </span>
+                                        <span t-attf-class="o_am_dash_chip #{record.perm_write.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.perm_write.raw_value ? 'fa-check' : 'fa-ban'}"/> Edit
+                                        </span>
+                                        <span t-attf-class="o_am_dash_chip #{record.perm_unlink.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.perm_unlink.raw_value ? 'fa-check' : 'fa-ban'}"/> Delete
+                                        </span>
+                                        <span t-attf-class="o_am_dash_chip #{record.allow_export.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.allow_export.raw_value ? 'fa-check' : 'fa-ban'}"/> Export
+                                        </span>
+                                        <span t-attf-class="o_am_dash_chip #{record.allow_archive.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.allow_archive.raw_value ? 'fa-check' : 'fa-ban'}"/> Archive
+                                        </span>
+                                        <span t-attf-class="o_am_dash_chip #{record.allow_duplicate.raw_value ? 'is-on' : 'is-off'}">
+                                            <i t-attf-class="fa #{record.allow_duplicate.raw_value ? 'fa-check' : 'fa-ban'}"/> Duplicate
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_dash_section"
+                                     t-if="record.hide_list.raw_value || record.hide_form.raw_value || record.hide_kanban.raw_value || record.hide_import.raw_value || record.hide_print.raw_value || record.hide_action.raw_value || record.hide_chatter.raw_value || record.has_domain.raw_value || record.has_hierarchy.raw_value || record.soft_restrict.raw_value || record.warn_mode.raw_value || record.blocked_ops_count.raw_value">
+                                    <div class="o_am_dash_section_label">UI &amp; rules</div>
+                                    <div class="o_am_dash_flags">
+                                        <span t-if="record.blocked_ops_count.raw_value" class="o_am_dash_flag">
+                                            <field name="blocked_ops_count"/> blocked ops
+                                        </span>
+                                        <span t-if="record.hide_list.raw_value" class="o_am_dash_flag">No list</span>
+                                        <span t-if="record.hide_form.raw_value" class="o_am_dash_flag">No form</span>
+                                        <span t-if="record.hide_kanban.raw_value" class="o_am_dash_flag">No kanban</span>
+                                        <span t-if="record.hide_import.raw_value" class="o_am_dash_flag">Hide import</span>
+                                        <span t-if="record.hide_print.raw_value" class="o_am_dash_flag">Hide print</span>
+                                        <span t-if="record.hide_action.raw_value" class="o_am_dash_flag">Hide action</span>
+                                        <span t-if="record.hide_chatter.raw_value" class="o_am_dash_flag">Hide chatter</span>
+                                        <span t-if="record.has_domain.raw_value" class="o_am_dash_flag">Record domains</span>
+                                        <span t-if="record.has_hierarchy.raw_value" class="o_am_dash_flag">Hierarchy</span>
+                                        <span t-if="record.soft_restrict.raw_value" class="o_am_dash_flag">Soft restrict</span>
+                                        <span t-if="record.warn_mode.raw_value" class="o_am_dash_flag">Warn mode</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_dash_stats">
+                                    <div class="o_am_dash_stat" t-att-class="record.field_count.raw_value ? '' : 'is-empty'">
+                                        <span class="o_am_dash_stat_value"><field name="field_count"/></span>
+                                        <span class="o_am_dash_stat_label">Fields</span>
+                                    </div>
+                                    <div class="o_am_dash_stat" t-att-class="record.element_count.raw_value ? '' : 'is-empty'">
+                                        <span class="o_am_dash_stat_value"><field name="element_count"/></span>
+                                        <span class="o_am_dash_stat_label">UI</span>
+                                    </div>
+                                    <div class="o_am_dash_stat" t-att-class="record.hidden_views_count.raw_value ? '' : 'is-empty'">
+                                        <span class="o_am_dash_stat_value"><field name="hidden_views_count"/></span>
+                                        <span class="o_am_dash_stat_label">Views</span>
+                                    </div>
+                                    <div class="o_am_dash_stat" t-att-class="record.blocked_ops_count.raw_value ? '' : 'is-empty'">
+                                        <span class="o_am_dash_stat_value"><field name="blocked_ops_count"/></span>
+                                        <span class="o_am_dash_stat_label">Blocked</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_dash_footer">
+                                    <div class="o_am_dash_rule_meta">
+                                        <span t-if="record.rule_user_count.raw_value">
+                                            <i class="fa fa-user me-1" title="Users"/> <field name="rule_user_count"/> users
+                                        </span>
+                                        <span t-if="record.rule_menu_count.raw_value" class="ms-2">
+                                            <i class="fa fa-bars me-1" title="Menus"/> <field name="rule_menu_count"/> menus
+                                        </span>
+                                        <span t-if="!record.rule_user_count.raw_value &amp;&amp; !record.rule_menu_count.raw_value" class="text-muted">
+                                            Model restriction
+                                        </span>
+                                    </div>
+                                    <div class="o_am_dash_rule_name text-truncate" t-att-title="record.rule_id.value">
+                                        <field name="rule_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_access_report" model="ir.actions.act_window">
+        <field name="name">Access Dashboard</field>
+        <field name="res_model">access.management.report</field>
+        <field name="view_mode">kanban,pivot,graph,list</field>
+        <field name="context">{'search_default_group_rule': 1}</field>
+        <field name="search_view_id" ref="view_access_report_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No model restrictions yet</p>
+            <p>Configure model restrictions on Access Rules to see them on this dashboard.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_access_report" name="Dashboard"
+              parent="access_management_ai.menu_access_management_root"
+              action="action_access_report" sequence="20"/>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_audit_log_list" model="ir.ui.view">
+        <field name="name">access.audit.log.list</field>
+        <field name="model">access.audit.log</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" delete="false" default_order="create_date desc">
+                <field name="create_date" string="Date/Time"/>
+                <field name="admin_user_id" string="Changed By" widget="many2one_avatar_user"/>
+                <field name="target_user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="action" widget="badge" 
+                       decoration-success="action == 'grant'" 
+                       decoration-danger="action == 'revoke'" 
+                       decoration-warning="action == 'modify'"/>
+                <field name="model_name"/>
+                <field name="record_name"/>
+                <field name="previous_value" optional="hide"/>
+                <field name="new_value" optional="show"/>
+                <field name="reason" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_access_audit_log_search" model="ir.ui.view">
+        <field name="name">access.audit.log.search</field>
+        <field name="model">access.audit.log</field>
+        <field name="arch" type="xml">
+            <search string="Search Audit Logs">
+                <field name="admin_user_id"/>
+                <field name="target_user_id"/>
+                <field name="record_name"/>
+                <field name="model_name"/>
+                <field name="action"/>
+                <field name="reason"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+
+                <filter name="grants" string="Granted" domain="[('action', '=', 'grant')]"/>
+                <filter name="revokes" string="Revoked" domain="[('action', '=', 'revoke')]"/>
+                <filter name="modifies" string="Modified" domain="[('action', '=', 'modify')]"/>
+                <filter name="workflow" string="Workflow" domain="[('action', '=', 'workflow')]"/>
+                <filter name="failed" string="Failed" domain="[('action', '=', 'failed')]"/>
+
+                <separator/>
+                <filter name="group_admin" string="Changed By" context="{'group_by': 'admin_user_id'}"/>
+                <filter name="group_target" string="Target User" context="{'group_by': 'target_user_id'}"/>
+                <filter name="group_action" string="Action" context="{'group_by': 'action'}"/>
+                <filter name="group_model" string="Record Type" context="{'group_by': 'model_name'}"/>
+                <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+                <filter name="group_date" string="Date" context="{'group_by': 'create_date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_access_audit_log_pivot" model="ir.ui.view">
+        <field name="name">access.audit.log.pivot</field>
+        <field name="model">access.audit.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Audit Logs Analysis" sample="1">
+                <field name="create_date" type="row" interval="day"/>
+                <field name="action" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_access_audit_log_graph" model="ir.ui.view">
+        <field name="name">access.audit.log.graph</field>
+        <field name="model">access.audit.log</field>
+        <field name="arch" type="xml">
+            <graph string="Audit Logs Analysis" sample="1">
+                <field name="create_date" interval="day"/>
+                <field name="action"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_access_audit_log" model="ir.actions.act_window">
+        <field name="name">Access Audit Logs</field>
+        <field name="res_model">access.audit.log</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="search_view_id" ref="view_access_audit_log_search"/>
+    </record>
+
+    <menuitem id="menu_access_audit_log" name="Audit Logs"
+              parent="access_management_ai.menu_access_management_reporting_categ"
+              action="action_access_audit_log"
+              groups="access_management_ai.group_access_user" sequence="35"/>
+</odoo>

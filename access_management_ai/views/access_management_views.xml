@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_management_list" model="ir.ui.view">
+        <field name="name">access.management.list</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <list string="Access Rules"
+                  class="o_access_management_list"
+                  sample="1"
+                  default_order="create_date desc, id desc"
+                  decoration-muted="not active"
+                  decoration-danger="active and global_prevent_login"
+                  decoration-warning="active and readonly and not global_prevent_login"
+                  decoration-info="active and has_schedule and not readonly and not global_prevent_login">
+                <header>
+                    <button name="%(access_management_ai.action_access_rule_ai_wizard_create)d"
+                            type="action"
+                            string="Generate with AI"
+                            icon="fa-magic"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="sequence" widget="handle"/>
+                <field name="active" column_invisible="1"/>
+                <field name="readonly" column_invisible="1"/>
+                <field name="global_prevent_login" column_invisible="1"/>
+                <field name="has_schedule" column_invisible="1"/>
+                <field name="name" string="Rule" class="fw-bold o_am_list_name"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
+                <field name="user_ids" widget="many2many_avatar_user" optional="show" string="Users"/>
+                <field name="group_ids" widget="many2many_tags" optional="hide" string="Groups"/>
+                <field name="custom_group_ids" widget="many2many_tags" optional="hide" string="Access Groups"/>
+                <field name="menu_count" string="Menus" class="o_am_list_count"
+                          decoration-muted="menu_count == 0" optional="show"/>
+                <field name="model_restriction_count" string="Models" class="o_am_list_count"
+                          decoration-muted="model_restriction_count == 0" optional="show"/>
+                <field name="field_restriction_count" string="Fields" class="o_am_list_count"
+                          decoration-muted="field_restriction_count == 0" optional="show"/>
+                <field name="element_restriction_count" string="UI" class="o_am_list_count"
+                          decoration-muted="element_restriction_count == 0" optional="hide"/>
+                <field name="action_count" string="Actions" class="o_am_list_count"
+                          decoration-muted="action_count == 0" optional="hide"/>
+                <field name="report_count" string="Reports" class="o_am_list_count"
+                          decoration-muted="report_count == 0" optional="hide"/>
+                <field name="kanban_accent" string="Status" widget="badge" optional="show"
+                          decoration-success="kanban_accent == 'active'"
+                          decoration-warning="kanban_accent == 'readonly'"
+                          decoration-danger="kanban_accent == 'blocked'"
+                          decoration-info="kanban_accent == 'scheduled'"
+                          decoration-muted="kanban_accent == 'archived'"/>
+                <field name="company_ids" widget="many2many_tags" optional="hide"
+                         groups="base.group_multi_company"/>
+                <field name="active" widget="boolean_toggle" string="Active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_access_management_form" model="ir.ui.view">
+        <field name="name">access.management.form</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(access_management_ai.action_access_rule_ai_wizard)d" type="action" string="Generate with AI" icon="fa-magic" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Salesperson restrictions"/></h1>
+                    </div>
+                    <group>
+                        <group string="Assignments">
+                            <field name="user_ids" domain="[('share', '=', False)]" widget="many2many_avatar_user"/>
+                            <field name="group_ids" widget="many2many_tags"/>
+                            <field name="custom_group_ids" widget="many2many_tags"/>
+                            <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Configuration &amp; Schedule">
+                            <field name="sequence" invisible="1"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="active" invisible="1"/>
+                            
+                            <!-- <separator string="Schedule"/> -->
+                            <label for="date_start" string="Active Duration"/>
+                            <div class="o_row">
+                                <field name="date_start" widget="daterange" options="{'related_end_date': 'date_end'}"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="date_end" widget="daterange" options="{'related_start_date': 'date_start'}"/>
+                            </div>
+                            <label for="time_from" string="Daily Schedule"/>
+                            <div class="o_row">
+                                <field name="time_from" widget="float_time"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="time_to" widget="float_time"/>
+                            </div>
+                            <field name="tz"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Global Settings" name="global_settings">
+                            <group>
+                                <group string="Access Scope &amp; Security">
+                                    <field name="readonly" string="Global Read-Only" widget="boolean_toggle"/>
+                                    <field name="apply_new_internal" widget="boolean_toggle"/>
+                                    <field name="apply_new_portal" widget="boolean_toggle"/>
+                                    <field name="global_prevent_login" widget="boolean_toggle"/>
+                                    <field name="restrict_developer_mode" widget="boolean_toggle"/>
+                                    <field name="block_module_management" widget="boolean_toggle"/>
+                                    <field name="password_expiry_days" placeholder="0 to disable"/>
+                                </group>
+                                <group string="Actions &amp; Menus">
+                                    <field name="global_hide_import" widget="boolean_toggle"/>
+                                    <field name="global_hide_export" widget="boolean_toggle"/>
+                                    <field name="global_hide_print" widget="boolean_toggle"/>
+                                    <field name="global_hide_action" widget="boolean_toggle"/>
+                                    <field name="global_hide_spreadsheet" widget="boolean_toggle"/>
+                                    <field name="global_hide_delete" widget="boolean_toggle"/>
+                                    <field name="global_hide_add_property" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Search Bar">
+                                    <field name="global_hide_searchbar" widget="boolean_toggle"/>
+                                    <field name="global_hide_filters" widget="boolean_toggle"/>
+                                    <field name="global_hide_groupby" widget="boolean_toggle"/>
+                                    <field name="global_hide_custom_filter" widget="boolean_toggle"/>
+                                    <field name="global_hide_custom_group" widget="boolean_toggle"/>
+                                    <field name="global_hide_favorites" widget="boolean_toggle"/>
+                                    <field name="global_hide_filter_delete" widget="boolean_toggle"/>
+                                    <field name="global_hide_search_panel" widget="boolean_toggle"/>
+                                </group>
+                                <group string="Chatter">
+                                    <field name="global_hide_chatter" widget="boolean_toggle"/>
+                                    <field name="global_hide_send_message" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                    <field name="global_hide_log_note" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                    <field name="global_hide_activities" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                    <field name="global_hide_followers" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                    <field name="global_hide_attachments" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                    <field name="global_hide_chatter_search" widget="boolean_toggle" invisible="global_hide_chatter"/>
+                                </group>
+                            </group>
+                            <group string="Systray Items">
+                                <field name="hide_systray_keys" widget="am_systray_selector" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                        <page string="Model Access Rules" name="models">
+                            <field name="model_access_ids">
+                                <list>
+                                    <field name="model_id" options="{'no_create': True}"/>
+                                    <field name="perm_create" widget="boolean_toggle"/>
+                                    <field name="perm_write" widget="boolean_toggle"/>
+                                    <field name="perm_unlink" widget="boolean_toggle"/>
+                                    <field name="allow_duplicate" optional="show" widget="boolean_toggle"/>
+                                    <field name="allow_archive" optional="show" widget="boolean_toggle"/>
+                                    <field name="hide_tree" optional="hide" widget="boolean_toggle"/>
+                                    <field name="hide_form" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_followers" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_attachments" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_send_message" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_log_note" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_activities" optional="hide" widget="boolean_toggle"/>
+                                    <field name="chatter_hide_search" optional="hide" widget="boolean_toggle"/>
+                                    <field name="hide_print" optional="hide" widget="boolean_toggle"/>
+                                    <field name="hide_action" optional="hide" widget="boolean_toggle"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group string="Model">
+                                                <field name="model_id" options="{'no_create': True}"/>
+                                                <field name="model_name" invisible="1"/>
+                                            </group>
+                                            <group string="Basic Access (Server Enforced)">
+                                                <field name="perm_create" widget="boolean_toggle"/>
+                                                <field name="perm_write" widget="boolean_toggle"/>
+                                                <field name="perm_unlink" widget="boolean_toggle"/>
+                                            </group>
+                                        </group>
+                                        <notebook>
+                                            <page string="UI &amp; Export" name="ui_export">
+                                                <group>
+                                                    <group string="Record Operations">
+                                                        <field name="allow_archive" widget="boolean_toggle"/>
+                                                        <field name="allow_duplicate" widget="boolean_toggle"/>
+                                                        <field name="allow_export" widget="boolean_toggle"/>
+                                                    </group>
+                                                    <group string="Hide Actions &amp; Menus">
+                                                        <field name="hide_import_button" widget="boolean_toggle"/>
+                                                        <field name="hide_spreadsheet_button" widget="boolean_toggle"/>
+                                                        <field name="hide_print" widget="boolean_toggle"/>
+                                                        <field name="hide_action" widget="boolean_toggle"/>
+                                                        <field name="hide_add_property" widget="boolean_toggle"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Views" name="views">
+                                                <group>
+                                                    <group>
+                                                        <field name="hide_tree" widget="boolean_toggle"/>
+                                                        <field name="hide_form" widget="boolean_toggle"/>
+                                                        <field name="hide_kanban" widget="boolean_toggle"/>
+                                                        <field name="hide_calendar" widget="boolean_toggle"/>
+                                                        <field name="hide_pivot" widget="boolean_toggle"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="hide_graph" widget="boolean_toggle"/>
+                                                        <field name="hide_gantt" widget="boolean_toggle"/>
+                                                        <field name="hide_map" widget="boolean_toggle"/>
+                                                        <field name="hide_activity" widget="boolean_toggle"/>
+                                                        <field name="hide_hierarchy" widget="boolean_toggle"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Search &amp; Navigation" name="search">
+                                                <group>
+                                                    <group>
+                                                        <field name="hide_searchbar" widget="boolean_toggle"/>
+                                                        <field name="hide_filters" widget="boolean_toggle"/>
+                                                        <field name="hide_groupby" widget="boolean_toggle"/>
+                                                        <field name="hide_custom_filter" widget="boolean_toggle"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="hide_favorites" widget="boolean_toggle"/>
+                                                        <field name="hide_search_panel" widget="boolean_toggle"/>
+                                                        <field name="hide_custom_group" widget="boolean_toggle"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Hide Specific Search Items"
+                                                       invisible="hide_filters and hide_groupby">
+                                                    <field name="model_name" invisible="1"/>
+                                                    <field name="hidden_filter_items"
+                                                           widget="am_search_items_selector"
+                                                           options="{'item_type': 'filter'}"
+                                                           invisible="hide_filters"
+                                                           placeholder="Select filters to hide"/>
+                                                    <field name="hidden_groupby_items"
+                                                           widget="am_search_items_selector"
+                                                           options="{'item_type': 'groupby'}"
+                                                           invisible="hide_groupby"
+                                                           placeholder="Select group by items to hide"/>
+                                                </group>
+                                                <p class="text-muted">
+                                                    Pick individual Filters or Group By entries from this model's search view.
+                                                    Selected items are hidden from the search panel while the rest remain available.
+                                                </p>
+                                            </page>
+                                            <page string="Chatter" name="chatter">
+                                                <group>
+                                                    <group>
+                                                        <field name="chatter_hide" widget="boolean_toggle"/>
+                                                        <field name="chatter_hide_send_message" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                        <field name="chatter_hide_log_note" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                        <field name="chatter_hide_activities" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="chatter_hide_followers" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                        <field name="chatter_hide_attachments" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                        <field name="chatter_hide_search" widget="boolean_toggle" invisible="chatter_hide"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Record Rules (Domains)" name="domains">
+                                                <group string="Domain Definitions">
+                                                    <field name="domain_read" widget="domain" options="{'model': 'model_name'}" placeholder="[('user_id','=',EU)]"/>
+                                                    <field name="domain_write" widget="domain" options="{'model': 'model_name'}" placeholder="[('state','!=','done')]" invisible="not perm_write"/>
+                                                    <field name="domain_create" widget="domain" options="{'model': 'model_name'}" placeholder="[('company_id','=',company_id)]" invisible="not perm_create"/>
+                                                    <field name="domain_unlink" widget="domain" options="{'model': 'model_name'}" placeholder="[('state','=','draft')]" invisible="not perm_unlink"/>
+                                                </group>
+                                                <group string="Restriction Options">
+                                                    <group>
+                                                        <field name="soft_restrict" widget="boolean_toggle"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="warn_mode" widget="boolean_toggle"/>
+                                                        <field name="warn_message" invisible="not warn_mode" placeholder="You are not allowed to modify this record."/>
+                                                    </group>
+                                                </group>
+                                                <group string="Date &amp; Hierarchy Filters">
+                                                    <group>
+                                                        <field name="date_filter_field_id" options="{'no_create': True, 'no_open': True}"/>
+                                                        <field name="date_filter_period" invisible="not date_filter_field_id"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="hierarchy_field_id" options="{'no_create': True, 'no_open': True}"/>
+                                                        <field name="hierarchy_user_field_id" invisible="not hierarchy_field_id" options="{'no_create': True, 'no_open': True}"/>
+                                                        <field name="hierarchy_mode" invisible="not hierarchy_field_id"/>
+                                                    </group>
+                                                </group>
+                                            </page>
+                                            <page string="Hide Reports &amp; Actions" name="reports_actions">
+                                                <group>
+                                                    <group>
+                                                        <field name="report_ids" widget="many2many_tags"
+                                                               domain="[('model', '=', model_name)]"
+                                                               options="{'no_create': True}"
+                                                               placeholder="Select reports for this model"/>
+                                                        <field name="server_action_ids" widget="many2many_tags"
+                                                               domain="['|', ('model_name', '=', model_name), ('binding_model_id.model', '=', model_name)]"
+                                                               options="{'no_create': True}"
+                                                               placeholder="Select server actions"/>
+                                                        <field name="url_action_ids" widget="many2many_tags"
+                                                               domain="[('binding_model_id.model', '=', model_name)]"
+                                                               options="{'no_create': True}"
+                                                               placeholder="Select URL actions"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="action_ids" widget="many2many_tags"
+                                                               domain="['|', ('res_model', '=', model_name), ('binding_model_id.model', '=', model_name)]"
+                                                               options="{'no_create': True}"
+                                                               placeholder="Select window actions"/>
+                                                        <field name="client_action_ids" widget="many2many_tags"
+                                                               domain="['|', ('res_model', '=', model_name), ('binding_model_id.model', '=', model_name)]"
+                                                               options="{'no_create': True}"
+                                                               placeholder="Select client actions"/>
+                                                    </group>
+                                                </group>
+                                                <p class="text-muted">
+                                                    Same options as the rule-level <b>Hide Reports &amp; Actions</b> tab,
+                                                    scoped to this model. Lists are filtered to actions/reports linked to
+                                                    the selected model. Leave empty to use only the rule-level list.
+                                                </p>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <p class="text-muted">
+                                Unchecked Create/Edit/Delete are enforced on the server.
+                                Domains restrict which records can be read/written/created/deleted.
+                                Use <code>user.id</code> or <code>EU</code> (Environment User) in domains
+                                for the current user, e.g. <code>[('user_id','=',EU)]</code>.
+                                Available context variables: <code>user</code>, <code>uid</code>, <code>EU</code>,
+                                <code>time</code>, <code>company_id</code>, <code>company_ids</code>.
+                                Enable <b>Warn Instead of Block</b> to show a notification instead of hard-blocking.
+                            </p>
+                        </page>
+                        <page string="Global Hidden Elements" name="global_elements" invisible="1">
+                            <div class="alert alert-info" role="alert">
+                                <strong>Tip:</strong> Select a Reference Model to search for an element using the dropdown. The element will still be hidden globally across ALL models.
+                            </div>
+                            <field name="global_element_ids">
+                                <list editable="bottom">
+                                    <field name="model_id" options="{'no_create': True}"/>
+                                    <field name="view_type"/>
+                                    <field name="element_type"/>
+                                    <field name="element_ref" widget="dynamic_element_selection"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="model_id" options="{'no_create': True}"/>
+                                        <field name="view_type"/>
+                                        <field name="element_type"/>
+                                        <field name="element_ref" widget="dynamic_element_selection"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Field Access Rules" name="fields">
+                            <field name="field_access_ids">
+                                <list>
+                                    <field name="model_id" options="{'no_create': True}"/>
+                                    <field name="model_name" column_invisible="1"/>
+                                    <field name="field_id" options="{'no_create': True}" domain="[('model_id', '=', model_id)]"/>
+                                    <field name="is_invisible" widget="boolean_toggle"/>
+                                    <field name="invisible_condition" optional="hide" invisible="is_invisible" widget="domain" options="{'model': 'model_name'}"/>
+                                    <field name="is_readonly" widget="boolean_toggle"/>
+                                    <field name="readonly_condition" optional="hide" invisible="is_readonly" widget="domain" options="{'model': 'model_name'}"/>
+                                    <field name="is_required" widget="boolean_toggle"/>
+                                    <field name="required_condition" optional="hide" invisible="is_required" widget="domain" options="{'model': 'model_name'}"/>
+                                    <field name="restrict_export" optional="hide" widget="boolean_toggle"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group string="Field Definition">
+                                                <field name="model_id" options="{'no_create': True}"/>
+                                                <field name="field_id" options="{'no_create': True}" domain="[('model_id', '=', model_id)]"/>
+                                            </group>
+                                            <group string="Basic Access">
+                                                <field name="is_invisible" widget="boolean_toggle"/>
+                                                <field name="is_readonly" widget="boolean_toggle"/>
+                                                <field name="is_required" widget="boolean_toggle"/>
+                                            </group>
+                                        </group>
+                                        <notebook>
+                                            <page string="Conditions" name="conditions">
+                                                <group>
+                                                    <field name="invisible_condition" invisible="is_invisible" widget="domain" options="{'model': 'model_name'}" placeholder="e.g. [('state', '=', 'draft')]"/>
+                                                    <field name="readonly_condition" invisible="is_readonly" widget="domain" options="{'model': 'model_name'}" placeholder="e.g. [('state', '=', 'draft')]"/>
+                                                    <field name="required_condition" invisible="is_required" widget="domain" options="{'model': 'model_name'}" placeholder="e.g. [('state', '=', 'draft')]"/>
+                                                </group>
+                                                <p class="text-muted">
+                                                    Build conditions using the domain selector. These domains are automatically converted to client-side JS expressions.
+                                                </p>
+                                            </page>
+                                            <page string="Advanced Features" name="relational">
+                                                <group>
+                                                    <field name="remove_external_link" widget="boolean_toggle"/>
+                                                    <field name="no_create" widget="boolean_toggle"/>
+                                                    <field name="domain_model_name" invisible="1"/>
+                                                    <field name="domain" widget="domain" options="{'model': 'domain_model_name'}" placeholder="[('company_id','=',company_id)]"/>
+                                                </group>
+                                            </page>
+                                            <page string="Export Security" name="security">
+                                                <group>
+                                                    <field name="restrict_export" widget="boolean_toggle"/>
+                                                </group>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Hide Menus" name="menus">
+                            <group>
+                                <field name="menu_ids" widget="many2many_tags"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </page>
+                        <page string="Hide UI Elements" name="elements">
+                            <field name="element_access_ids">
+                                <list>
+                                    <field name="model_id" options="{'no_create': True}"/>
+                                    <field name="model_name" column_invisible="1"/>
+                                    <field name="view_type"/>
+                                    <field name="element_type"/>
+                                    <field name="element_ref" widget="dynamic_element_selection"/>
+                                    <field name="invisible_condition" optional="show" widget="domain" options="{'model': 'model_name'}"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group string="Configuration">
+                                                <field name="model_id" options="{'no_create': True}"/>
+                                                <field name="model_name" invisible="1"/>
+                                                <field name="view_type"/>
+                                                <field name="element_type"/>
+                                                <field name="element_ref" widget="dynamic_element_selection"/>
+                                            </group>
+                                            <group string="Conditions">
+                                                <field name="invisible_condition" widget="domain" options="{'model': 'model_name'}" placeholder="e.g. [('state', '=', 'draft')]"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <p class="text-muted">
+                                Match buttons / notebook pages / fields by their technical
+                                <code>name</code> or visible label. Leave the condition empty to always hide.
+                            </p>
+                        </page>
+                        <page string="Hide Reports &amp; Actions" name="reports">
+                            <group>
+                                <group>
+                                    <field name="report_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="server_action_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="url_action_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                </group>
+                                <group>
+                                    <field name="action_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="client_action_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Chatter Domain Rules" name="chatter" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="hide_chatter" widget="boolean_toggle"/>
+                                    <field name="hide_send_message" widget="boolean_toggle"/>
+                                    <field name="hide_log_note" widget="boolean_toggle"/>
+                                </group>
+                                <group>
+                                    <field name="hide_activities" widget="boolean_toggle"/>
+                                    <field name="hide_followers" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Audit Trail" name="audit_trail">
+                            <group>
+                                <group>
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="create_date" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="write_uid" readonly="1"/>
+                                    <field name="write_date" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <div class="oe_clear"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_access_management_kanban" model="ir.ui.view">
+        <field name="name">access.management.kanban</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <kanban class="o_access_management_kanban" create="true" sample="1">
+                <header>
+                    <button name="%(access_management_ai.action_access_rule_ai_wizard_create)d"
+                            type="action"
+                            string="Generate with AI"
+                            icon="fa-magic"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="sequence"/>
+                <field name="user_ids"/>
+                <field name="group_ids"/>
+                <field name="custom_group_ids"/>
+                <field name="company_ids"/>
+                <field name="tag_ids"/>
+                <field name="readonly"/>
+                <field name="global_prevent_login"/>
+                <field name="restrict_developer_mode"/>
+                <field name="apply_new_internal"/>
+                <field name="apply_new_portal"/>
+                <field name="global_hide_import"/>
+                <field name="global_hide_export"/>
+                <field name="global_hide_print"/>
+                <field name="global_hide_action"/>
+                <field name="global_hide_chatter"/>
+                <field name="block_module_management"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="time_from"/>
+                <field name="time_to"/>
+                <field name="tz"/>
+                <field name="menu_count"/>
+                <field name="model_restriction_count"/>
+                <field name="field_restriction_count"/>
+                <field name="element_restriction_count"/>
+                <field name="action_count"/>
+                <field name="report_count"/>
+                <field name="user_count"/>
+                <field name="group_count"/>
+                <field name="custom_group_count"/>
+                <field name="has_schedule"/>
+                <field name="kanban_accent"/>
+                <field name="activity_ids"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click o_access_management_card o_am_accent_#{record.kanban_accent.raw_value || 'active'}">
+                            <div class="o_am_card_accent"/>
+                            <div class="o_am_card_body">
+                                <div class="o_am_card_header">
+                                    <div class="o_am_card_title">
+                                        <span class="o_am_sequence" t-if="record.sequence.raw_value">#<field name="sequence"/></span>
+                                        <strong class="o_am_name text-truncate"><field name="name"/></strong>
+                                    </div>
+                                    <div class="o_am_status_badges">
+                                        <span t-if="!record.active.raw_value" class="badge text-bg-secondary">Archived</span>
+                                        <span t-if="record.active.raw_value and record.global_prevent_login.raw_value" class="badge text-bg-danger">Login blocked</span>
+                                        <span t-if="record.active.raw_value and record.readonly.raw_value" class="badge text-bg-warning">Read-only</span>
+                                        <span t-if="record.active.raw_value and record.has_schedule.raw_value" class="badge text-bg-info">Scheduled</span>
+                                        <span t-if="record.active.raw_value and !record.readonly.raw_value and !record.global_prevent_login.raw_value and !record.has_schedule.raw_value" class="badge text-bg-success">Active</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_tags" t-if="record.tag_ids.raw_value.length">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+
+                                <div class="o_am_section">
+                                    <div class="o_am_section_label">
+                                        <i class="fa fa-user-circle-o" title="Assignments"/> Assignments
+                                    </div>
+                                    <div class="o_am_assign_row" t-if="record.user_count.raw_value">
+                                        <field name="user_ids" widget="many2many_avatar_user"/>
+                                        <span class="o_am_count_label"><field name="user_count"/> users</span>
+                                    </div>
+                                    <div class="o_am_assign_row" t-if="record.group_count.raw_value">
+                                        <field name="group_ids" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="o_am_assign_row" t-if="record.custom_group_count.raw_value">
+                                        <span class="text-muted small me-1">Access groups</span>
+                                        <field name="custom_group_ids" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="o_am_assign_chips">
+                                        <span t-if="record.apply_new_internal.raw_value" class="badge rounded-pill text-bg-light border">All internal users</span>
+                                        <span t-if="record.apply_new_portal.raw_value" class="badge rounded-pill text-bg-light border">All portal users</span>
+                                        <span t-if="!record.user_count.raw_value and !record.group_count.raw_value and !record.custom_group_count.raw_value and !record.apply_new_internal.raw_value and !record.apply_new_portal.raw_value" class="text-muted small">No users or groups assigned</span>
+                                    </div>
+                                    <div class="o_am_assign_row mt-1" t-if="record.company_ids.raw_value.length" groups="base.group_multi_company">
+                                        <i class="fa fa-building-o me-1 text-muted" title="Companies"/>
+                                        <field name="company_ids" widget="many2many_tags"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_stats">
+                                    <div class="o_am_stat" t-att-class="record.menu_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="menu_count"/></span>
+                                        <span class="o_am_stat_label">Menus</span>
+                                    </div>
+                                    <div class="o_am_stat" t-att-class="record.model_restriction_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="model_restriction_count"/></span>
+                                        <span class="o_am_stat_label">Models</span>
+                                    </div>
+                                    <div class="o_am_stat" t-att-class="record.field_restriction_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="field_restriction_count"/></span>
+                                        <span class="o_am_stat_label">Fields</span>
+                                    </div>
+                                    <div class="o_am_stat" t-att-class="record.element_restriction_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="element_restriction_count"/></span>
+                                        <span class="o_am_stat_label">UI</span>
+                                    </div>
+                                    <div class="o_am_stat" t-att-class="record.action_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="action_count"/></span>
+                                        <span class="o_am_stat_label">Actions</span>
+                                    </div>
+                                    <div class="o_am_stat" t-att-class="record.report_count.raw_value ? '' : 'o_am_stat_empty'">
+                                        <span class="o_am_stat_value"><field name="report_count"/></span>
+                                        <span class="o_am_stat_label">Reports</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_flags"
+                                     t-if="record.restrict_developer_mode.raw_value or record.global_hide_import.raw_value or record.global_hide_export.raw_value or record.global_hide_print.raw_value or record.global_hide_action.raw_value or record.global_hide_chatter.raw_value or record.block_module_management.raw_value">
+                                    <span t-if="record.restrict_developer_mode.raw_value" class="o_am_flag">No dev mode</span>
+                                    <span t-if="record.global_hide_import.raw_value" class="o_am_flag">Hide import</span>
+                                    <span t-if="record.global_hide_export.raw_value" class="o_am_flag">Hide export</span>
+                                    <span t-if="record.global_hide_print.raw_value" class="o_am_flag">Hide print</span>
+                                    <span t-if="record.global_hide_action.raw_value" class="o_am_flag">Hide action</span>
+                                    <span t-if="record.global_hide_chatter.raw_value" class="o_am_flag">Hide chatter</span>
+                                    <span t-if="record.block_module_management.raw_value" class="o_am_flag">Block apps</span>
+                                </div>
+
+                                <div class="o_am_footer">
+                                    <div class="o_am_schedule" t-if="record.has_schedule.raw_value">
+                                        <i class="fa fa-calendar me-1" title="Schedule"/>
+                                        <span t-if="record.date_start.raw_value"><field name="date_start"/> </span>
+                                        <span t-if="record.date_start.raw_value or record.date_end.raw_value">→ </span>
+                                        <span t-if="record.date_end.raw_value"><field name="date_end"/></span>
+                                        <span t-if="!record.date_start.raw_value and !record.date_end.raw_value" class="text-muted">Daily window</span>
+                                    </div>
+                                    <div class="o_am_footer_right">
+                                        <field name="activity_ids" widget="kanban_activity"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_access_management_search" model="ir.ui.view">
+        <field name="name">access.management.search</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <search string="Search Access Rules">
+                <field name="name" string="Rule"/>
+                <field name="tag_ids"/>
+                <field name="user_ids" string="Users"/>
+                <field name="group_ids" string="Groups"/>
+                <field name="custom_group_ids" string="Access Groups"/>
+                <field name="company_ids" string="Companies"/>
+                <field name="menu_ids" string="Hidden Menus"/>
+
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="readonly" string="Global Read-Only" domain="[('readonly', '=', True)]"/>
+                <filter name="prevent_login" string="Prevent Login" domain="[('global_prevent_login', '=', True)]"/>
+                <filter name="no_dev_mode" string="No Developer Mode" domain="[('restrict_developer_mode', '=', True)]"/>
+                <filter name="block_apps" string="Block Apps" domain="[('block_module_management', '=', True)]"/>
+                <separator/>
+                <filter name="all_internal" string="All Internal Users" domain="[('apply_new_internal', '=', True)]"/>
+                <filter name="all_portal" string="All Portal Users" domain="[('apply_new_portal', '=', True)]"/>
+                <filter name="scheduled" string="Scheduled"
+                        domain="['|', '|', '|', ('date_start', '!=', False), ('date_end', '!=', False), ('time_from', '!=', 0), ('time_to', '!=', 0)]"/>
+                <separator/>
+                <filter name="global_controls" string="Has Global UI Controls"
+                        domain="['|', '|', '|', '|', '|', '|', '|', '|', '|', '|', '|',
+                                 ('global_hide_import', '=', True),
+                                 ('global_hide_print', '=', True),
+                                 ('global_hide_action', '=', True),
+                                 ('global_hide_export', '=', True),
+                                 ('global_hide_filters', '=', True),
+                                 ('global_hide_custom_filter', '=', True),
+                                 ('global_hide_custom_group', '=', True),
+                                 ('global_hide_chatter', '=', True),
+                                 ('block_module_management', '=', True),
+                                 ('global_hide_send_message', '=', True),
+                                 ('global_hide_log_note', '=', True),
+                                 ('global_hide_activities', '=', True)]"/>
+
+                <separator/>
+                <filter name="group_active" string="Status" context="{'group_by': 'active'}"/>
+                <filter name="group_tag" string="Tag" context="{'group_by': 'tag_ids'}"/>
+                <filter name="group_company" string="Company" context="{'group_by': 'company_ids'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_access_management" model="ir.actions.act_window">
+        <field name="name">Access Rules</field>
+        <field name="res_model">access.management</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_access_management_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first access rule</p>
+            <p>Target users or groups, then hide menus, restrict actions on models,
+               tweak fields, hide UI elements and manage chatter.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_access_management_root" name="Access Management"
+              groups="access_management_ai.group_access_user"
+              web_icon="access_management_ai,static/description/icon.png"
+              sequence="80"/>
+    <menuitem id="menu_access_management_requests_categ" name="Requests"
+              parent="menu_access_management_root" sequence="10"/>
+    <menuitem id="menu_access_management_control_categ" name="Access Control"
+              parent="menu_access_management_root" sequence="20"/>
+    <menuitem id="menu_access_management_reporting_categ" name="Reporting"
+              parent="menu_access_management_root" sequence="30"/>
+    <menuitem id="menu_access_management_config_categ" name="Configuration"
+              parent="menu_access_management_root" sequence="40"/>
+    <menuitem id="menu_access_management_rules" name="Access Rules"
+              parent="menu_access_management_control_categ"
+              action="action_access_management"
+              groups="access_management_ai.group_access_manager" sequence="10"/>
+</odoo>

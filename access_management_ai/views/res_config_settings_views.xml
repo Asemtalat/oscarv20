@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.access.management</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Access Management" string="Access Management" name="access_management" logo="/access_management_ai/static/description/icon.png">
+                    <block title="AI Generation Settings" name="ai_generation_setting_container">
+                        <setting id="am_ai_data_consent" string="Allow AI Data Transmission"
+                                 help="Allow administrator prompts and access-rule or role schemas to be sent to the selected external AI provider.">
+                            <field name="am_ai_data_consent"/>
+                            <div class="text-muted">Review the provider's privacy and retention terms before enabling.</div>
+                        </setting>
+                        <setting id="am_ai_provider" string="AI Provider" help="Select the AI provider used by Generate with AI">
+                            <field name="am_ai_provider" class="w-100"/>
+                        </setting>
+                        <setting id="am_gemini_api_key" string="Gemini API Key" help="API key from Google AI Studio"
+                                 invisible="am_ai_provider != 'gemini'">
+                            <field name="am_gemini_api_key" password="True" class="w-100"/>
+                        </setting>
+                        <setting id="am_gemini_model" string="Gemini Model" help="Must be a model that supports generateContent"
+                                 invisible="am_ai_provider != 'gemini'">
+                            <field name="am_gemini_model" class="w-100"/>
+                        </setting>
+                        <setting id="am_claude_api_key" string="Claude API Key" help="API key from Anthropic Console"
+                                 invisible="am_ai_provider != 'claude'">
+                            <field name="am_claude_api_key" password="True" class="w-100"/>
+                        </setting>
+                        <setting id="am_claude_model" string="Claude Model" help="Official Claude API model id"
+                                 invisible="am_ai_provider != 'claude'">
+                            <field name="am_claude_model" class="w-100"/>
+                        </setting>
+                        <setting id="am_openai_api_key" string="OpenAI API Key" help="API key from OpenAI platform"
+                                 invisible="am_ai_provider != 'openai'">
+                            <field name="am_openai_api_key" password="True" class="w-100"/>
+                        </setting>
+                        <setting id="am_openai_model" string="OpenAI Model" help="Chat Completions model id"
+                                 invisible="am_ai_provider != 'openai'">
+                            <field name="am_openai_model" class="w-100"/>
+                        </setting>
+                        <setting id="am_cursor_api_key" string="Cursor API Key"
+                                 help="Use a Cursor key (crsr_…) from https://cursor.com/dashboard/api — never an OpenAI key"
+                                 invisible="am_ai_provider != 'cursor'">
+                            <field name="am_cursor_api_key" password="True" class="w-100"/>
+                        </setting>
+                        <setting id="am_cursor_base_url" string="Optional Proxy URL"
+                                 help="Leave empty for native Cursor Agent. Do not set api.openai.com — it rejects Cursor keys."
+                                 invisible="am_ai_provider != 'cursor'">
+                            <field name="am_cursor_base_url" class="w-100" placeholder="Leave empty (recommended)"/>
+                        </setting>
+                        <setting id="am_cursor_model" string="Cursor Model"
+                                 help="All Cursor models (Composer, Claude, GPT, Grok, Gemini, Kimi, …). Refresh to sync from your account."
+                                 invisible="am_ai_provider != 'cursor'">
+                            <div class="o_row w-100">
+                                <field name="am_cursor_model" class="w-100"/>
+                                <button name="action_refresh_cursor_models" type="object"
+                                        string="Refresh Models" class="btn-link" icon="fa-refresh"/>
+                            </div>
+                            <div class="text-muted">
+                                <field name="am_cursor_models_count" readonly="1"/> models available
+                            </div>
+                        </setting>
+                        <setting id="am_test_ai" string="Test Connection"
+                                 help="Sends a tiny request to the selected provider/model using the keys above (save settings first for persisted values, or fill fields and test).">
+                            <button name="action_test_ai_connection" type="object"
+                                    string="Test AI Connection" class="btn-secondary" icon="fa-plug"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_access_management_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module' : 'access_management', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_access_management_configuration"
+              name="Settings"
+              parent="access_management_ai.menu_access_management_config_categ"
+              sequence="1"
+              action="action_access_management_configuration"/>
+</odoo>

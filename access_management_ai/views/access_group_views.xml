@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_management_group_tree" model="ir.ui.view">
+        <field name="name">access.management.group.tree</field>
+        <field name="model">access.management.group</field>
+        <field name="arch" type="xml">
+            <list string="Access Groups">
+                <field name="name"/>
+                <field name="user_ids" widget="many2many_avatar_user" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_access_management_group_form" model="ir.ui.view">
+        <field name="name">access.management.group.form</field>
+        <field name="model">access.management.group</field>
+        <field name="arch" type="xml">
+            <form string="Access Group">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Sales Team..."/></h1>
+                    </div>
+                    <group>
+                        <field name="user_ids" domain="[('share', '=', False)]" widget="many2many_avatar_user" options="{'no_create': True}"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_access_management_group_search" model="ir.ui.view">
+        <field name="name">access.management.group.search</field>
+        <field name="model">access.management.group</field>
+        <field name="arch" type="xml">
+            <search string="Search Access Groups">
+                <field name="name"/>
+                <field name="user_ids"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="with_users" string="Has Users" domain="[('user_ids', '!=', False)]"/>
+                <separator/>
+                <filter string="Company" name="company" context="{'group_by':'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_access_management_group_kanban" model="ir.ui.view">
+        <field name="name">access.management.group.kanban</field>
+        <field name="model">access.management.group</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <field name="user_ids"/>
+                <field name="user_count"/>
+                <field name="company_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-8">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-muted">
+                                <i class="fa fa-users me-1" title="Users"/>
+                                <field name="user_count"/> Users
+                            </div>
+                            <div class="mt-2">
+                                <field name="user_ids" widget="many2many_avatar_user"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_access_management_group" model="ir.actions.act_window">
+        <field name="name">Access Groups</field>
+        <field name="res_model">access.management.group</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_access_management_group_search"/>
+    </record>
+
+    <menuitem id="menu_access_management_group"
+              name="Access Groups"
+              parent="access_management_ai.menu_access_management_control_categ"
+              action="action_access_management_group"
+              sequence="15"/>
+</odoo>

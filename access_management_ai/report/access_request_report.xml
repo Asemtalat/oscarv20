@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_access_request" model="ir.actions.report">
+        <field name="name">Access Request</field>
+        <field name="model">access.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">access_management_ai.report_access_request</field>
+        <field name="binding_model_id" ref="access_management_ai.model_access_request"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('access_management_ai.group_access_manager'))]"/>
+        <field name="print_report_name">'Access Request - %s' % (object.name or '')</field>
+    </record>
+
+    <template id="report_access_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .am-rep h2{font-size:18px;margin:0;}
+                            .am-rep h3{font-size:13px;font-weight:700;margin:14px 0 4px;
+                                       color:#714B67;border-bottom:2px solid #714B67;padding-bottom:2px;}
+                            .am-rep table{font-size:12px;}
+                            .am-rep .am-kv td:first-child{width:160px;color:#6b7280;}
+                        </style>
+                        <div class="am-rep">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2>Access Request: <span t-field="doc.name"/></h2>
+                                <div>
+                                    <span t-if="doc.state == 'draft'" class="badge text-bg-secondary">Draft</span>
+                                    <span t-elif="doc.state == 'submitted'" class="badge text-bg-info">Submitted</span>
+                                    <span t-elif="doc.state == 'approved'" class="badge text-bg-success">Approved</span>
+                                    <span t-elif="doc.state == 'rejected'" class="badge text-bg-danger">Rejected</span>
+                                    <span t-elif="doc.state == 'expired'" class="badge text-bg-warning">Expired</span>
+                                    <span t-elif="doc.state == 'revoked'" class="badge text-bg-danger">Revoked</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <table class="table table-sm table-borderless am-kv">
+                                        <tr>
+                                            <td>User</td>
+                                            <td><span t-field="doc.user_id.name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.role_id">
+                                            <td>Requested Role</td>
+                                            <td><span t-field="doc.role_id.name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.profile_id">
+                                            <td>Requested Profile</td>
+                                            <td><span t-field="doc.profile_id.name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.date_to">
+                                            <td>Requested Expiry</td>
+                                            <td><span t-field="doc.date_to"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-sm table-borderless am-kv">
+                                        <tr>
+                                            <td>Request Reason</td>
+                                            <td><span t-field="doc.request_reason"/></td>
+                                        </tr>
+                                        <tr t-if="doc.approver_id">
+                                            <td>Approver</td>
+                                            <td><span t-field="doc.approver_id.name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.rejection_reason">
+                                            <td>Rejection Reason</td>
+                                            <td><span t-field="doc.rejection_reason"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

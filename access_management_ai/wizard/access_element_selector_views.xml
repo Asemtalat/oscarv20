@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_element_wizard_form" model="ir.ui.view">
+        <field name="name">access.element.wizard.form</field>
+        <field name="model">access.element.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select UI Element">
+                <sheet>
+                    <p class="text-muted">
+                        Select an element (Button, Tab, or Link) found in the views of the selected model.
+                    </p>
+                    <group>
+                        <field name="element_id" invisible="1"/>
+                        <field name="selected_choice_id" domain="[('wizard_id', '=', id)]" options="{'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button string="Apply" name="action_apply" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

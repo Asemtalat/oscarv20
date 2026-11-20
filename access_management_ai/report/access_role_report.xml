@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_access_role" model="ir.actions.report">
+        <field name="name">Access Role</field>
+        <field name="model">access.role</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">access_management_ai.report_access_role</field>
+        <field name="binding_model_id" ref="access_management_ai.model_access_role"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('access_management_ai.group_access_manager'))]"/>
+        <field name="print_report_name">'Access Role - %s' % (object.name or '')</field>
+    </record>
+
+    <template id="report_access_role">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .am-rep h2{font-size:18px;margin:0;}
+                            .am-rep h3{font-size:13px;font-weight:700;margin:14px 0 4px;
+                                       color:#714B67;border-bottom:2px solid #714B67;padding-bottom:2px;}
+                            .am-rep table{font-size:12px;}
+                            .am-rep .am-yes{color:#16a34a;font-weight:700;}
+                            .am-rep .am-no{color:#dc2626;font-weight:700;}
+                            .am-rep .am-muted{color:#6b7280;}
+                            .am-rep .am-kv td:first-child{width:160px;color:#6b7280;}
+                        </style>
+                        <div class="am-rep">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2>
+                                    Access Role: <span t-field="doc.name"/>
+                                    <span t-if="not doc.active" class="am-no"> (Archived)</span>
+                                </h2>
+                                <span>Sequence: <span t-field="doc.sequence"/></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <table class="table table-sm table-borderless am-kv">
+                                        <tr>
+                                            <td>Company</td>
+                                            <td><span t-field="doc.company_id"/></td>
+                                        </tr>
+                                        <tr t-if="doc.comment">
+                                            <td>Description</td>
+                                            <td><span t-field="doc.comment"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-sm table-borderless am-kv">
+                                        <tr>
+                                            <td>Included Roles</td>
+                                            <td><span t-out="', '.join(doc.implied_role_ids.mapped('name')) or 'None'"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Security Groups</td>
+                                            <td><span t-out="', '.join(doc.group_ids.mapped('name')) or 'None'"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div t-if="doc.line_ids">
+                                <h3>Users (<span t-field="doc.user_count"/>)</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Valid From</th>
+                                            <th>Valid To</th>
+                                            <th>Active Now</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.line_ids" t-as="line">
+                                            <td><span t-field="line.user_id.name"/></td>
+                                            <td><span t-field="line.date_from"/></td>
+                                            <td><span t-field="line.date_to"/></td>
+                                            <td>
+                                                <span t-if="line.is_enabled" class="am-yes">Yes</span>
+                                                <span t-else="" class="am-no">No</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

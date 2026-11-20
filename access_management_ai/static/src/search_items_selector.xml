@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="access_management_ai.AmSearchItemsSelector">
+        <div class="am-search-items-selector d-flex flex-wrap gap-2">
+            <t t-if="this.state.loading">
+                <span class="text-muted fst-italic">Loading search items…</span>
+            </t>
+            <t t-elif="!this.state.availableItems.length">
+                <span class="text-muted fst-italic">
+                    No search items found for this model (select a model first, or the search view has none).
+                </span>
+            </t>
+            <t t-else="" t-foreach="this.state.availableItems" t-as="item" t-key="item.key">
+                <button type="button"
+                        t-on-click="() => this.toggleKey(item.key)"
+                        t-att-title="item.key"
+                        t-attf-class="btn btn-sm rounded-pill d-flex align-items-center gap-1 #{this.selectedKeys.includes(item.key) ? 'btn-primary shadow-sm' : 'btn-outline-secondary bg-view'}">
+                    <i t-if="this.selectedKeys.includes(item.key)" class="fa fa-eye-slash"/>
+                    <i t-else="" class="fa fa-eye"/>
+                    <span t-out="item.label"/>
+                </button>
+            </t>
+        </div>
+    </t>
+</templates>

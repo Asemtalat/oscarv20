@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Tags -->
+        <record id="access_tag_template" model="access.management.tag">
+            <field name="name">Template</field>
+            <field name="color">1</field>
+        </record>
+        <record id="access_tag_security" model="access.management.tag">
+            <field name="name">Security</field>
+            <field name="color">2</field>
+        </record>
+        <record id="access_tag_hr" model="access.management.tag">
+            <field name="name">HR</field>
+            <field name="color">3</field>
+        </record>
+        <record id="access_tag_sales" model="access.management.tag">
+            <field name="name">Sales</field>
+            <field name="color">4</field>
+        </record>
+        <record id="access_tag_finance" model="access.management.tag">
+            <field name="name">Finance</field>
+            <field name="color">5</field>
+        </record>
+
+        <!-- Template 1: Strict Read-Only Access -->
+        <record id="access_profile_read_only" model="access.management">
+            <field name="name">Template: Strict Read-Only Access</field>
+            <field name="active" eval="False"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('access_tag_template'), ref('access_tag_security')])]"/>
+            <field name="readonly" eval="True"/>
+            <field name="global_hide_print" eval="True"/>
+            <field name="global_hide_action" eval="True"/>
+            <field name="global_hide_export" eval="True"/>
+            <field name="global_hide_import" eval="True"/>
+            <field name="global_hide_delete" eval="True"/>
+            <field name="global_hide_spreadsheet" eval="True"/>
+        </record>
+
+        <!-- Template 2: Hide Partner Bank Accounts -->
+        <record id="access_profile_hide_bank" model="access.management">
+            <field name="name">Template: Hide Partner Bank Details</field>
+            <field name="active" eval="False"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('access_tag_template'), ref('access_tag_security')])]"/>
+        </record>
+        
+        <record id="access_field_hide_bank" model="access.management.field">
+            <field name="rule_id" ref="access_profile_hide_bank"/>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="field_id" ref="base.field_res_partner__bank_ids"/>
+            <field name="is_invisible" eval="True"/>
+        </record>
+
+        <!-- Template 3: Portal User Restrictions -->
+        <record id="access_profile_portal" model="access.management">
+            <field name="name">Template: Portal User Restrictions</field>
+            <field name="active" eval="False"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('access_tag_template')])]"/>
+            <field name="apply_new_portal" eval="True"/>
+            <field name="global_hide_print" eval="True"/>
+            <field name="global_hide_action" eval="True"/>
+            <field name="global_hide_export" eval="True"/>
+            <field name="global_hide_import" eval="True"/>
+            <field name="restrict_developer_mode" eval="True"/>
+        </record>
+        
+        <!-- Template 5: Prevent Record Deletion Globally -->
+        <record id="access_profile_restrict_ops" model="access.management">
+            <field name="name">Template: Prevent Record Deletion Globally</field>
+            <field name="active" eval="False"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('access_tag_template'), ref('access_tag_security')])]"/>
+            <field name="global_hide_delete" eval="True"/>
+            <field name="global_hide_filter_delete" eval="True"/>
+        </record>
+
+        <!-- Template 6: Hide Specific Global Elements -->
+        <record id="access_profile_hide_global_elements" model="access.management">
+            <field name="name">Template: Hide Specific Global Elements</field>
+            <field name="active" eval="False"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('access_tag_template')])]"/>
+        </record>
+        
+        <record id="access_global_element_hide_meeting" model="access.management.global.element">
+            <field name="profile_id" ref="access_profile_hide_global_elements"/>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="view_type">form</field>
+            <field name="element_type">button</field>
+            <field name="element_ref">schedule_meeting</field>
+        </record>
+
+    </data>
+</odoo>

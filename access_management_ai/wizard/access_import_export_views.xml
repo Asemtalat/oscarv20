@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_import_export_form" model="ir.ui.view">
+        <field name="name">access.import.export.form</field>
+        <field name="model">access.import.export</field>
+        <field name="arch" type="xml">
+            <form string="Import/Export Access Profiles">
+                <field name="state" invisible="1"/>
+                
+                <sheet invisible="state == 'done'">
+                    <group>
+                        <field name="action" widget="radio"/>
+                    </group>
+                    <group invisible="action != 'export'">
+                        <field name="rule_ids" widget="many2many_tags" 
+                               required="action == 'export'"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <group invisible="action != 'import'">
+                        <field name="file_data" filename="file_name" 
+                               required="action == 'import'"/>
+                        <field name="file_name" invisible="1"/>
+                        <field name="import_active_status"/>
+                        <field name="import_tag_id" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+
+                <sheet invisible="state == 'init'">
+                    <group>
+                        <field name="file_data" filename="file_name" readonly="1"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <p class="text-success">
+                        Export successful. You can download the file above.
+                    </p>
+                </sheet>
+                
+                <footer>
+                    <button name="action_export" string="Export" type="object" class="btn-primary" 
+                            invisible="state == 'done' or action != 'export'"/>
+                    <button name="action_import" string="Import" type="object" class="btn-primary" 
+                            invisible="state == 'done' or action != 'import'"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" 
+                            invisible="state == 'done'"/>
+                    <button string="Close" class="btn-secondary" special="cancel" 
+                            invisible="state == 'init'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_access_import_export" model="ir.actions.act_window">
+        <field name="name">Import / Export Profiles</field>
+        <field name="res_model">access.import.export</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_access_import_export"
+              name="Import / Export"
+              parent="access_management_ai.menu_access_management_config_categ"
+              action="action_access_import_export"
+              sequence="30"/>
+</odoo>

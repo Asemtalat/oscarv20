@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_access_management" model="ir.ui.view">
+        <field name="name">res.users.form.access.management</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Access Management" name="access_management"
+                      groups="access_management_ai.group_access_manager">
+                    <div class="oe_button_box" name="am_button_box">
+                        <button name="action_view_access_rules" type="object"
+                                class="oe_stat_button" icon="fa-shield"
+                                invisible="not access_rule_count">
+                            <field name="access_rule_count" widget="statinfo" string="Rules"/>
+                        </button>
+                        <button name="action_view_access_groups" type="object"
+                                class="oe_stat_button" icon="fa-users"
+                                invisible="not access_group_count">
+                            <field name="access_group_count" widget="statinfo" string="Groups"/>
+                        </button>
+                        <button name="action_view_access_roles" type="object"
+                                class="oe_stat_button" icon="fa-id-badge"
+                                invisible="not access_role_count">
+                            <field name="access_role_count" widget="statinfo" string="Roles"/>
+                        </button>
+                        <button name="action_access_login_as" type="object"
+                                class="oe_stat_button" icon="fa-sign-in"
+                                string="Login as"
+                                confirm="Switch your session to this user?"/>
+                        <button name="action_access_terminate_sessions" type="object"
+                                class="oe_stat_button" icon="fa-power-off"
+                                string="Terminate Sessions"
+                                confirm="Log this user out of all their sessions?"/>
+                    </div>
+
+                    <group>
+                        <group string="User Controls">
+                            <field name="access_read_only" widget="boolean_toggle"/>
+                            <field name="access_prevent_login" widget="boolean_toggle"/>
+                            <field name="access_disable_dev_mode" widget="boolean_toggle"/>
+                            <field name="access_block_external_api" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Password">
+                            <field name="password_write_date"/>
+                            <field name="password_expiry_date"/>
+                        </group>
+                    </group>
+
+                    <group string="Direct Assignments">
+                        <field name="access_rule_ids" widget="many2many_tags"
+                                 options="{'no_create': True}"
+                                 placeholder="Select Access Rules…"/>
+                        <field name="access_custom_group_ids" widget="many2many_tags"
+                                 options="{'no_create': True}"
+                                 placeholder="Select Access Groups…"/>
+                    </group>
+
+                    <separator string="Security Roles"/>
+                    <field name="role_line_ids" context="{'default_user_id': id}">
+                        <list editable="bottom">
+                            <field name="role_id" options="{'no_create': True}"/>
+                            <field name="date_from" optional="show"/>
+                            <field name="date_to" optional="show"/>
+                            <field name="is_enabled" string="Active Now" widget="boolean_toggle" optional="show"/>
+                        </list>
+                    </field>
+
+                    <separator string="Effective Access Rules"/>
+                    <div class="text-muted mb-2">
+                        Active rules applying to this user right now (direct, via Odoo groups, or Access Groups), including schedule.
+                    </div>
+                    <field name="applied_rule_ids" widget="many2many_tags" readonly="1"
+                             options="{'no_create': True}" nolabel="1"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_users_search_access_management" model="ir.ui.view">
+        <field name="name">res.users.search.access.management</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="read_only" string="View Only" domain="[('access_read_only', '=', True)]"/>
+                <filter name="prevent_login" string="Login Prevented" domain="[('access_prevent_login', '=', True)]"/>
+                <filter name="disable_dev_mode" string="No Dev Mode" domain="[('access_disable_dev_mode', '=', True)]"/>
+                <filter name="block_external_api" string="Block External API" domain="[('access_block_external_api', '=', True)]"/>
+                <filter name="has_access_rules" string="Has Access Rules" domain="[('access_rule_ids', '!=', False)]"/>
+                <filter name="has_access_groups" string="Has Access Groups" domain="[('access_custom_group_ids', '!=', False)]"/>
+                <filter name="has_roles" string="Has Roles" domain="[('role_line_ids', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

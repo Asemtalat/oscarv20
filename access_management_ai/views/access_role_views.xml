@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_role_list" model="ir.ui.view">
+        <field name="name">access.role.list</field>
+        <field name="model">access.role</field>
+        <field name="arch" type="xml">
+            <list string="Roles"
+                  class="o_access_role_list"
+                  sample="1"
+                  default_order="sequence, name"
+                  decoration-muted="not active"
+                  decoration-info="active and implied_count &gt; 0"
+                  decoration-success="active and implied_count == 0 and user_count &gt; 0">
+                <header>
+                    <button name="%(access_management_ai.action_access_role_ai_wizard_create)d"
+                            type="action"
+                            string="Generate with AI"
+                            icon="fa-magic"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="sequence" widget="handle"/>
+                <field name="active" column_invisible="1"/>
+                <field name="color" widget="color_picker" optional="show"/>
+                <field name="name" string="Role" class="fw-bold o_am_list_name"/>
+                <field name="comment" optional="hide"/>
+                <field name="display_user_ids" widget="many2many_avatar_user" string="Assigned Users" optional="show"/>
+                <field name="user_count" string="Users" class="o_am_list_count"
+                          decoration-muted="user_count == 0" optional="show"/>
+                <field name="active_user_count" string="Active Now" class="o_am_list_count"
+                          decoration-muted="active_user_count == 0" optional="hide"/>
+                <field name="group_ids" widget="many2many_tags" optional="show"/>
+                <field name="group_count" string="Groups" class="o_am_list_count"
+                          decoration-muted="group_count == 0" optional="hide"/>
+                <field name="implied_role_ids" widget="many2many_tags" optional="hide"/>
+                <field name="implied_count" string="Included" class="o_am_list_count"
+                          decoration-muted="implied_count == 0" optional="show"/>
+                <field name="effective_group_count" string="Effective Groups" class="o_am_list_count"
+                          decoration-muted="effective_group_count == 0" optional="hide"/>
+                <field name="kanban_accent" string="Status" widget="badge" optional="show"
+                          decoration-success="kanban_accent == 'active'"
+                          decoration-info="kanban_accent == 'assigned'"
+                          decoration-warning="kanban_accent == 'nested'"
+                          decoration-muted="kanban_accent == 'archived'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"
+                         options="{'no_create': True, 'no_open': True}"/>
+                <field name="active" widget="boolean_toggle" string="Active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_access_role_form" model="ir.ui.view">
+        <field name="name">access.role.form</field>
+        <field name="model">access.role</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(access_management_ai.action_access_role_ai_wizard)d" type="action" string="Generate with AI" icon="fa-magic" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_users" type="object"
+                                class="oe_stat_button" icon="fa-users">
+                            <field name="user_count" widget="statinfo" string="Users"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Warehouse Manager"/></h1>
+                    </div>
+                    <group>
+                        <field name="active" invisible="1"/>
+                        <field name="sequence" groups="base.group_no_one"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="comment" placeholder="What this role is for..."/>
+                    </group>
+                    <notebook>
+                        <page string="Groups" name="groups">
+                            <field name="group_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                        </page>
+                        <page string="Included Roles" name="implied">
+                            <field name="implied_role_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="user_count" string="# Users"/>
+                                </list>
+                            </field>
+                            <p class="text-muted">Users of this role also receive the groups of the included roles.</p>
+                        </page>
+                        <page string="Users" name="users">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="user_id" domain="[('share', '=', False)]" options="{'no_create': True}" widget="many2one_avatar_user"/>
+                                    <field name="date_from" optional="show"/>
+                                    <field name="date_to" optional="show"/>
+                                    <field name="is_enabled" string="Active Now" widget="boolean_toggle" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_access_role_kanban" model="ir.ui.view">
+        <field name="name">access.role.kanban</field>
+        <field name="model">access.role</field>
+        <field name="arch" type="xml">
+            <kanban class="o_access_role_kanban" create="true" sample="1">
+                <header>
+                    <button name="%(access_management_ai.action_access_role_ai_wizard_create)d"
+                            type="action"
+                            string="Generate with AI"
+                            icon="fa-magic"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="color"/>
+                <field name="sequence"/>
+                <field name="comment"/>
+                <field name="company_id"/>
+                <field name="group_ids"/>
+                <field name="implied_role_ids"/>
+                <field name="user_count"/>
+                <field name="active_user_count"/>
+                <field name="group_count"/>
+                <field name="implied_count"/>
+                <field name="effective_group_count"/>
+                <field name="display_user_ids"/>
+                <field name="kanban_accent"/>
+                <field name="activity_ids"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click o_access_role_card o_am_role_accent_#{record.kanban_accent.raw_value || 'active'} o_kanban_color_#{record.color.raw_value || 0}">
+                            <div class="o_am_role_accent"/>
+                            <div class="o_am_role_body">
+                                <div class="o_am_role_header">
+                                    <div class="o_am_role_title">
+                                        <span class="o_am_role_sequence" t-if="record.sequence.raw_value">#<field name="sequence"/></span>
+                                        <strong class="o_am_role_name text-truncate"><field name="name"/></strong>
+                                    </div>
+                                    <div class="o_am_role_badges">
+                                        <span t-if="!record.active.raw_value" class="badge text-bg-secondary">Archived</span>
+                                        <span t-if="record.active.raw_value and record.implied_count.raw_value" class="badge text-bg-info">Nested</span>
+                                        <span t-if="record.active.raw_value and record.user_count.raw_value and !record.implied_count.raw_value" class="badge text-bg-success">Assigned</span>
+                                        <span t-if="record.active.raw_value and !record.user_count.raw_value and !record.implied_count.raw_value" class="badge text-bg-primary">Ready</span>
+                                        <field name="color" widget="kanban_color_picker"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_role_comment text-muted" t-if="record.comment.raw_value">
+                                    <field name="comment"/>
+                                </div>
+
+                                <div class="o_am_role_section">
+                                    <div class="o_am_role_section_label">
+                                        <i class="fa fa-users" title="Users"/> People
+                                    </div>
+                                    <div class="o_am_role_users" t-if="record.active_user_count.raw_value">
+                                        <field name="display_user_ids" widget="many2many_avatar_user"/>
+                                        <span class="o_am_role_count_label">
+                                            <field name="active_user_count"/> active
+                                            <t t-if="record.user_count.raw_value != record.active_user_count.raw_value">
+                                                / <field name="user_count"/> total
+                                            </t>
+                                        </span>
+                                    </div>
+                                    <div t-else="" class="text-muted small">
+                                        No users assigned yet
+                                        <span t-if="record.user_count.raw_value"> (<field name="user_count"/> scheduled)</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_role_section" t-if="record.group_count.raw_value">
+                                    <div class="o_am_role_section_label">
+                                        <i class="fa fa-shield" title="Groups"/> Security groups
+                                    </div>
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                </div>
+
+                                <div class="o_am_role_section" t-if="record.implied_count.raw_value">
+                                    <div class="o_am_role_section_label">
+                                        <i class="fa fa-sitemap" title="Included roles"/> Included roles
+                                    </div>
+                                    <field name="implied_role_ids" widget="many2many_tags"/>
+                                </div>
+
+                                <div class="o_am_role_stats">
+                                    <div class="o_am_role_stat" t-att-class="record.user_count.raw_value ? '' : 'o_am_role_stat_empty'">
+                                        <span class="o_am_role_stat_value"><field name="user_count"/></span>
+                                        <span class="o_am_role_stat_label">Users</span>
+                                    </div>
+                                    <div class="o_am_role_stat" t-att-class="record.group_count.raw_value ? '' : 'o_am_role_stat_empty'">
+                                        <span class="o_am_role_stat_value"><field name="group_count"/></span>
+                                        <span class="o_am_role_stat_label">Groups</span>
+                                    </div>
+                                    <div class="o_am_role_stat" t-att-class="record.implied_count.raw_value ? '' : 'o_am_role_stat_empty'">
+                                        <span class="o_am_role_stat_value"><field name="implied_count"/></span>
+                                        <span class="o_am_role_stat_label">Included</span>
+                                    </div>
+                                    <div class="o_am_role_stat" t-att-class="record.effective_group_count.raw_value ? '' : 'o_am_role_stat_empty'">
+                                        <span class="o_am_role_stat_value"><field name="effective_group_count"/></span>
+                                        <span class="o_am_role_stat_label">Effective</span>
+                                    </div>
+                                </div>
+
+                                <div class="o_am_role_footer">
+                                    <div class="o_am_role_company" t-if="record.company_id.raw_value" groups="base.group_multi_company">
+                                        <i class="fa fa-building-o me-1" title="Company"/>
+                                        <field name="company_id"/>
+                                    </div>
+                                    <div t-else="" class="text-muted small">Security role</div>
+                                    <div class="o_am_role_footer_right">
+                                        <field name="activity_ids" widget="kanban_activity"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_access_role_search" model="ir.ui.view">
+        <field name="name">access.role.search</field>
+        <field name="model">access.role</field>
+        <field name="arch" type="xml">
+            <search string="Search Roles">
+                <field name="name"/>
+                <field name="comment"/>
+                <field name="group_ids"/>
+                <field name="implied_role_ids"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <filter name="with_groups" string="Has Security Groups" domain="[('group_ids', '!=', False)]"/>
+                <filter name="with_implied" string="Has Included Roles" domain="[('implied_role_ids', '!=', False)]"/>
+
+                <separator/>
+                <filter name="group_active" string="Status" context="{'group_by': 'active'}"/>
+                <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_access_role" model="ir.actions.act_window">
+        <field name="name">Roles</field>
+        <field name="res_model">access.role</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_access_role_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first role</p>
+            <p>Bundle security groups into a role, then grant it to users in two clicks.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_access_role" name="Roles"
+              parent="access_management_ai.menu_access_management_control_categ"
+              action="action_access_role"
+              groups="access_management_ai.group_access_manager" sequence="15"/>
+</odoo>

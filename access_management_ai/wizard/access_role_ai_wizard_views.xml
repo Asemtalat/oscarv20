@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_access_role_ai_wizard_form" model="ir.ui.view">
+        <field name="name">access.role.ai.wizard.form</field>
+        <field name="model">access.role.ai.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate with AI">
+                <group>
+                    <field name="create_new" invisible="1"/>
+                    <field name="role_id" invisible="1"/>
+                    <field name="role_name"
+                             string="Role Name"
+                             placeholder="Optional — leave blank for AI to choose"
+                             readonly="not create_new and role_id"
+                             invisible="not create_new and not role_name"/>
+                    <field name="prompt"
+                             placeholder="E.g., Create a Warehouse Manager role with Inventory Administrator and Internal User groups."/>
+                </group>
+                <footer>
+                    <button name="action_generate_role" string="Generate &amp; Apply" type="object" class="btn-primary" icon="fa-magic" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Form: update current role -->
+    <record id="action_access_role_ai_wizard" model="ir.actions.act_window">
+        <field name="name">Generate with AI</field>
+        <field name="res_model">access.role.ai.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- List: always create a new role -->
+    <record id="action_access_role_ai_wizard_create" model="ir.actions.act_window">
+        <field name="name">Generate with AI</field>
+        <field name="res_model">access.role.ai.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'access_role_ai_create': True, 'default_create_new': True}</field>
+    </record>
+</odoo>

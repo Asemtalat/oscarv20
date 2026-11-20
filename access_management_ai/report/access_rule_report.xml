@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Landscape paper format so the wide model-restriction table fits. -->
+    <record id="paperformat_access_rule" model="report.paperformat">
+        <field name="name">Access Rule (Landscape)</field>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">28</field>
+        <field name="margin_bottom">18</field>
+        <field name="margin_left">6</field>
+        <field name="margin_right">6</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">28</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Printable PDF: a full summary of an Access Rule. Available from the
+         rule's Print menu (binding on access.management). -->
+    <record id="action_report_access_rule" model="ir.actions.report">
+        <field name="name">Access Rule</field>
+        <field name="model">access.management</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">access_management_ai.report_access_rule</field>
+        <field name="paperformat_id" ref="paperformat_access_rule"/>
+        <field name="binding_model_id" ref="access_management_ai.model_access_management"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('access_management_ai.group_access_manager'))]"/>
+        <field name="print_report_name">'Access Rule - %s' % (object.name or '')</field>
+    </record>
+
+    <template id="report_access_rule">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .am-rep h2{font-size:18px;margin:0;}
+                            .am-rep h3{font-size:13px;font-weight:700;margin:14px 0 4px;
+                                       color:#714B67;border-bottom:2px solid #714B67;padding-bottom:2px;}
+                            .am-rep table{font-size:10px;}
+                            .am-rep .am-yes{color:#16a34a;font-weight:700;}
+                            .am-rep .am-no{color:#dc2626;font-weight:700;}
+                            .am-rep .am-muted{color:#6b7280;}
+                            .am-rep .am-kv td:first-child{width:160px;color:#6b7280;}
+                        </style>
+                        <div class="am-rep">
+                            <!-- Title -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2>
+                                    Access Rule: <span t-field="doc.name"/>
+                                    <span t-if="not doc.active" class="am-no"> (Archived)</span>
+                                </h2>
+                                <span class="am-muted">Sequence: <span t-field="doc.sequence"/></span>
+                            </div>
+
+                            <!-- Targets & controls -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <h3>Applies To</h3>
+                                    <table class="table table-sm table-borderless am-kv mb-0">
+                                        <tr><td>Users</td>
+                                            <td><span t-out="', '.join(doc.user_ids.mapped('name')) or '—'"/></td></tr>
+                                        <tr><td>Groups</td>
+                                            <td><span t-out="', '.join(doc.group_ids.mapped('display_name')) or '—'"/></td></tr>
+                                        <tr><td>Companies</td>
+                                            <td><span t-out="', '.join(doc.company_ids.mapped('name')) or 'All companies'"/></td></tr>
+                                        <tr><td>All Internal Users</td>
+                                            <td><span t-out="'Yes' if doc.apply_new_internal else 'No'"/></td></tr>
+                                        <tr><td>All Portal Users</td>
+                                            <td><span t-out="'Yes' if doc.apply_new_portal else 'No'"/></td></tr>
+                                        <tr><td>Global UI Restrictions</td>
+                                            <td>
+                                                <span t-if="doc.global_hide_import">Import; </span>
+                                                <span t-if="doc.global_hide_print">Print; </span>
+                                                <span t-if="doc.global_hide_action">Action; </span>
+                                                <span t-if="doc.global_hide_export">Export; </span>
+                                                <span t-if="doc.global_hide_spreadsheet">Spreadsheet; </span>
+                                                <span t-if="doc.global_hide_filters">Filters; </span>
+                                                <span t-if="doc.global_hide_groupby">Group By; </span>
+                                                <span t-if="doc.global_hide_custom_filter">Custom Filter; </span>
+                                                <span t-if="doc.global_hide_custom_group">Custom Group; </span>
+                                                <span t-if="doc.global_hide_favorites">Favorites; </span>
+                                                <span t-if="doc.global_hide_search_panel">Search Panel; </span>
+                                                <span t-if="doc.global_hide_add_property">Add Property; </span>
+                                                <span t-if="doc.global_hide_delete">Delete</span>
+                                                <span t-if="not (doc.global_hide_import or doc.global_hide_print or doc.global_hide_action or doc.global_hide_export or doc.global_hide_spreadsheet or doc.global_hide_filters or doc.global_hide_groupby or doc.global_hide_custom_filter or doc.global_hide_custom_group or doc.global_hide_favorites or doc.global_hide_search_panel or doc.global_hide_add_property or doc.global_hide_delete)">None</span>
+                                            </td></tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <h3>Controls &amp; Schedule</h3>
+                                    <table class="table table-sm table-borderless am-kv mb-0">
+                                        <tr><td>Disable Developer Mode</td>
+                                            <td><span t-out="'Yes' if doc.restrict_developer_mode else 'No'"/></td></tr>
+                                        <tr><td>Password Expiry (days)</td>
+                                            <td><span t-out="doc.password_expiry_days or 'Never'"/></td></tr>
+                                        <tr t-if="doc.hide_systray_keys"><td>Hidden Systray Items</td>
+                                            <td><span t-field="doc.hide_systray_keys"/></td></tr>
+                                        <tr t-if="doc.date_start or doc.date_end"><td>Active Window</td>
+                                            <td>
+                                                <span t-field="doc.date_start"/> &#8594;
+                                                <span t-field="doc.date_end"/>
+                                            </td></tr>
+                                        <tr t-if="doc.time_from or doc.time_to"><td>Daily Window</td>
+                                            <td>
+                                                <span t-out="'%02d:%02d' % (int(doc.time_from), int(round((doc.time_from % 1) * 60)))"/>
+                                                &#8594;
+                                                <span t-out="'%02d:%02d' % (int(doc.time_to), int(round((doc.time_to % 1) * 60)))"/>
+                                                <span t-if="doc.tz"> (<span t-field="doc.tz"/>)</span>
+                                            </td></tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Hidden menus -->
+                            <t t-if="doc.menu_ids">
+                                <h3>Hidden Menus</h3>
+                                <p class="mb-0"><span t-out="', '.join(doc.menu_ids.mapped('display_name'))"/></p>
+                            </t>
+
+                            <!-- Model restrictions -->
+                            <t t-if="doc.model_access_ids">
+                                <h3>Model Restrictions</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th>Model</th>
+                                            <th class="text-center">Create</th>
+                                            <th class="text-center">Edit</th>
+                                            <th class="text-center">Delete</th>
+                                            <th class="text-center">Archive</th>
+                                            <th class="text-center">Duplicate</th>
+                                            <th class="text-center">Export</th>
+                                            <th class="text-center">Import</th>
+                                            <th class="text-center">Spreadsheet</th>
+                                            <th>Hidden Views</th>
+                                            <th>Record Domains</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.model_access_ids" t-as="line">
+                                            <td><span t-field="line.model_name"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.perm_create else 'no'}" t-out="'✓' if line.perm_create else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.perm_write else 'no'}" t-out="'✓' if line.perm_write else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.perm_unlink else 'no'}" t-out="'✓' if line.perm_unlink else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.allow_archive else 'no'}" t-out="'✓' if line.allow_archive else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.allow_duplicate else 'no'}" t-out="'✓' if line.allow_duplicate else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'yes' if line.allow_export else 'no'}" t-out="'✓' if line.allow_export else '✗'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'no' if line.hide_import_button else 'yes'}" t-out="'✗' if line.hide_import_button else '✓'"/></td>
+                                            <td class="text-center"><span t-attf-class="am-#{'no' if line.hide_spreadsheet_button else 'yes'}" t-out="'✗' if line.hide_spreadsheet_button else '✓'"/></td>
+                                            <td><span class="am-muted" t-out="', '.join(sorted(line._hidden_view_types())) or '—'"/></td>
+                                            <td>
+                                                <span class="am-muted" t-out="('R ' + line.domain_read) if line.domain_read else ''"/>
+                                                <span class="am-muted" t-out="(' W ' + line.domain_write) if line.domain_write else ''"/>
+                                                <span class="am-muted" t-out="(' C ' + line.domain_create) if line.domain_create else ''"/>
+                                                <span class="am-muted" t-out="(' D ' + line.domain_unlink) if line.domain_unlink else ''"/>
+                                                <span t-if="not (line.domain_read or line.domain_write or line.domain_create or line.domain_unlink)">—</span>
+                                                <span t-if="line.date_filter_period" class="am-muted"><br/>Date: <t t-out="line.date_filter_field"/> (<t t-out="line.date_filter_period"/>)</span>
+                                                <span t-if="line.hierarchy_mode" class="am-muted"><br/>Hierarchy: <t t-out="line.hierarchy_mode"/></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+
+                            <!-- Field restrictions -->
+                            <t t-if="doc.field_access_ids">
+                                <h3>Field Restrictions</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th>Model</th><th>Field</th>
+                                            <th class="text-center">Invisible</th>
+                                            <th class="text-center">Read-only</th>
+                                            <th class="text-center">Required</th>
+                                            <th>Conditions</th>
+                                            <th class="text-center">Exclude Export</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.field_access_ids" t-as="f">
+                                            <td><span t-field="f.model_name"/></td>
+                                            <td><span t-field="f.field_name"/></td>
+                                            <td class="text-center"><span t-out="'✓' if f.is_invisible else ''"/></td>
+                                            <td class="text-center"><span t-out="'✓' if f.is_readonly else ''"/></td>
+                                            <td class="text-center"><span t-out="'✓' if f.is_required else ''"/></td>
+                                            <td class="am-muted">
+                                                <span t-out="('inv: ' + f.invisible_condition) if f.invisible_condition else ''"/>
+                                                <span t-out="(' ro: ' + f.readonly_condition) if f.readonly_condition else ''"/>
+                                                <span t-out="(' req: ' + f.required_condition) if f.required_condition else ''"/>
+                                            </td>
+                                            <td class="text-center"><span t-out="'✓' if f.restrict_export else ''"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+
+                            <!-- UI elements -->
+                            <t t-if="doc.element_access_ids">
+                                <h3>Hidden UI Elements</h3>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="table-light">
+                                            <th>Model</th><th>View</th><th>Type</th>
+                                            <th>Name / Label</th><th>Condition</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.element_access_ids" t-as="e">
+                                            <td><span t-field="e.model_name"/></td>
+                                            <td><span t-field="e.view_type"/></td>
+                                            <td><span t-field="e.element_type"/></td>
+                                            <td><span t-field="e.element_ref"/></td>
+                                            <td class="am-muted"><span t-out="e.invisible_condition or 'always'"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+
+                            <!-- Reports / actions / chatter -->
+                            <div class="row">
+                                <div class="col-6" t-if="doc.report_ids or doc.action_ids or doc.server_action_ids or doc.client_action_ids or doc.url_action_ids">
+                                    <h3>Hidden Reports &amp; Actions</h3>
+                                    <p class="mb-0 am-muted">
+                                        <strong>Reports:</strong>
+                                        <span t-out="', '.join(doc.report_ids.mapped('name')) or '—'"/><br/>
+                                        <strong>Actions:</strong>
+                                        <span t-out="', '.join(doc.action_ids.mapped('name')) or '—'"/><br/>
+                                        <strong>Server:</strong>
+                                        <span t-out="', '.join(doc.server_action_ids.mapped('name')) or '—'"/><br/>
+                                        <strong>Client:</strong>
+                                        <span t-out="', '.join(doc.client_action_ids.mapped('name')) or '—'"/><br/>
+                                        <strong>URL:</strong>
+                                        <span t-out="', '.join(doc.url_action_ids.mapped('name')) or '—'"/>
+                                    </p>
+                                </div>
+                                <div class="col-6">
+                                    <h3>Chatter (global)</h3>
+                                    <p class="mb-0 am-muted">
+                                        <span t-out="'Hide Chatter; ' if doc.hide_chatter else ''"/>
+                                        <span t-out="'Hide Send Message; ' if doc.hide_send_message else ''"/>
+                                        <span t-out="'Hide Log Note; ' if doc.hide_log_note else ''"/>
+                                        <span t-out="'Hide Activities; ' if doc.hide_activities else ''"/>
+                                        <span t-out="'Hide Followers; ' if doc.hide_followers else ''"/>
+                                        <span t-if="not (doc.hide_chatter or doc.hide_send_message or doc.hide_log_note or doc.hide_activities or doc.hide_followers)">No chatter restrictions</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
