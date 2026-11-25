@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="hr_employee__inherit_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority">1200</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_documents"  icon="fa-file-text"
+                                string="Documents" invisible="documents_count == 0">
+                            <field name="documents_count" widget="statinfo" icon="fa-file-invoice-dollar"
+                                   string="Documents"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

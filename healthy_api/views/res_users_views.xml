@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_users_form_api" model="ir.ui.view">
+        <field name="name">res.users.form.api.token</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="API Access" name="api_access">
+                    <group string="API Access">
+                        <field name="api_token" readonly="1"/>
+                        <field name="daily_api_token" readonly="1"/>
+                        <field name="daily_token_date" readonly="1"/>
+                        <field name="area_name"/>
+                        <field name="supervisor_id" domain="[('id', '!=', id)]"/>
+                    </group>
+                    <group string="API Team">
+                        <field name="subordinate_ids" readonly="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="login"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

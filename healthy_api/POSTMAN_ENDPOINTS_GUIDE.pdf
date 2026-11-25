@@ -1,0 +1,583 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+2 0 obj
+<< /Length 1875 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+1 0 0 1 50 792 Tm
+(# Healthy API - Postman Guide) Tj
+T*
+() Tj
+T*
+(This guide documents all routes in `healthy_api/controllers/api.py` and how to call them from Postma) Tj
+T*
+(n.) Tj
+T*
+() Tj
+T*
+(## Mobile-Managed Integration \(Scope\)) Tj
+T*
+() Tj
+T*
+(This integration is fully managed by the mobile application.) Tj
+T*
+() Tj
+T*
+(- The mobile app drives the full lifecycle: signup request, admin approval, login, and daily operati) Tj
+T*
+(ons.) Tj
+T*
+(- All business actions should be done through these API endpoints \(not Odoo manual back-office opera) Tj
+T*
+(tions\).) Tj
+T*
+(- Every protected endpoint requires the daily token returned by login.) Tj
+T*
+(- Users must login from mobile first, then call other endpoints using `Authorization: Bearer <daily_) Tj
+T*
+(token>`.) Tj
+T*
+() Tj
+T*
+(## 1\) Postman Setup) Tj
+T*
+() Tj
+T*
+(Create these Postman variables:) Tj
+T*
+() Tj
+T*
+(- `base_url` = your Odoo host \(example: `http://localhost:8069`\)) Tj
+T*
+(- `token` = API token returned from login) Tj
+T*
+() Tj
+T*
+(For authenticated calls, add header:) Tj
+T*
+() Tj
+T*
+(- `Authorization: {{token}}`) Tj
+T*
+(- `Content-Type: application/json`) Tj
+T*
+() Tj
+T*
+(Public routes \(no token\):) Tj
+T*
+() Tj
+T*
+(- `POST {{base_url}}/auth/signup`) Tj
+T*
+(- `POST {{base_url}}/auth/login` \(or `/api/login`\)) Tj
+T*
+() Tj
+T*
+(## 2\) Core Business Endpoints) Tj
+T*
+() Tj
+T*
+(### Auth) Tj
+T*
+() Tj
+T*
+(- `POST /auth/signup`) Tj
+T*
+(- `POST /auth/login` \(alias: `POST /api/login`\)) Tj
+T*
+() Tj
+T*
+(Signup body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "name": "John Doe",) Tj
+T*
+(  "email": "john@example.com",) Tj
+T*
+(  "mobile": "+201234567890",) Tj
+T*
+(  "password": "StrongPassword123") Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(Login body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "email_or_mobile": "john@example.com",) Tj
+T*
+(  "password": "StrongPassword123") Tj
+T*
+(}) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 1505 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+1 0 0 1 50 792 Tm
+(```) Tj
+T*
+() Tj
+T*
+(Login response returns the daily token in `data.token`.  ) Tj
+T*
+(Use that token in `Authorization: <daily_token>` for all protected endpoints.) Tj
+T*
+() Tj
+T*
+(### Users & Roles \(Admin\)) Tj
+T*
+() Tj
+T*
+(- `GET /users`) Tj
+T*
+(- `GET /users/{id}`) Tj
+T*
+(- `POST /users`) Tj
+T*
+(- `PUT /users/{id}`) Tj
+T*
+(- `DELETE /users/{id}`) Tj
+T*
+(- `PUT /users/{id}/approve`) Tj
+T*
+(- `PUT /users/{id}/role`) Tj
+T*
+() Tj
+T*
+(Create/Update body example:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "name": "Area Manager 1",) Tj
+T*
+(  "email": "am1@example.com",) Tj
+T*
+(  "password": "StrongPassword123",) Tj
+T*
+(  "mobile": "+201111111111",) Tj
+T*
+(  "area_name": "Nasr City",) Tj
+T*
+(  "roles": ["area_manager"],) Tj
+T*
+(  "active": true) Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(Assign role body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "roles": ["delivery"]) Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(### Merchants) Tj
+T*
+() Tj
+T*
+(- `GET /merchants` \(alias: `/api/merchants`\)) Tj
+T*
+(- `POST /merchants`) Tj
+T*
+(- `GET /merchants/{id}`) Tj
+T*
+(- `PUT /merchants/{id}`) Tj
+T*
+(- `DELETE /merchants/{id}` \(Admin\)) Tj
+T*
+() Tj
+T*
+(Create/Update body example:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "merchant_code": "M-1001",) Tj
+T*
+(  "name": "Merchant A",) Tj
+T*
+(  "mobile": "+201000000000",) Tj
+T*
+(  "address": "Cairo",) Tj
+T*
+(  "commercial_registration": "CR12345",) Tj
+T*
+(  "tax_card": "TAX56789") Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(### Orders) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 1466 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+1 0 0 1 50 792 Tm
+(- `GET /orders` \(alias: `/api/orders`\)) Tj
+T*
+(- `GET /orders/{id}`) Tj
+T*
+(- `POST /orders`) Tj
+T*
+(- `PUT /orders/{id}`) Tj
+T*
+(- `DELETE /orders/{id}` \(Admin\)) Tj
+T*
+() Tj
+T*
+(Create body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "merchant_id": 10,) Tj
+T*
+(  "order_date": "2026-03-31 10:30:00",) Tj
+T*
+(  "products": [) Tj
+T*
+(    {"product_id": 101, "quantity": 2, "price_unit": 50},) Tj
+T*
+(    {"product_id": 102, "quantity": 1}) Tj
+T*
+(  ]) Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(Update status body example:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "status": "accepted") Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(Allowed flow: `pending -> accepted/rejected -> prepared -> delivered`.) Tj
+T*
+() Tj
+T*
+(### Inventory) Tj
+T*
+() Tj
+T*
+(- `GET /inventory` \(alias: `/api/inventory`\)) Tj
+T*
+(- `PUT /inventory`) Tj
+T*
+() Tj
+T*
+(`GET /inventory` returns: `order_id`, `area`, `status`.) Tj
+T*
+() Tj
+T*
+(Update body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "order_id": 55,) Tj
+T*
+(  "status": "prepared",) Tj
+T*
+(  "reason": "optional") Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(### Invoices) Tj
+T*
+() Tj
+T*
+(- `GET /invoices` \(alias: `/api/invoices`\)) Tj
+T*
+(- `GET /invoices/{id}`) Tj
+T*
+(- `POST /invoices`) Tj
+T*
+() Tj
+T*
+(Body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "order_id": 55,) Tj
+T*
+(  "merchant_id": 10,) Tj
+T*
+(  "payment_method": "cash",) Tj
+T*
+(  "products": [) Tj
+T*
+(    {"product_id": 101, "quantity": 2, "price_unit": 50}) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Length 1556 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+1 0 0 1 50 792 Tm
+(  ]) Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(### Return Invoices) Tj
+T*
+() Tj
+T*
+(- `GET /return-invoices` \(aliases: `/api/returns`, `/api/return-invoices`\)) Tj
+T*
+(- `GET /return-invoices/{id}`) Tj
+T*
+(- `POST /return-invoices`) Tj
+T*
+() Tj
+T*
+(Body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "invoice_id": 88,) Tj
+T*
+(  "note": "Damaged items",) Tj
+T*
+(  "products": [) Tj
+T*
+(    {"product_id": 101, "quantity": 1, "price_unit": 50}) Tj
+T*
+(  ]) Tj
+T*
+(}) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(### Car Warehouse) Tj
+T*
+() Tj
+T*
+(- `GET /warehouses` \(alias: `/api/warehouses`\)) Tj
+T*
+() Tj
+T*
+(Auto-generated daily for authenticated delivery user.  ) Tj
+T*
+(Fields: `order_id`, `delivery_id`, `products`, `quantity_available`.) Tj
+T*
+() Tj
+T*
+(### Itinerary) Tj
+T*
+() Tj
+T*
+(- `GET /itineraries` \(alias: `/api/itineraries`\)) Tj
+T*
+() Tj
+T*
+(Query params:) Tj
+T*
+() Tj
+T*
+(- `delivery_id` \(optional for manager\)) Tj
+T*
+(- `date=YYYY-MM-DD` \(optional, default today\)) Tj
+T*
+() Tj
+T*
+(Response fields: `delivery_id`, `merchant_locations`, `date`.) Tj
+T*
+() Tj
+T*
+(### Custody Funds) Tj
+T*
+() Tj
+T*
+(- `GET /custody-funds` \(alias: `/api/custody-funds`\)) Tj
+T*
+(- `POST /custody-funds`) Tj
+T*
+() Tj
+T*
+(GET params:) Tj
+T*
+() Tj
+T*
+(- `delivery_id` \(optional, defaults to logged-in delivery\)) Tj
+T*
+(- `date=YYYY-MM-DD` \(optional\)) Tj
+T*
+() Tj
+T*
+(POST body:) Tj
+T*
+(```json) Tj
+T*
+({) Tj
+T*
+(  "delivery_id": 25,) Tj
+T*
+(  "partner_id": 10,) Tj
+T*
+(  "collected_amount": 500,) Tj
+T*
+(  "date": "2026-03-31") Tj
+T*
+(}) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Length 797 >>
+stream
+BT
+/F1 10 Tf
+13 TL
+1 0 0 1 50 792 Tm
+(```) Tj
+T*
+() Tj
+T*
+(Response fields: `delivery_id`, `collected_amount`, `date`.) Tj
+T*
+() Tj
+T*
+(## 3\) Admin Approval Endpoints) Tj
+T*
+() Tj
+T*
+(These are still API-based and can be consumed by an admin mobile panel \(or admin client\):) Tj
+T*
+() Tj
+T*
+(- `GET /api/signup_requests/{id?}`) Tj
+T*
+(- `POST /api/signup_requests/{id}/approve`) Tj
+T*
+(- `POST /api/signup_requests/{id}/reject`) Tj
+T*
+() Tj
+T*
+(## 4\) Common Postman Notes) Tj
+T*
+() Tj
+T*
+(- Use `Body -> raw -> JSON` for POST/PUT.) Tj
+T*
+(- For routes with `{id}`, replace with integer ID \(example: `/orders/55`\).) Tj
+T*
+(- If you get `401 Unauthorized`, refresh token with login and update `{{token}}`.) Tj
+T*
+(- If you get `403 Forbidden`, check user role and endpoint access matrix.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 12 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+8 0 obj
+<< /Type /Page /Parent 12 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 12 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 12 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 5 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 12 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+12 0 obj
+<< /Type /Pages /Kids [7 0 R 8 0 R 9 0 R 10 0 R 11 0 R] /Count 5 >>
+endobj
+13 0 obj
+<< /Type /Catalog /Pages 12 0 R >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000009 00000 n 
+0000000077 00000 n 
+0000002004 00000 n 
+0000003561 00000 n 
+0000005079 00000 n 
+0000006687 00000 n 
+0000007535 00000 n 
+0000007662 00000 n 
+0000007789 00000 n 
+0000007916 00000 n 
+0000008044 00000 n 
+0000008172 00000 n 
+0000008256 00000 n 
+trailer
+<< /Size 14 /Root 13 0 R >>
+startxref
+8307
+%%EOF

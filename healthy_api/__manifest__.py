@@ -1,0 +1,27 @@
+{
+    "name": "Healthy API Integration",
+    "summary": "Expose a simple REST API for external mobile app integration.",
+    "version": "20.0.1.0.18",
+    "category": "Extra Tools",
+    "author": "Eslam Moahmed",
+    "maintainer": "Eslam Moahmed",
+    "website": "https://example.com",
+    "license": "LGPL-3",
+    "depends": [
+        "base",
+        "sale_management",
+        "stock",
+        "account",
+        "product",
+    ],
+    "data": [
+        "security/security.xml",
+        "security/ir.access.csv",
+        "views/api_signup_request_views.xml",
+        "views/res_users_views.xml",
+        "views/sale_order_views.xml",
+        "views/merchant_visit_views.xml",
+    ],
+    "installable": True,
+    "application": True,
+}

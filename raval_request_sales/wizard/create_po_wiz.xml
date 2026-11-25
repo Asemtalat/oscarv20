@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="create_po_wizard_view_form" model="ir.ui.view">
+            <field name="name">create.po.wizard_view_form</field>
+            <field name="model">create.po.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="selected_line_ids" widget="one2many">
+                            <list editable="bottom" create="0" delete="0" edit="1">
+                                <field name="request_id" readonly="1"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="quantity" readonly="1"/>
+                                <field name="done_qty"/>
+                                <field name="uom_id" readonly="1"/>
+                            </list>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="action_create_po" type="object" string="Create" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

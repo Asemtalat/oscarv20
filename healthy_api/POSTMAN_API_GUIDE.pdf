@@ -1,0 +1,5834 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+4 0 obj
+<< /Length 2942 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F2 22 Tf
+0 0 0 rg
+52 784 Td
+(Healthy API Integration) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 728 Td
+(POSTMAN INTEGRATION GUIDE) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 706 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 692 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 678 Td
+(This document is a practical guide for testing the `healthy_api` module from Postman. It) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 664 Td
+(is based on the current implementation in `controllers/api.py` and is written for) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 650 Td
+(business users, testers, and integration teams who need a clear request flow instead of) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 636 Td
+(a raw technical code dump.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 622 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 608 Td
+(WHAT THIS API DOES) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 586 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 572 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 558 Td
+(The module exposes an HTTP API for:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 544 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 530 Td
+(? user authentication with a daily access token) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 516 Td
+(? user and signup approval management) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 502 Td
+(? merchant management) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 488 Td
+(? product and stock visibility) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 474 Td
+(? sales order creation and status updates) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 460 Td
+(? invoice, payment, return, and custody collection flows) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 446 Td
+(? merchant visit tracking and itinerary retrieval) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 432 Td
+(? API rule creation and assignment to users) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 418 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 404 Td
+(BASE URL) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 382 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 368 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 354 Td
+(Use your server base URL:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 340 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 326 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 312 Td
+({{base_url}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 298 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 284 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+(Example:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 242 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 228 Td
+(https://your-domain.com) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 214 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 200 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 186 Td
+(POSTMAN ENVIRONMENT VARIABLES) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 164 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 150 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 136 Td
+(Create these variables in Postman before testing:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 122 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 108 Td
+(? `base_url`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 94 Td
+(? `token`) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 1 of 19) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 2759 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? `user_id`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? `merchant_id`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? `order_id`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 742 Td
+(? `invoice_id`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 728 Td
+(? `rule_id`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 714 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 700 Td
+(AUTHENTICATION MODEL) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 678 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 664 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 650 Td
+(Most endpoints require a valid daily token.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 636 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 622 Td
+(The API accepts the token in one of the following ways:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 608 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 594 Td
+(? `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 580 Td
+(? `token: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 566 Td
+(? query string: `?token={{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 538 Td
+(Recommended Postman header:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 524 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 496 Td
+(Authorization: {{token}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 482 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 468 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 454 Td
+(STANDARD RESPONSE FORMAT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 432 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 418 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 404 Td
+(Most routes return this envelope:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 390 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 376 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 362 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 348 Td
+(  "data": {},) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 334 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 320 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 306 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 292 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 278 Td
+(When an error occurs:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 264 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 250 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 236 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 222 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 208 Td
+(  "error": "Error message") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 194 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 180 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 166 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 152 Td
+(MAIN ROLES USED BY THE API) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 130 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 116 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 102 Td
+(? `admin`: full access, user management, rule assignment, approvals) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 88 Td
+(? `supervisor`: access to subordinate users and their related data) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 2 of 19) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 2899 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? `warehouse`: stock and warehouse-oriented operations) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? `delegate`: field execution, merchants, visits, orders, collections) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 742 Td
+(RECOMMENDED POSTMAN FLOW) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 720 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 706 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 692 Td
+(For a clean test cycle, use this order:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 678 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 664 Td
+(? login and store token) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 650 Td
+(? create or identify a user) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 636 Td
+(? create or identify a merchant) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 622 Td
+(? create orders or payments) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 608 Td
+(? create rules if needed) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 594 Td
+(? assign rules to the target user) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 580 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 566 Td
+(STEP 1: LOGIN) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 544 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 530 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 516 Td
+(Use this endpoint to obtain the daily token.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 502 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 488 Td
+(Request) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 470 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 456 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 442 Td
+(? URL: `{{base_url}}/api/login`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 428 Td
+(? Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 414 Td
+(- `Content-Type: application/json`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 400 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 386 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 372 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 358 Td
+(  "login": "admin@example.com",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 344 Td
+(  "password": "admin-password") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 330 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 316 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 302 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 288 Td
+(Success Response) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 242 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 228 Td
+(  "data": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 214 Td
+(    "token": "generated-daily-token",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 200 Td
+(    "uid": 3,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 186 Td
+(    "roles": ["Admin"],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 172 Td
+(    "user": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 158 Td
+(      "id": 3,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 144 Td
+(      "name": "System Admin",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 130 Td
+(      "role": "Admin") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 116 Td
+(    }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 102 Td
+(  },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 88 Td
+(  "error": null) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 3 of 19) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 3153 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F3 9 Tf
+0 0 0 rg
+70 784 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 770 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+(Save `data.token` into the Postman variable `token`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 728 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 714 Td
+(STEP 2: VERIFY ACCESS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 692 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 678 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 664 Td
+(You can confirm that the token works by calling:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 650 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 636 Td
+(? Method: `GET`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 622 Td
+(? URL: `{{base_url}}/api/users`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 608 Td
+(? Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 594 Td
+(- `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 580 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 566 Td
+(If the token is valid, the route returns user data in your allowed scope.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 538 Td
+(ENDPOINT GROUPS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 516 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 502 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 488 Td
+(AUTHENTICATION AND USERS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 466 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 452 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 438 Td
+(? `GET /api/users`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 424 Td
+(- Returns users visible to the authenticated caller.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 410 Td
+(? `GET /api/daily_token`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 396 Td
+(- Deprecated route. Use `/api/login`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 382 Td
+(? `POST /auth/signup`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 368 Td
+(- Creates a signup request that requires admin approval.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 354 Td
+(? `POST /api/login`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 340 Td
+(- Authenticates user and returns a daily token.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 326 Td
+(? `GET|POST|PUT|DELETE /users`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 312 Td
+(- Admin CRUD for users.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 298 Td
+(? `GET|PUT|DELETE /users/<user_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 284 Td
+(- User detail update or deletion.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 270 Td
+(? `PUT /users/<user_id>/approve`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+(- Approves a user or pending signup request.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 242 Td
+(? `PUT /users/<user_id>/role`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 228 Td
+(- Assigns roles such as `delegate`, `supervisor`, `warehouse`, `admin`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 214 Td
+(? `GET|POST /api/admin/users`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 200 Td
+(- Admin-oriented user listing and creation.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 186 Td
+(? `GET /api/admin/users/<user_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 172 Td
+(- Admin user detail.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 158 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 144 Td
+(MERCHANTS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 122 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 108 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 94 Td
+(? `GET|POST /api/merchants`) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 4 of 19) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 3521 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+(- List merchants or create a merchant.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? `GET|PUT|DELETE /api/merchants/<merchant_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+(- Fetch, update, or delete a single merchant.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 728 Td
+(PRODUCTS AND STOCK) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 706 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 692 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 678 Td
+(? `GET|POST /api/products`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 664 Td
+(- Returns active saleable products or creates a new product.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 650 Td
+(? `GET|PUT|DELETE /api/products/<product_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 636 Td
+(- Returns, updates, or deletes a single product.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 622 Td
+(? `GET /api/stock`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 608 Td
+(- Returns stock quantities by product and location.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 594 Td
+(? `GET /api/delivery_stock`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 580 Td
+(- Returns stock assigned to a delivery user.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 566 Td
+(? `POST /api/delivery_stock/adjust`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+(- Adjusts delivery-owned stock.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 538 Td
+(? `GET /api/warehouses`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 524 Td
+(- Returns warehouse-related delivery records.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 510 Td
+(? `GET|PUT /api/inventory`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 496 Td
+(- Reads or updates inventory.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 482 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 468 Td
+(ORDERS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 446 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 432 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 418 Td
+(? `GET|POST /api/orders`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 404 Td
+(- Reads or creates sale orders.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 390 Td
+(? `GET /api/orders/<order_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 376 Td
+(- Returns order detail.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 362 Td
+(? `PUT|DELETE /api/orders/<order_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 348 Td
+(- Updates or deletes an order.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 334 Td
+(? `POST /api/sale_orders/<order_id>/prepare`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 320 Td
+(- Sets order warehouse status to prepared.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 306 Td
+(? `POST /api/sale_orders/<order_id>/ready`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 292 Td
+(- Sets order status to ready.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 278 Td
+(? `POST /api/sale_orders/<order_id>/handover`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 264 Td
+(- Sets order status to handover.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 250 Td
+(? `POST /api/sale_orders/<order_id>/deliver`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 236 Td
+(- Sets order status to delivered.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 222 Td
+(? `POST /api/sale_orders/<order_id>/reject`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 208 Td
+(- Rejects an order with optional reason.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 194 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 180 Td
+(INVOICES, PAYMENTS, RETURNS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 158 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 144 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 130 Td
+(? `GET|POST /api/payments`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 116 Td
+(- Reads or creates customer payments.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 102 Td
+(? `GET /api/wallet_summary`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 88 Td
+(- Returns collection summary.) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 5 of 19) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 3236 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? `GET|POST /api/invoices`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 770 Td
+(- Reads or creates invoices.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? `GET|PUT|DELETE /api/invoices/<invoice_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+(- Invoice detail and update flow.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 728 Td
+(? `POST /api/invoices/<invoice_id>/upload_pdf`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 714 Td
+(- Attaches a PDF file to an invoice.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 700 Td
+(? `GET|POST /api/returns`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 686 Td
+(- Reads or creates returns / credit notes.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 672 Td
+(? `GET|POST /api/custody-funds`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 658 Td
+(- Reads or registers collected custody funds.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 644 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 630 Td
+(SIGNUP REQUESTS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 608 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 594 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 580 Td
+(? `GET /api/signup_requests`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 566 Td
+(- Returns signup requests.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 552 Td
+(? `GET /api/signup_requests/<request_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 538 Td
+(- Returns one request.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 524 Td
+(? `POST /api/signup_requests/<request_id>/approve`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+(- Approves the request and creates the user.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 496 Td
+(? `POST /api/signup_requests/<request_id>/reject`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 482 Td
+(- Rejects the request.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 468 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 454 Td
+(VISITS AND ROUTING) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 432 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 418 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 404 Td
+(? `GET|POST /api/merchant_visits`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 390 Td
+(- Creates or reads merchant visit records.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 376 Td
+(? `GET /api/itineraries`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 362 Td
+(- Returns daily route data for a delegate.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 348 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 334 Td
+(OFFERS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 312 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 298 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 284 Td
+(? `GET /api/offers`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+(- Returns active pricelists and related rules.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 242 Td
+(RULE MANAGEMENT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 220 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 206 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 192 Td
+(? `GET|POST /api/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 178 Td
+(- Reads all rules or creates a new rule.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 164 Td
+(? `PUT|DELETE /api/rules/<rule_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 150 Td
+(- Updates or deletes a rule.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 136 Td
+(? `PUT /api/users/<user_id>/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 122 Td
+(- Assigns one or more rule IDs to a user.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 108 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 94 Td
+(DETAILED GUIDE: PRODUCTS ENDPOINT) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 6 of 19) Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 3220 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 770 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+(The products API now supports full CRUD.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 728 Td
+(It can be used to:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 714 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 700 Td
+(? list the active saleable products) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 686 Td
+(? read a single product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 672 Td
+(? create a new product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 658 Td
+(? update an existing product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 644 Td
+(? delete a product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 630 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 616 Td
+(This is useful in Postman when the mobile app or an external client needs a product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 602 Td
+(catalog before creating orders or invoices, and when an admin needs to maintain product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 588 Td
+(master data through the API.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 574 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 560 Td
+(Route) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 542 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 528 Td
+(? `GET {{base_url}}/api/products`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 514 Td
+(? `POST {{base_url}}/api/products`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 500 Td
+(? `GET {{base_url}}/api/products/{{product_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 486 Td
+(? `PUT {{base_url}}/api/products/{{product_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 472 Td
+(? `DELETE {{base_url}}/api/products/{{product_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 458 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 444 Td
+(Authentication) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 412 Td
+(This route requires a valid API token.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 398 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 384 Td
+(Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 370 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 356 Td
+(? `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 342 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 328 Td
+(Permissions) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 310 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 296 Td
+(? `GET /api/products`: any authenticated API user) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 282 Td
+(? `GET /api/products/<product_id>`: any authenticated API user) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 268 Td
+(? `POST /api/products`: admin only) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 254 Td
+(? `PUT /api/products/<product_id>`: admin only) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 240 Td
+(? `DELETE /api/products/<product_id>`: admin only) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 226 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 212 Td
+(Behavior) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 194 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 180 Td
+(For product listing, the endpoint returns products where:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 166 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 152 Td
+(? `sale_ok = True`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 138 Td
+(? `active = True`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 124 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 110 Td
+(The controller returns these fields:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 96 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 7 of 19) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 3093 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? `id`: product variant ID) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? `template_id`: product template ID) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? `name`: product display name) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 742 Td
+(? `default_code`: internal reference or SKU) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 728 Td
+(? `barcode`: barcode if available) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 714 Td
+(? `price`: sale price from `lst_price`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 700 Td
+(? `tax_ids`: customer tax IDs linked to the product) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 686 Td
+(? `active`: product active state) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 672 Td
+(? `sale_ok`: whether the product is saleable) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 658 Td
+(? `purchase_ok`: whether the product is purchasable) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 644 Td
+(? `categ_id`: product category ID) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 630 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 616 Td
+(List Products Example) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 598 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 584 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 570 Td
+(GET {{base_url}}/api/products) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 556 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 542 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 528 Td
+(Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 514 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 500 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 486 Td
+(Authorization: {{token}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 472 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 458 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 444 Td
+(Example Success Response) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 412 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 398 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 384 Td
+(  "data": [) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 370 Td
+(    {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 356 Td
+(      "id": 101,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 342 Td
+(      "name": "Paracetamol 500mg",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 328 Td
+(      "default_code": "PARA-500",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 314 Td
+(      "barcode": "6223001234567",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 300 Td
+(      "price": 55.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 286 Td
+(      "tax_ids": [1, 3],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 272 Td
+(      "active": true) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 258 Td
+(    },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 244 Td
+(    {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 230 Td
+(      "id": 102,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 216 Td
+(      "name": "Vitamin C 1000mg",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 202 Td
+(      "default_code": "VITC-1000",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 188 Td
+(      "barcode": "6223007654321",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 174 Td
+(      "price": 80.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 160 Td
+(      "tax_ids": [1],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 146 Td
+(      "active": true) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 132 Td
+(    }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 118 Td
+(  ],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 104 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 90 Td
+(}) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 8 of 19) Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 2768 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 770 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 756 Td
+(Get One Product Example) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 738 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 724 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 710 Td
+(GET {{base_url}}/api/products/{{product_id}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 696 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 682 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 668 Td
+(Create Product Example) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 650 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 636 Td
+(This is admin-only.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 622 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 608 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 594 Td
+(POST {{base_url}}/api/products) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 580 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 566 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 538 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 524 Td
+(  "name": "Zinc 30mg",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 510 Td
+(  "default_code": "ZINC-30",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 496 Td
+(  "barcode": "6223005555555",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 482 Td
+(  "price": 95.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 468 Td
+(  "tax_ids": [1],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 454 Td
+(  "sale_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 440 Td
+(  "purchase_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 426 Td
+(  "active": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 412 Td
+(  "categ_id": 4) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 398 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 384 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 370 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 356 Td
+(Example response:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 342 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 328 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 314 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 300 Td
+(  "data": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 286 Td
+(    "id": 145,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 272 Td
+(    "template_id": 145,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 258 Td
+(    "name": "Zinc 30mg",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 244 Td
+(    "default_code": "ZINC-30",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 230 Td
+(    "barcode": "6223005555555",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 216 Td
+(    "price": 95.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 202 Td
+(    "tax_ids": [1],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 188 Td
+(    "active": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 174 Td
+(    "sale_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 160 Td
+(    "purchase_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 146 Td
+(    "categ_id": 4) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 132 Td
+(  },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 118 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 104 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 90 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 9 of 19) Tj
+ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 2844 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 770 Td
+(Update Product Example) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 752 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 738 Td
+(This is admin-only.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 724 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 710 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 696 Td
+(PUT {{base_url}}/api/products/{{product_id}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 682 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 668 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 654 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 640 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 626 Td
+(  "name": "Zinc 30mg Updated",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 612 Td
+(  "price": 99.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 598 Td
+(  "default_code": "ZINC-30-NEW",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 584 Td
+(  "barcode": "6223005555556",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 570 Td
+(  "tax_ids": [1, 3],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 556 Td
+(  "active": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 542 Td
+(  "sale_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 528 Td
+(  "purchase_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 514 Td
+(  "categ_id": 4) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 500 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 486 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 472 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 458 Td
+(Delete Product Example) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 440 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+(This is admin-only.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 412 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 398 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 384 Td
+(DELETE {{base_url}}/api/products/{{product_id}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 370 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 356 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 342 Td
+(If the product has no linked records, it is deleted.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 328 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 314 Td
+(If linked records exist, the API archives it instead and returns:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 300 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 286 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 272 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 258 Td
+(  "data": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 244 Td
+(    "message": "Product archived \(linked records prevent hard delete\)") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 230 Td
+(  },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 216 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 202 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 188 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 174 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 160 Td
+(When to Use It) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 142 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 128 Td
+(Use `/api/products` before:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 114 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 100 Td
+(? creating sale orders) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 86 Td
+(? creating invoices) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 10 of 19) Tj
+ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 2806 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? validating product IDs sent from mobile) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? displaying a product catalog in an external app) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? maintaining product master data from an admin integration) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 728 Td
+(Common Error Cases) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 710 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 696 Td
+(If the token is missing or invalid:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 682 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 668 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 654 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 640 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 626 Td
+(  "error": "Unauthorized") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 612 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 598 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 584 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 570 Td
+(If a non-admin tries to create, edit, or delete a product:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 556 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 542 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 528 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 514 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 500 Td
+(  "error": "Forbidden") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 486 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 472 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 458 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 444 Td
+(If `categ_id` does not exist:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 430 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 416 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 402 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 388 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 374 Td
+(  "error": "Category not found") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 360 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 346 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 332 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 318 Td
+(If one or more `tax_ids` are invalid:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 304 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 290 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 276 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 262 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 248 Td
+(  "error": "One or more tax_ids are invalid") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 234 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 220 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 206 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 192 Td
+(DETAILED GUIDE: HOW TO ASSIGN A RULE TO A USER) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 170 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 156 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 142 Td
+(This is the most important flow for Postman testing when rule-based access is used.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 128 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 114 Td
+(IMPORTANT TECHNICAL PREREQUISITE) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 92 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 11 of 19) Tj
+ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 3055 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 770 Td
+(The `api.rule` model must exist in the Odoo registry.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+(If the target server was updated with controller code but the module was not upgraded,) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 728 Td
+(the rules endpoints may fail or return a service error. The route now responds with a) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 714 Td
+(clear message when the model is missing:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 700 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 686 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 672 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 658 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 644 Td
+(  "error": "API rule model is not available. Upgrade the healthy_api) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 630 Td
+(module first.") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 616 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 602 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 588 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 574 Td
+(Before testing rule assignment, confirm the following on the server:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 560 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 546 Td
+(? `models/api_rule.py` exists in the deployed module) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 532 Td
+(? `models/__init__.py` imports `api_rule`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 518 Td
+(? the `healthy_api` module has been upgraded on the target database) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 504 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 490 Td
+(RULE ASSIGNMENT FLOW) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 468 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 454 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 440 Td
+(Use this sequence in Postman.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 412 Td
+(A. Login as an Admin User) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 394 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 380 Td
+(Only an API admin can assign rules to a user.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 366 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 352 Td
+(#### Request) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 338 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 324 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 310 Td
+(? URL: `{{base_url}}/api/login`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 296 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 282 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 268 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 254 Td
+(  "login": "admin@example.com",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 240 Td
+(  "password": "admin-password") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 226 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 212 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 198 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 184 Td
+(#### Postman action) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 170 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 156 Td
+(Store the returned token in `{{token}}`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 142 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 128 Td
+(B. Create a Rule) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 110 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 96 Td
+(#### Request) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 12 of 19) Tj
+ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 26 0 R >>
+endobj
+28 0 obj
+<< /Length 2971 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? URL: `{{base_url}}/api/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 742 Td
+(? Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 728 Td
+(- `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 714 Td
+(- `Content-Type: application/json`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 700 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 686 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 672 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 658 Td
+(  "name": "Delegate Orders Only",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 644 Td
+(  "operations": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 630 Td
+(    "orders": ["read", "create", "update"],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 616 Td
+(    "payments": ["read"],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 602 Td
+(    "merchants": ["read", "create"]) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 588 Td
+(  }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 574 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 560 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 546 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 532 Td
+(#### Expected response) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 518 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 504 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 490 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 476 Td
+(  "data": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 462 Td
+(    "id": 5,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 448 Td
+(    "name": "Delegate Orders Only",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 434 Td
+(    "operations": "{\\"orders\\": [\\"read\\", \\"create\\", \\"update\\"],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 420 Td
+(\\"payments\\": [\\"read\\"], \\"merchants\\": [\\"read\\", \\"create\\"]}") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 406 Td
+(  },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 392 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 378 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 364 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 350 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 336 Td
+(Save `data.id` into the Postman variable `rule_id`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 322 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 308 Td
+(C. List Existing Rules) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 290 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 276 Td
+(This step is useful when the rule already exists and you only need its ID.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 262 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 248 Td
+(#### Request) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 234 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 220 Td
+(? Method: `GET`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 206 Td
+(? URL: `{{base_url}}/api/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 192 Td
+(? Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 178 Td
+(- `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 164 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 150 Td
+(#### Example response) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 136 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 122 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 108 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 94 Td
+(  "data": [) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 13 of 19) Tj
+ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 28 0 R >>
+endobj
+30 0 obj
+<< /Length 2875 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F3 9 Tf
+0 0 0 rg
+70 784 Td
+(    {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 770 Td
+(      "id": 5,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 756 Td
+(      "name": "Delegate Orders Only",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 742 Td
+(      "operations": "{\\"orders\\": [\\"read\\", \\"create\\", \\"update\\"]}") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 728 Td
+(    }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 714 Td
+(  ],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 700 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 686 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 672 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 658 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 644 Td
+(D. Assign the Rule to a User) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 626 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 612 Td
+(This route writes the many-to-many relation `res.users.api_rule_ids`.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 598 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 584 Td
+(#### Request) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 570 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 556 Td
+(? Method: `PUT`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 542 Td
+(? URL: `{{base_url}}/api/users/{{user_id}}/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 528 Td
+(? Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 514 Td
+(- `Authorization: {{token}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 500 Td
+(- `Content-Type: application/json`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 486 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 472 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 458 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 444 Td
+(  "rule_ids": [5]) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 430 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 416 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 402 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 388 Td
+(To assign more than one rule:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 374 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 360 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 346 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 332 Td
+(  "rule_ids": [5, 6, 7]) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 318 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 304 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 290 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 276 Td
+(#### Expected response) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 262 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 248 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 234 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 220 Td
+(  "data": {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 206 Td
+(    "id": 15,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 192 Td
+(    "name": "Ahmed Ali",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 178 Td
+(    "login": "ahmed@example.com",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 164 Td
+(    "role_key": "delegate",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 150 Td
+(    "roles": ["delegate"],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 136 Td
+(    "api_rules": [) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 122 Td
+(      {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 108 Td
+(        "id": 5,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 94 Td
+(        "name": "Delegate Orders Only",) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 14 of 19) Tj
+ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 30 0 R >>
+endobj
+32 0 obj
+<< /Length 2722 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F3 9 Tf
+0 0 0 rg
+70 784 Td
+(        "operations": "{\\"orders\\": [\\"read\\", \\"create\\", \\"update\\"]}") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 770 Td
+(      }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 756 Td
+(    ]) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 742 Td
+(  },) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 728 Td
+(  "error": null) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 714 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 700 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 686 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 672 Td
+(E. Verify the Assignment) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 654 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 640 Td
+(Use one of these endpoints:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 626 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 612 Td
+(? `GET {{base_url}}/api/users`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 598 Td
+(? `GET {{base_url}}/api/admin/users/{{user_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 584 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 570 Td
+(In the response, confirm that `api_rules` contains the assigned rule.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 556 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 542 Td
+(COMMON ERROR CASES FOR RULE ASSIGNMENT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 520 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 506 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 492 Td
+(Unauthorized) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 474 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 460 Td
+(If the token is missing or invalid:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 446 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 432 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 418 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 404 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 390 Td
+(  "error": "Unauthorized") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 376 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 362 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 348 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 334 Td
+(Forbidden) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 316 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 302 Td
+(If the caller is not an admin:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 288 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 274 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 260 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 246 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 232 Td
+(  "error": "Forbidden") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 218 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 204 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 190 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 176 Td
+(Invalid Payload) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 158 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 144 Td
+(If `rule_ids` is missing or is not a JSON list:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 130 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 116 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 102 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 88 Td
+(  "data": null,) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 15 of 19) Tj
+ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 32 0 R >>
+endobj
+34 0 obj
+<< /Length 2595 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F3 9 Tf
+0 0 0 rg
+70 784 Td
+(  "error": "rule_ids must be a list") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 770 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 756 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 742 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 728 Td
+(Invalid Rule IDs) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 710 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 696 Td
+(If one or more rule IDs do not exist:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 682 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 668 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 654 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 640 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 626 Td
+(  "error": "One or more rule_ids are invalid") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 612 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 598 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 584 Td
+() Tj
+ET
+BT
+/F2 12 Tf
+0 0 0 rg
+52 570 Td
+(Missing Model) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 538 Td
+(If the server registry does not contain `api.rule`:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 524 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 496 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 482 Td
+(  "data": null,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 468 Td
+(  "error": "API rule model is not available. Upgrade the healthy_api) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 454 Td
+(module first.") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 440 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 412 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 398 Td
+(USEFUL POSTMAN REQUEST EXAMPLES) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 376 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 362 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 348 Td
+(GET PRODUCTS) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 326 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 312 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 298 Td
+(? Method: `GET`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 284 Td
+(? URL: `{{base_url}}/api/products`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+(Headers:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 242 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 228 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 214 Td
+(Authorization: {{token}}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 200 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 186 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 172 Td
+(CREATE PRODUCT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 150 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 136 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 122 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 108 Td
+(? URL: `{{base_url}}/api/products`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 94 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 16 of 19) Tj
+ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 34 0 R >>
+endobj
+36 0 obj
+<< /Length 2715 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+52 784 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 770 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 756 Td
+(  "name": "Zinc 30mg",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 742 Td
+(  "default_code": "ZINC-30",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 728 Td
+(  "barcode": "6223005555555",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 714 Td
+(  "price": 95.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 700 Td
+(  "tax_ids": [1],) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 686 Td
+(  "sale_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 672 Td
+(  "purchase_ok": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 658 Td
+(  "active": true,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 644 Td
+(  "categ_id": 4) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 630 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 616 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 602 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 588 Td
+(UPDATE PRODUCT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 566 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 538 Td
+(? Method: `PUT`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 524 Td
+(? URL: `{{base_url}}/api/products/{{product_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 496 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 482 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 468 Td
+(  "price": 99.0,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 454 Td
+(  "default_code": "ZINC-30-NEW") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 440 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 426 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 412 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 398 Td
+(DELETE PRODUCT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 376 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 362 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 348 Td
+(? Method: `DELETE`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 334 Td
+(? URL: `{{base_url}}/api/products/{{product_id}}`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 320 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 306 Td
+(CREATE MERCHANT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 284 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 256 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 242 Td
+(? URL: `{{base_url}}/api/merchants`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 228 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 214 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 200 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 186 Td
+(  "name": "Healthy Pharmacy",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 172 Td
+(  "mobile": "01011111111",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 158 Td
+(  "address": "Nasr City",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 144 Td
+(  "tax_card": "123456789",) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 130 Td
+(  "assigned_user_id": 15) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 116 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 102 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 88 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 17 of 19) Tj
+ET
+endstream
+endobj
+37 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 36 0 R >>
+endobj
+38 0 obj
+<< /Length 2621 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F2 15 Tf
+0 0 0 rg
+52 784 Td
+(CREATE ORDER) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 762 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 748 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 734 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 720 Td
+(? URL: `{{base_url}}/api/orders`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 706 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 692 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 678 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 664 Td
+(  "merchant_id": 22,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 650 Td
+(  "user_id": 15,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 636 Td
+(  "lines": [) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 622 Td
+(    {) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 608 Td
+(      "product_id": 101,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 594 Td
+(      "quantity": 2,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 580 Td
+(      "price_unit": 55) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 566 Td
+(    }) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 552 Td
+(  ]) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 538 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 524 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 496 Td
+(CREATE PAYMENT) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 474 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 460 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 446 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 432 Td
+(? URL: `{{base_url}}/api/payments`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 418 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 404 Td
+() Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 390 Td
+({) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 376 Td
+(  "partner_id": 22,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 362 Td
+(  "amount": 500,) Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 348 Td
+(  "date": "2026-04-11") Tj
+ET
+BT
+/F3 9 Tf
+0 0 0 rg
+70 334 Td
+(}) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 320 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 306 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 292 Td
+(UPLOAD INVOICE PDF) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 270 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 256 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 242 Td
+(? Method: `POST`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 228 Td
+(? URL: `{{base_url}}/api/invoices/{{invoice_id}}/upload_pdf`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 214 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 200 Td
+(Use one of these formats:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 186 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 172 Td
+(? form-data with a file field named `file`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 158 Td
+(? JSON body containing a base64 string in `pdf`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 144 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 130 Td
+(TESTING NOTES) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 108 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 94 Td
+() Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 18 of 19) Tj
+ET
+endstream
+endobj
+39 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 38 0 R >>
+endobj
+40 0 obj
+<< /Length 1815 >>
+stream
+0.18 0.45 0.69 RG
+52 802 m 543 802 l S
+0.85 0.88 0.92 RG
+52 44 m 543 44 l S
+BT
+/F1 10 Tf
+0 0 0 rg
+64 784 Td
+(? Prefer `/api/...` routes when both `/api/...` and non-`/api/...` versions) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 770 Td
+(  exist.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 756 Td
+(? Use an admin token when testing rules, user approval, and role assignment.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 742 Td
+(? The API is implemented as `type='http'`, so make sure Postman sends raw JSON) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 728 Td
+(  where a body is expected.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 714 Td
+(? If a route suddenly returns a server-side model error, first verify that the) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 700 Td
+(  module was upgraded after the latest code deployment.) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 686 Td
+() Tj
+ET
+BT
+/F2 15 Tf
+0 0 0 rg
+52 672 Td
+(MAINTENANCE REFERENCE) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 650 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 636 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 622 Td
+(The rule assignment feature relies on:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 608 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 594 Td
+(? model: `api.rule`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 580 Td
+(? relation field: `res.users.api_rule_ids`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+64 566 Td
+(? controller routes:) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 552 Td
+(- `POST /api/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 538 Td
+(- `GET /api/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 524 Td
+(- `PUT /api/rules/<rule_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 510 Td
+(- `DELETE /api/rules/<rule_id>`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 496 Td
+(- `PUT /api/users/<user_id>/rules`) Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 482 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+0 0 0 rg
+52 468 Td
+(This guide should be regenerated if those routes or payloads change.) Tj
+ET
+BT
+/F1 9 Tf
+0.35 0.35 0.35 rg
+483 28 Td
+(Page 19 of 19) Tj
+ET
+endstream
+endobj
+41 0 obj
+<< /Type /Page /Parent 42 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 40 0 R >>
+endobj
+42 0 obj
+<< /Type /Pages /Count 19 /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R] >>
+endobj
+43 0 obj
+<< /Type /Catalog /Pages 42 0 R >>
+endobj
+xref
+0 44
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000000228 00000 n 
+0000003222 00000 n 
+0000003369 00000 n 
+0000006180 00000 n 
+0000006327 00000 n 
+0000009278 00000 n 
+0000009425 00000 n 
+0000012631 00000 n 
+0000012780 00000 n 
+0000016354 00000 n 
+0000016503 00000 n 
+0000019792 00000 n 
+0000019941 00000 n 
+0000023214 00000 n 
+0000023363 00000 n 
+0000026509 00000 n 
+0000026658 00000 n 
+0000029479 00000 n 
+0000029628 00000 n 
+0000032525 00000 n 
+0000032674 00000 n 
+0000035533 00000 n 
+0000035682 00000 n 
+0000038790 00000 n 
+0000038939 00000 n 
+0000041963 00000 n 
+0000042112 00000 n 
+0000045040 00000 n 
+0000045189 00000 n 
+0000047964 00000 n 
+0000048113 00000 n 
+0000050761 00000 n 
+0000050910 00000 n 
+0000053678 00000 n 
+0000053827 00000 n 
+0000056501 00000 n 
+0000056650 00000 n 
+0000058518 00000 n 
+0000058667 00000 n 
+0000058850 00000 n 
+trailer
+<< /Size 44 /Root 43 0 R >>
+startxref
+58901
+%%EOF

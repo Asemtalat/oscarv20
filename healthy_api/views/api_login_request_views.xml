@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_api_login_request_tree" model="ir.ui.view">
+        <field name="name">api.login.request.tree</field>
+        <field name="model">api.login.request</field>
+        <field name="arch" type="xml">
+            <list string="Login Requests" default_order="requested_at desc">
+                <field name="request_date"/>
+                <field name="user_id"/>
+                <field name="supervisor_id"/>
+                <field name="state" widget="badge"
+                       decoration-warning="state == 'pending'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"/>
+                <field name="requested_at"/>
+                <field name="reviewed_at"/>
+                <field name="reviewed_by_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_api_login_request_search" model="ir.ui.view">
+        <field name="name">api.login.request.search</field>
+        <field name="model">api.login.request</field>
+        <field name="arch" type="xml">
+            <search string="Login Requests">
+                <field name="user_id"/>
+                <field name="supervisor_id"/>
+                <field name="state"/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="rejected" string="Rejected" domain="[('state', '=', 'rejected')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_supervisor" string="Supervisor" context="{'group_by': 'supervisor_id'}"/>
+                    <filter name="group_date" string="Request Date" context="{'group_by': 'request_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_api_login_request_form" model="ir.ui.view">
+        <field name="name">api.login.request.form</field>
+        <field name="model">api.login.request</field>
+        <field name="arch" type="xml">
+            <form string="Login Request">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="state != 'pending'"
+                            groups="healthy_api.group_api_supervisor,healthy_api.group_api_admin"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-secondary"
+                            invisible="state != 'pending'"
+                            groups="healthy_api.group_api_supervisor,healthy_api.group_api_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="supervisor_id" readonly="1"/>
+                            <field name="request_date" readonly="1"/>
+                            <field name="requested_at" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="reviewed_by_id" readonly="1"/>
+                            <field name="reviewed_at" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                            <field name="reject_reason" readonly="state != 'pending'"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_api_login_request" model="ir.actions.act_window">
+        <field name="name">Login Requests</field>
+        <field name="res_model">api.login.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="healthy_api.view_api_login_request_search"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_api_login_request_root"
+              name="API Login Requests"
+              parent="base.menu_administration"
+              sequence="210"
+              groups="healthy_api.group_api_supervisor,healthy_api.group_api_admin"/>
+
+    <menuitem id="menu_api_login_request"
+              name="Requests"
+              parent="healthy_api.menu_api_login_request_root"
+              action="healthy_api.action_api_login_request"
+              sequence="10"
+              groups="healthy_api.group_api_supervisor,healthy_api.group_api_admin"/>
+</odoo>

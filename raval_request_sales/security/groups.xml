@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="request_sales_categ" model="ir.module.category">
+            <field name="name">Request Sales</field>
+            <field name="sequence" eval="100"/>
+        </record>
+        <record model="res.groups.privilege" id="res_groups_request_sales">
+            <field name="name">Request Sales</field>
+            <field name="category_id" ref="request_sales_categ"/>
+        </record>
+
+        <record id="available_diff_group" model="res.groups">
+            <field name="name">(Available/Difference) QTY Group</field>
+            <field name="privilege_id" ref="res_groups_request_sales"/>
+        </record>
+
+        <record id="group_second_approval" model="res.groups">
+            <field name="name">Planning Approval</field>
+            <field name="privilege_id" ref="res_groups_request_sales"/>
+        </record>
+
+        <record id="group_done_qty" model="res.groups">
+            <field name="name">Done QTY</field>
+            <field name="privilege_id" ref="res_groups_request_sales"/>
+        </record>
+
+    </data>
+</odoo>

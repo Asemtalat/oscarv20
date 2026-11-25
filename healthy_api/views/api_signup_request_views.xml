@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_api_signup_request_list" model="ir.ui.view">
+        <field name="name">api.signup.request.list</field>
+        <field name="model">api.signup.request</field>
+        <field name="arch" type="xml">
+            <list string="Signup Requests" create="false" delete="false">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="state"/>
+                <field name="create_date" string="Requested At"/>
+                <field name="reviewed_by_id"/>
+                <field name="reviewed_at"/>
+                <field name="created_user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_api_signup_request_search" model="ir.ui.view">
+        <field name="name">api.signup.request.search</field>
+        <field name="model">api.signup.request</field>
+        <field name="arch" type="xml">
+            <search string="Signup Requests">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="state"/>
+                <filter name="filter_pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="filter_approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="filter_rejected" string="Rejected" domain="[('state', '=', 'rejected')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_api_signup_request_form" model="ir.ui.view">
+        <field name="name">api.signup.request.form</field>
+        <field name="model">api.signup.request</field>
+        <field name="arch" type="xml">
+            <form string="Signup Request" create="false" delete="false">
+                <header>
+                    <button name="action_approve"
+                            type="object"
+                            string="Approve &amp; Create User"
+                            class="btn-primary"
+                            invisible="state != 'pending'"/>
+                    <button name="action_reject"
+                            type="object"
+                            string="Reject"
+                            invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group>
+                            <field name="create_date" string="Requested At"/>
+                            <field name="reviewed_by_id"/>
+                            <field name="reviewed_at"/>
+                            <field name="created_user_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reject_reason" readonly="state != 'pending'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_api_signup_request" model="ir.actions.act_window">
+        <field name="name">Signup Requests</field>
+        <field name="res_model">api.signup.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="healthy_api.view_api_signup_request_search"/>
+    </record>
+
+    <menuitem id="menu_api_signup_request_root"
+              name="API Approvals"
+              sequence="70"
+              groups="healthy_api.group_api_admin"/>
+
+    <menuitem id="menu_api_signup_request"
+              name="Signup Requests"
+              parent="healthy_api.menu_api_signup_request_root"
+              action="healthy_api.action_api_signup_request"
+              sequence="10"
+              groups="healthy_api.group_api_admin"/>
+</odoo>

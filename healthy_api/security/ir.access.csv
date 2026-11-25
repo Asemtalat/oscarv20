@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_res_users_api_token,access_res_users_api_token,res.users,base.group_system,c,
+access_merchant_visit_user,access_merchant_visit_user,merchant.visit,base.group_user,crud,
+access_api_signup_request_admin,access_api_signup_request_admin,api.signup.request,healthy_api.group_api_admin,cru,
+access_api_rules,access_api_rules,api.rules,base.group_user,crud,

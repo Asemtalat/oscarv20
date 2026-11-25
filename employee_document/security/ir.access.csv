@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access.hr.document,hr_document,hr.document,base.group_user,crud,
+access.hr.document.lines,hr_document_lines,hr.document.lines,base.group_user,crud,
+

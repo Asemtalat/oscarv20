@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="hr_document_line_form_view" model="ir.ui.view">
+            <field name="name">hr.document.line.form</field>
+            <field name="model">hr.document.lines</field>
+            <field name="arch" type="xml">
+                <form string="Document Line">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,issued,expired"
+                               decoration-info="state == 'draft'" decoration-success="state == 'submitted'"
+                               decoration-warning="state == 'issued'" decoration-danger="state == 'expired'" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="document_id"/>
+                            <field name="date_expired"/>
+                            <field name="employee_id"/>
+                            <field name="document"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="hr_document_line_tree_view" model="ir.ui.view">
+            <field name="name">hr.document.line.tree</field>
+            <field name="model">hr.document.lines</field>
+            <field name="arch" type="xml">
+                <list string="Document Line">
+                    <field name="document_id"/>
+                    <field name="date_expired"/>
+                    <field name="employee_id"/>
+                    <field name="document" widget="binary"/>
+                    <field name="state" widget='badge' decoration-info="state == 'draft'" decoration-success="state == 'submitted'"
+                           decoration-warning="state == 'issued'" decoration-danger="state == 'expired'"/>
+                </list>
+            </field>
+        </record>
+        <record id="hr_document_lines_action" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">hr.document.lines</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <menuitem id="menu_hr_document_lines" name="Documents" parent="hr.menu_human_resources_configuration"
+                  action="hr_document_lines_action" sequence="50"/>
+    </data>
+</odoo>

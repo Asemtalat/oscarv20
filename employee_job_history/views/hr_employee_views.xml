@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <record id="hr_employee_job_inherit_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority">1200</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page string="Job History">
+                        <field name="job_history_ids"  widget="one2many_list" mode="list" readonly="1" options="{'no_edit': True, 'no_create': True, 'no_open': False}">
+                            <list string="Job History" editable="bottom">
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                                <field name="user_id"/>
+                                <field name="promotion_date"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

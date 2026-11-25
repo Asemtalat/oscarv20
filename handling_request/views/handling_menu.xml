@@ -1,0 +1,5 @@
+
+<odoo>
+    <menuitem id="handling_menu" name="Handling" sequence="10"/>
+    <menuitem id="handling_menu_main" name="Handling Requests" parent="handling_menu" action="action_handling_requests" sequence="10"/>
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_handle_adjustment_tree" model="ir.ui.view">
+        <field name="name">handle.adjustment.tree</field>
+        <field name="model">handle.adjustment</field>
+        <field name="arch" type="xml">
+            <list editable="bottom"
+                  create="1" edit="1" js_class="inventory_report_list"
+                  sample="1" duplicate="0">
+                <header>
+                    <button name="action_create_sale_order_from_selected"
+                            string="Create SO" type="object" class="btn-primary ms-1" />
+                    <button name="action_create_internal_transfer_from_selected"
+                            string="Return Transfer" type="object" class="btn-primary ms-1" />
+                </header>
+
+                <field name="handle_id" column_invisible="1"/>
+                <field name="location_id" readonly="1"/>
+                <field name="product_id" domain="[('id', 'in', product_ids)]"/>
+                <field name="product_ids" column_invisible="1"/>
+                <field name="lot_id" domain="[('product_id', '=', product_id)]"/>
+                <field name="onhand_quantity"/>
+                <field name="counted_quantity"/>
+                <field name="difference"/>
+                <field name="uom_id"/>
+                <field name="scheduled_date"/>
+                <field name="user_id"/>
+                <field name="order_id" readonly="1" />
+                <field name="picking_id" readonly="1" />
+                <button name="action_create_sale_order" string="Create SO" type="object" class="btn-link"
+                        icon="fa-usd" invisible="order_id"/>
+                <button name="action_create_internal_transfer" string="Return Transfer" type="object" class="btn-link"
+                        icon="fa-usd" invisible="picking_id"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="action_handle_adjustment_create_sale_order" model="ir.actions.server">
+        <field name="name">Create Sale Order</field>
+        <field name="model_id" ref="model_handle_adjustment"/>
+        <field name="binding_model_id" ref="model_handle_adjustment"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_create_sale_order_from_selected()</field>
+    </record>
+    <record id="action_handle_adjustment_create_internal_transfer" model="ir.actions.server">
+        <field name="name">Create Return Transfer</field>
+        <field name="model_id" ref="model_handle_adjustment"/>
+        <field name="binding_model_id" ref="model_handle_adjustment"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_create_internal_transfer_from_selected()</field>
+    </record>
+</odoo>

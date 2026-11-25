@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+        <record id="request_sales_view_tree" model="ir.ui.view">
+            <field name="name">request.sales_view_tree</field>
+            <field name="model">request.sales</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="scheduled_date"/>
+                    <field name="location_id"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+        <record id="request_sales_view_form" model="ir.ui.view">
+            <field name="name">request.sales_view_form</field>
+            <field name="model">request.sales</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="can_edit" invisible="0"/>
+                        <button name="action_submit" type="object" string="Submit"
+                                class="btn-primary"
+                                invisible="state != 'draft' or user_id != uid"/>
+                        <button name="action_second_approve" type="object" string="Approve"
+                                class="btn-primary"
+                                groups="raval_request_sales.group_second_approval"
+                                invisible="state != 'submitted'"/>
+                        <button name="action_create_po_for_lines" type="object" string="Create PO"
+                                class="btn-primary"
+                                invisible="state != 'approved'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_purchase"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    string="Purchase Orders"
+                                    icon="fa-link">
+                                <!-- <field name="credits_count" widget="statinfo" string="Credit Notes"/> -->
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="user_id" domain="[('share', 'in', [False,True])]"/>
+                                <field name="scheduled_date" readonly="not can_edit"/>
+                                <!-- <field name="has_second_approve" readonly="not can_edit"/> -->
+                            </group>
+                            <group>
+                                <field name="create_date" readonly="1"/>
+                                <field name="location_domain" invisible="1"/>
+                                <field name="location_id" domain="location_domain" readonly="not can_edit"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="RequestLinesPage" string="Request Lines">
+                                <field name="request_lines" readonly="not can_edit">
+                                    <list editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="done_qty"/>
+                                        <field name="uom_id"/>
+                                        <field name="available_qty"/>
+                                        <field name="diff_qty"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <chatter reload_on_attachment="True"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="request_sales_action" model="ir.actions.act_window">
+            <field name="name">Request Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.sales</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="request_sales_root" name="Request Sales" sequence="5"/>
+        <menuitem id="request_sales_menu" parent="request_sales_root" action="request_sales_action" sequence="1"/>
+    </data>
+</odoo>

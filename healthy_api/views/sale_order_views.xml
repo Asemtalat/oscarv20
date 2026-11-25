@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sale_order_form_api" model="ir.ui.view">
+        <field name="name">sale.order.form.warehouse.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[1]/group" position="after">
+                <group string="Warehouse">
+                    <field name="warehouse_status"/>
+                    <field name="rejection_reason" invisible="warehouse_status != 'rejected'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

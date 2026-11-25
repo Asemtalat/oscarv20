@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_request_sales,request.sales,request.sales,base.group_user,crud,
+access_request_sales_lines,request.sales.lines,request.sales.lines,base.group_user,crud,
+access_create_po_wizard,create.po.wizard,create.po.wizard,base.group_user,crud,
