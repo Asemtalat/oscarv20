@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="return_sale+order_menu"
+                  name="Return Sale Order"
+                  action="return_sale_order.return_sale_order_action"
+                  parent="sale.sale_order_menu"
+                  sequence="40"/>
+
+    </data>
+</odoo>

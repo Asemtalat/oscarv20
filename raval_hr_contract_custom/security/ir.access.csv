@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_medical_ins_line,medical.insurance.line,medical.insurance.line,,crud,
+access_social_ins_line,social.insurance.line,social.insurance.line,,crud,
+access_insurance_company,insurance.company,insurance.company,,crud,
+access_insurance_grades,insurance.grades,insurance.grades,,crud,

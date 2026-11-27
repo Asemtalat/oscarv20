@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_form_cheque" model="ir.ui.view">
+        <field name="name">account.payment.form.cheque</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Deposit / Bounce buttons -->
+            <xpath expr="//header/button[@name='action_post']" position="after">
+                <button name="action_cheque_deposit" type="object" string="إيداع"
+                        class="oe_highlight"
+                        invisible="not is_cheque or state != 'paid'"
+                        groups="account.group_account_invoice"/>
+                <button name="action_cheque_bounce" type="object" string="مرتد"
+                        class="btn-danger"
+                        invisible="not is_cheque or state != 'paid'"
+                        confirm="هيتم تحويل الشيك لمرتد وحذف القيد المحاسبي. متأكد؟"
+                        groups="account.group_account_invoice"/>
+            </xpath>
+
+            <!-- Reset to draft: same method, but with a confirmation when a deposit entry exists -->
+            <xpath expr="//header/button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">state == 'draft' or cheque_deposit_move_id</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_draft']" position="after">
+                <button name="action_draft" type="object" string="إعادة التعيين كمسودة"
+                        class="btn btn-secondary"
+                        invisible="state == 'draft' or not cheque_deposit_move_id"
+                        confirm="هيتم مسح قيد الإيداع وإرجاع الدفعة مسودة. متأكد؟"
+                        groups="account.group_account_invoice"/>
+            </xpath>
+
+            <!-- Cheque fields -->
+            <xpath expr="//field[@name='payment_method_line_id']" position="after">
+                <field name="is_cheque" readonly="state not in ('draft', 'paid')"/>
+                <field name="cheque_deposit_account_id"
+                       invisible="not is_cheque or state not in ('paid', 'reconciled')"
+                       readonly="state != 'paid'"
+                       options="{'no_create': True}"/>
+                <field name="cheque_deposit_move_id" invisible="not cheque_deposit_move_id" readonly="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Company Bank Account visible on paid cheques.
+         High priority so it applies after other customizations (e.g. Studio). -->
+    <record id="view_account_payment_form_cheque_company_bank" model="ir.ui.view">
+        <field name="name">account.payment.form.cheque.company.bank</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="(//field[@name='partner_bank_id'])[3]" position="attributes">
+                <attribute name="invisible">(not show_partner_bank_account or payment_type == 'outbound') and not (is_cheque and state == 'paid')</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

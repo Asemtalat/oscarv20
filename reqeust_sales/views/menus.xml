@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="reqeust_sales_menu"
+                  name="Requests Sales"
+                  web_icon="complaint_requests,static/description/menu_icon.png"/>
+        <menuitem id="sales_request_main_menu"
+                  name="Request Sales"
+                  action="reqeust_sales.sale_request_action"
+                  parent="reqeust_sales.reqeust_sales_menu"
+                  sequence="1"/>
+        <menuitem id="sales_request_lines_menu"
+                  name="Request Sales Lines"
+                  action="reqeust_sales.sale_request_lines_action"
+                  parent="reqeust_sales.reqeust_sales_menu"
+                  sequence="2"/>
+
+    </data>
+</odoo>

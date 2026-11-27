@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_stock_quant_tree_inventory_inherited" model="ir.ui.view">
+            <field name="name">stock.quant.inventory.list.editable.inherited</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_apply_all']" position="attributes">
+                    <attribute name="groups">raval_inventory_adjustment.group_apply_inventory</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_apply_inventory']" position="attributes">
+                    <attribute name="groups">raval_inventory_adjustment.group_apply_inventory</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

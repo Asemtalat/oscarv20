@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cn_choose_wizard_view_form" model="ir.ui.view">
+            <field name="name">cn.choose.wizard_view_form</field>
+            <field name="model">cn.choose.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="b_new_branch_1"/>
+                                <field name="b_product_coding_2"/>
+                                <field name="b_shelf_rental_3"/>
+                                <field name="b_advertising_expense_4"/>
+                                <field name="b_marketing_expenses_5"/>
+                                <field name="b_hyper_birthday_6"/>
+                                <field name="b_agenda_expenses_7"/>
+                                <field name="b_black_friday_8"/>
+                            </group>
+                            <group>
+                                <field name="b_new_year_9"/>
+                                <field name="b_admin_exp_contract_renewal_10"/>
+                                <field name="b_dsupply_discount_11"/>
+                                <field name="b_price_diff_disc_12"/>
+                                <field name="b_nonconformity_disc_13"/>
+                                <field name="b_magazine_offers_delay_disc_14"/>
+                                <field name="b_special_product_disc_15"/>
+                                <field name="b_tasting_disc_16"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_credit_note" type="object" string="Create CN" class="btn-primary"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

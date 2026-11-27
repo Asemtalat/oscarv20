@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+         <record id="sale_stock_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.return</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_delivery']" position="attributes">
+                        <attribute name="invisible">return_order or delivery_count == 0</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_delivery']" position="after">
+                    <button type="object"
+                        name="action_view_delivery"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        invisible="delivery_count == 0 or not return_order" groups="stock.group_stock_user">
+                        <field name="delivery_count" widget="statinfo" string="Receipt"/>
+                    </button>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="sale_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.return</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="return_order" invisible="1"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_return_entry"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            type="object"
+                            invisible="not return_entry_ids or not return_order">
+                        <div class="o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="entry_count"/>
+                            </span>
+                            <span class="o_stat_text">Return Entries</span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="return_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Return Sale Order</field>
+            <field name="res_model">sale.order</field>
+            <field name="context">{ 'default_return_order': True}</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('return_order','=',True)]</field>
+        </record>
+        <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="domain">[('return_order','!=',True)]</field>
+        </record>
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="domain">[('return_order','!=',True)]</field>
+        </record>
+        <!--        <record id="menu_return_sale_order_tree_view" model="ir.actions.act_window.view">-->
+        <!--            <field eval="1" name="sequence"/>-->
+        <!--            <field name="view_mode">list</field>-->
+        <!--            <field name="view_id" ref="return_sale_order.return_sale_order_view_list"/>-->
+        <!--            <field name="act_window_id" ref="return_sale_order.return_sale_order_action"/>-->
+        <!--        </record>-->
+
+        <!--        <record id="menu_outside_repair_order_form_view" model="ir.actions.act_window.view">-->
+        <!--            <field eval="2" name="sequence"/>-->
+        <!--            <field name="view_mode">form</field>-->
+        <!--            <field name="view_id" ref="return_sale_order.return_sale_order_view_form"/>-->
+        <!--            <field name="act_window_id" ref="return_sale_order.return_sale_order_action"/>-->
+        <!--        </record>-->
+
+        <record id="view_order_product_search_inherit" model="ir.ui.view">
+            <field name="name">sale.report</field>
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='Sales']" position="before">
+                <filter string="All Orders" name="AllSales" domain="[('state','not in',('draft', 'cancel', 'sent'))]"/>
+                </xpath>
+                <xpath expr="//filter[@name='to_invoice']" position="after">
+                    <filter name="return_order" string="Return Orders" domain="[('return_order', '=', True)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='Sales']" position="attributes">
+                    <attribute name="domain">[('return_order', '!=', True),('state','not in',('draft', 'cancel', 'sent'))]</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

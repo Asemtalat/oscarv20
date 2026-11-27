@@ -1,0 +1,240 @@
+<odoo>
+    <data>
+        <record id="rav_contracts_view_form" model="ir.ui.view">
+            <field name="name">rav.contracts_view_form</field>
+            <field name="model">rav.contracts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_choose_targets" class="oe_highlight" type="object" string="Create Credit Note"/>
+                        <button name="create_sale_order" class="oe_highlight" type="object" string="Create Sale Order"/>
+                        <button name="create_return_sale_order" class="oe_highlight" type="object" string="Create Return Sale Order"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_other_models"
+                                    type="object"
+                                    context="{'model_name': 'account.move'}"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o">
+                                <field name="credits_count" widget="statinfo" string="Credit Notes"/>
+                            </button>
+                            <button name="action_open_other_models"
+                                    type="object"
+                                    context="{'model_name': 'sale.order', 'type': 'normal'}"
+                                    class="oe_stat_button"
+                                    icon="fa-usd">
+                                <field name="sale_order_count" widget="statinfo" string="Sales Orders"/>
+                            </button>
+                            <button name="action_open_other_models"
+                                    type="object"
+                                    context="{'model_name': 'sale.order', 'type': 'return'}"
+                                    class="oe_stat_button"
+                                    icon="fa-usd">
+                                <field name="return_sale_order_count" widget="statinfo" string="Returned Sales Orders"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group string="Contract Data">
+                            <group>
+                                <field name="partner_id"/>
+                                <label for="date_start" string="Period"/>
+                                <div class="oe_inline">
+                                    <field name="date_start" class="oe_inline" required="1"/>
+                                    -
+                                    <field name="date_end" class="oe_inline" required="1"/>
+                                </div>
+                                <field name="fixed_discount" widget="percentage"/>
+                            </group>
+                        </group>
+                        <group string="Credit Values">
+                            <group>
+                                <label for="b_new_branch_1"/>
+                                <div>
+                                    <field name="b_new_branch_1" class="oe_inline"/>
+                                    <br/>
+                                    <span invisible="not b_new_branch_1">Small Branch: </span><field name="small_branch_1" class="oe_inline" help="Small Branch" invisible="not b_new_branch_1" nolabel="1"/>
+                                    <br/>
+                                    <span invisible="not b_new_branch_1">Large Branch: </span><field name="large_branch_1" class="oe_inline" help="Large Branch" invisible="not b_new_branch_1" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_product_coding_2"/>
+                                <div>
+                                    <field name="b_product_coding_2" class="oe_inline"/>
+                                    <field name="product_price_2" class="oe_inline" invisible="not b_product_coding_2" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_shelf_rental_3"/>
+                                <div>
+                                    <field name="b_shelf_rental_3" class="oe_inline"/>
+                                    <field name="shelf_rental_price_3" class="oe_inline" invisible="not b_shelf_rental_3" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_advertising_expense_4"/>
+                                <div>
+                                    <field name="b_advertising_expense_4" class="oe_inline"/>
+                                    <field name="advertising_expenses_amount_4" class="oe_inline" invisible="not b_advertising_expense_4" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_marketing_expenses_5"/>
+                                <div>
+                                    <field name="b_marketing_expenses_5" class="oe_inline"/>
+                                    <field name="marketing_expenses_amount_5" class="oe_inline" invisible="not b_marketing_expenses_5" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_hyper_birthday_6"/>
+                                <div>
+                                    <field name="b_hyper_birthday_6" class="oe_inline"/>
+                                    <field name="hyper_birthday_price_6" class="oe_inline" invisible="not b_hyper_birthday_6" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_agenda_expenses_7"/>
+                                <div>
+                                    <field name="b_agenda_expenses_7" class="oe_inline"/>
+                                    <field name="agenda_expenses_amount_7" class="oe_inline" invisible="not b_agenda_expenses_7" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_black_friday_8"/>
+                                <div>
+                                    <field name="b_black_friday_8" class="oe_inline"/>
+                                    <field name="black_friday_amount_8" class="oe_inline" invisible="not b_black_friday_8" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_new_year_9"/>
+                                <div>
+                                    <field name="b_new_year_9" class="oe_inline"/>
+                                    <field name="new_year_amount_9" class="oe_inline" invisible="not b_new_year_9" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_admin_exp_contract_renewal_10"/>
+                                <div>
+                                    <field name="b_admin_exp_contract_renewal_10" class="oe_inline"/>
+                                    <field name="admin_exp_contract_renewal_amount_10" class="oe_inline" invisible="not b_admin_exp_contract_renewal_10" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_dsupply_discount_11"/>
+                                <div>
+                                    <field name="b_dsupply_discount_11" class="oe_inline"/>
+                                    <field name="dsupply_discount_amount_11" class="oe_inline" invisible="not b_dsupply_discount_11" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_price_diff_disc_12"/>
+                                <div>
+                                    <field name="b_price_diff_disc_12" class="oe_inline"/>
+                                    <field name="price_diff_disc_amount_12" class="oe_inline" invisible="not b_price_diff_disc_12" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_nonconformity_disc_13"/>
+                                <div>
+                                    <field name="b_nonconformity_disc_13" class="oe_inline"/>
+                                    <field name="nonconformity_disc_amount_13" class="oe_inline" invisible="not b_nonconformity_disc_13" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_magazine_offers_delay_disc_14"/>
+                                <div>
+                                    <field name="b_magazine_offers_delay_disc_14" class="oe_inline"/>
+                                    <field name="magazine_offers_delay_disc_amount_14" class="oe_inline" invisible="not b_magazine_offers_delay_disc_14" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_special_product_disc_15"/>
+                                <div>
+                                    <field name="b_special_product_disc_15" class="oe_inline"/>
+                                    <field name="special_product_disc_amount_15" class="oe_inline" invisible="not b_special_product_disc_15" nolabel="1"/>
+                                </div>
+                            </group>
+
+                            <group>
+                                <label for="b_tasting_disc_16"/>
+                                <div>
+                                    <field name="b_tasting_disc_16" class="oe_inline"/>
+                                    <field name="tasting_disc_amount_16" class="oe_inline" invisible="not b_tasting_disc_16" nolabel="1"/>
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="stl" string="Sales target">
+                                <field name="sales_target_lines">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="start_date" required="1"/>
+                                        <field name="end_date" required="1"/>
+                                        <field name="period_type"/>
+                                        <field name="discount_type"/>
+                                        <field name="limit_rate_return_so" widget="percentage" invisible="name != 'return'"/>
+                                        <field name="rate_return_so" widget="percentage"/>
+                                        <field name="discount_amount" invisible="discount_type != 'fixed_amount'"/>
+                                        <field name="rate" invisible="discount_type != 'percentage'" widget="percentage"/>
+                                        <field name="target_amount" invisible="name == 'return'"/>
+                                        <field name="total" invisible="name == 'return'"/>
+                                        <field name="total_so"/>
+                                        <button name="recompute_detailed_lines" icon="fa-refresh" type="object"/>
+                                        <button name="show_detailed_sale_orders" icon="fa-list-alt" type="object"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <chatter reload_on_attachment="True"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="rav_contracts_view_tree" model="ir.ui.view">
+            <field name="name">rav.contracts_view_tree</field>
+            <field name="model">rav.contracts</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="rav_contracts_action" model="ir.actions.act_window">
+            <field name="name">Contacts Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rav.contracts</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="contract_root" name="Contracts" sequence="3"/>
+        <menuitem id="contract_menu" parent="contract_root" name="Contracts" action="rav_contracts_action" sequence="1"/>
+
+    </data>
+</odoo>

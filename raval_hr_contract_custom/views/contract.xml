@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_version_form_inherit" model="ir.ui.view">
+            <field name="name">hr.version.form.inherit</field>
+            <field name="model">hr.version</field>
+            <field name="inherit_id" ref="hr.hr_contract_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='salary_info']" position="inside">
+                    <group name="allowances">
+                        <field name="basic"/>
+                        <field name="car_allowance"/>
+                        <field name="mobile_allowance"/>
+                        <field name="transportation_allowance"/>
+                        <field name="other_allowance"/>
+                        <field name="basic_insurance_allowance"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="social_ins_page" string="Social Insurance">
+                        <field name="social_insurance_line">
+                            <list editable="bottom">
+                                <field name="employee_id"/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="insurance_number" required="1"/>
+                                <field name="grade_id" required="1"/>
+                                <field name="state" required="1"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="medical_ins_page" string="Medical Insurance">
+                        <field name="medical_insurance_line">
+                            <list editable="bottom">
+                                <field name="employee_id"/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="insurance_number" required="1"/>
+                                <field name="company_id" required="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

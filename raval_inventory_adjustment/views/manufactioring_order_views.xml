@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_manufacturing_order_form_inherit_raval_inventory_adjustment" model="ir.ui.view">
+        <field name="name">manufacturing.order.form.inherit.raval.inventory.adjustment</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook/page[@name='operations']/field[@name='workorder_ids']/list/field[@name='duration']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

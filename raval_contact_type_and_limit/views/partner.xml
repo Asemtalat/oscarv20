@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_partner_form_inherit_contact_type" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.contact.type</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group" position="inside">
+                    <group string="Contact Type">
+                        <field name="customer_type"/>
+                        <field name="tax_no" invisible="customer_type != 'in-adv'"
+                               required="customer_type == 'in-adv'"/>
+                        <field name="check_trust_no" invisible="customer_type != 'in-adv'"
+                               required="customer_type == 'in-adv'"/>
+                        <field name="check_trust_date" invisible="customer_type != 'in-adv'"
+                               required="customer_type == 'in-adv'"/>
+                        <field name="check_trust_amount" invisible="customer_type != 'in-adv'"
+                               required="customer_type == 'in-adv'"/>
+                        <field name="warranty_file" invisible="customer_type != 'in-adv'"
+                               required="customer_type == 'in-adv'"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

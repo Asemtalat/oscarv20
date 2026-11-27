@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_request_notification" model="mail.activity.type">
+            <field name="name">Customer Complaint Notification</field>
+            <field name="icon">fa-file-text-o</field>
+            <field name="res_model">sale.request</field>
+        </record>
+        <record id="sale_request_view_form" model="ir.ui.view">
+            <field name="name">sale.request.form</field>
+            <field name="model">sale.request</field>
+            <field name="arch" type="xml">
+                <form string="Requests">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="create_uid" string="Responsible User"/>
+                                <field name="scheduled_date"/>
+
+                            </group>
+                            <group>
+                                <field name="create_date" string="Creating Date"/>
+                                <field name="location_ids" widget="many2many_tags"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request Details">
+                                <field name="request_line_ids" widget="one2many_list" mode="list">
+                                    <list string="Request Lines" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id"/>
+                                        <field name="available_qty"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <chatter reload_on_attachment="True"/>
+
+                </form>
+            </field>
+        </record>
+        <record id="sale_request_view_tree" model="ir.ui.view">
+            <field name="name">sale.request.tree</field>
+            <field name="model">sale.request</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_uid" string="Responsible User"/>
+                    <field name="scheduled_date" string="Responsible User"/>
+                    <field name="create_date" string="Responsible User"/>
+                    <field name="location_ids" string="Responsible User"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="sale_request_action" model="ir.actions.act_window">
+            <field name="name">Requests Sales</field>
+            <field name="res_model">sale.request</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Sale Request
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

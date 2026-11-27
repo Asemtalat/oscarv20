@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+access_sale_request,sale_request,sale.request,base.group_user,crud,
+access_sale_request_line,sale.request.line,sale.request.line,base.group_user,crud,

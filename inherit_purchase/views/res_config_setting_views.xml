@@ -1,0 +1,21 @@
+<odoo>
+    <record id="inherit_conf_form" model="ir.ui.view">
+        <field name="name">conf.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='purchase']" position="inside">
+                <block title="Purchase Account" id="purchase_account">
+                    <setting id="purchase_order_settings">
+<!--                        <field name="journal_id" domain="[('type', 'in', ['bank', 'cash'])]"/>-->
+                        <field name="journal_id"/>
+
+                    </setting>
+                    <setting id="account_id">
+                        <field name="account_id"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

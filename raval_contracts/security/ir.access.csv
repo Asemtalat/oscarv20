@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_rav_contracts,rav.contracts,rav.contracts,base.group_user,crud,
+access_sales_target_line,sales.target.line,sales.target.line,base.group_user,crud,
+access_cn_choose_wizard,cn.choose.wizard,cn.choose.wizard,base.group_user,crud,
+access_detailed_sale_order,detailed.sale.order,detailed.sale.order,base.group_user,crud,

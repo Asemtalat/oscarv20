@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_activate_enterprise_db_activate_enterprise_db,activate_enterprise_db.activate_enterprise_db,activate.enterprise.db.activate.enterprise.db,base.group_user,crud,

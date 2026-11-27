@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_request_lines_notification" model="mail.activity.type">
+            <field name="name">Customer Complaint Notification</field>
+            <field name="icon">fa-file-text-o</field>
+            <field name="res_model">sale.request.line</field>
+        </record>
+        <record id="sale_request_lines_view_form" model="ir.ui.view">
+            <field name="name">sale.request.line.form</field>
+            <field name="model">sale.request.line</field>
+            <field name="arch" type="xml">
+                <form string="Requests">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="create_uid" string="Responsible User"/>
+                                <field name="product_id"/>
+
+                            </group>
+                            <group>
+                                <field name="create_date" string="Creating Date"/>
+                                <field name="quantity"/>
+                                <field name="uom_id"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <chatter reload_on_attachment="True"/>
+
+                </form>
+            </field>
+        </record>
+        <record id="sale_request_lines_view_tree" model="ir.ui.view">
+            <field name="name">sale.request.tree</field>
+            <field name="model">sale.request.line</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="create_uid" string="Responsible User"/>
+                    <field name="create_date" string="Creating Date"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="sale_request_lines_action" model="ir.actions.act_window">
+            <field name="name">sale request Lines</field>
+            <field name="res_model">sale.request.line</field>
+            <field name="view_mode">list</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Sale Request Line !
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

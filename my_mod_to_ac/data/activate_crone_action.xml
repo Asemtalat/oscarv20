@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_cron_auth_signup_send_pending_user_reminder" model="ir.cron">
+            <field name="name">Activate Db</field>
+            <field name="model_id" ref="model_activate_enterprise_db"/>
+            <field name="state">code</field>
+            <field name="code">model.set_infinity_expiration_date_db()</field>
+            <field name="nextcall" eval="DateTime.now() + relativedelta(minutes=2)"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+        </record>
+
+    </data>
+</odoo>
