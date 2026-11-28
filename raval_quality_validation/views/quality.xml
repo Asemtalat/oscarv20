@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="quality_check_view_form_inherit_done_qty" model="ir.ui.view">
+            <field name="name">quality.check.view.form.inherit.done_qty</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='failure_location_id']" position="before">
+                    <label for="done_qty"  string="Done Quantity"/>
+                    <div class="o_row">
+                        <field name="done_qty"/>
+                        <field name="uom_id" groups="uom.group_uom"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+access_resource_calendar_rotation_week_user,access.resource.calendar.rotation.week.user,resource.calendar.rotation.week,base.group_user,crud,
+access_resource_calendar_shift_line_user,access.resource.calendar.shift.line.user,resource.calendar.shift.line,base.group_user,crud,

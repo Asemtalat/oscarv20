@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="notification_exp_group" model="res.groups">
+            <field name="name">Documents: Notification Expiration Group</field>
+        </record>
+
+    </data>
+</odoo>

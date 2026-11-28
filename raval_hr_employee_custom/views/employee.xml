@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_employee_form_inherit_history" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.history</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="job_history_page" string="Job History">
+                        <field name="job_history_lines" readonly="1">
+                            <list>
+                                <field name="from_job_id"/>
+                                <field name="to_job_id"/>
+                                <field name="date"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="department_history_page" string="Department History">
+                        <field name="department_history_lines" readonly="1">
+                            <list>
+                                <field name="from_department_id"/>
+                                <field name="to_department_id"/>
+                                <field name="date"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

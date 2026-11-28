@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_documents_document_type,documents.document.type,documents.document.type,base.group_user,crud,
+access_hr_department_history,hr.department.history,hr.department.history,base.group_user,crud,
+access_hr_job_history,hr.job.history,hr.job.history,base.group_user,crud,

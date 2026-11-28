@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_picking_form_inherited" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherited</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="partner_id"]' position='after'>
+                    <field name="show_validate_btn"/>
+                </xpath>
+
+                <!-- Odoo 20 drives the two Validate buttons with validate_button_style:
+                     keep the standard rule and add the quality condition on top -->
+                <xpath expr='//button[@name="button_validate"][1]' position='attributes'>
+                    <attribute name="invisible">validate_button_style != 'primary' or not show_validate_btn</attribute>
+                </xpath>
+
+                <xpath expr='//button[@name="button_validate"][2]' position='attributes'>
+                    <attribute name="invisible">validate_button_style != 'secondary' or not show_validate_btn</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

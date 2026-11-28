@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_department_history_view_tree" model="ir.ui.view">
+            <field name="name">hr.department.history_view_tree</field>
+            <field name="model">hr.department.history</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="employee_id"/>
+                    <field name="from_department_id"/>
+                    <field name="to_department_id"/>
+                    <field name="date"/>
+                </list>
+            </field>
+        </record>
+        <record id="emp_dep_history_action" model="ir.actions.act_window">
+            <field name="name">Employees Department History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.department.history</field>
+            <field name="view_mode">list</field>
+        </record>
+        <menuitem id="menu_emp_dep_history" parent="hr.hr_menu_hr_reports" action="emp_dep_history_action"/>
+
+    </data>
+</odoo>

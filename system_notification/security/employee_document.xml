@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Category for Employee Documents -->
+        <record id="module_category_employee_document" model="ir.module.category">
+            <field name="name">Employee Document Management</field>
+            <field name="sequence">32</field>
+        </record>
+        <record id="res_groups_privilege_employee_document" model="res.groups.privilege">
+            <field name="name">Employee Document Management</field>
+	    <field name="category_id" ref="module_category_employee_document"/>
+	</record>
+
+        <!-- Group for Employee Document Notifications -->
+        <record id="group_employee_document_notification" model="res.groups">
+            <field name="name">Employee Document Notification Users</field>
+            <field name="privilege_id" ref="res_groups_privilege_employee_document"/>
+            <field name="comment">Users who will receive notifications related to employee document expirations</field>
+        </record>
+    </data>
+</odoo>

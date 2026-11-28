@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pricelist_item_form_extend_discount_type" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form.extend.discount.type</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <!-- the percentage row only applies to percentage discounts -->
+            <xpath expr="//group[@name='pricelist_rule_base']//div[field[@name='price_discount']]" position="attributes">
+                <attribute name="invisible">compute_price == 'markup' or discount_type == 'amount'</attribute>
+            </xpath>
+            <xpath expr="//group[@name='pricelist_rule_base']//div[field[@name='price_discount']]" position="before">
+                <field name="discount_type"
+                       invisible="compute_price != 'discount'"
+                       widget="radio"
+                       options="{'horizontal': true}"/>
+            </xpath>
+            <xpath expr="//group[@name='pricelist_rule_base']//div[field[@name='price_discount']]" position="after">
+                <div class="d-flex flex-wrap align-items-baseline gap-2"
+                     invisible="compute_price != 'discount' or discount_type != 'amount'">
+                    <field name="amount_discount"
+                           widget="monetary"
+                           class="oe_inline w-auto"
+                           options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                    <span class="text-nowrap">on</span>
+                    <field name="base_pricelist_id"
+                           class="oe_inline"
+                           placeholder="sales price"
+                           domain="[('id', '!=', pricelist_id)]"
+                           groups="product.group_product_pricelist"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

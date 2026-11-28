@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="mrp_production_form_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form.inherit</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='button_mark_done'][1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][4]" position="after">
+                    <!-- Odoo 20 replaced show_produce / show_produce_all by validate_button_style:
+                         one replacement per standard "Produce" button, same visibility rules -->
+                    <button name="action_produce_warning" string="Produce" type="object" class="oe_highlight"
+                            data-hotkey="g"
+                            invisible="not move_raw_ids or validate_button_style != 'primary'"/>
+                    <button name="action_produce_warning" string="Produce" type="object" class="btn-secondary"
+                            data-hotkey="g"
+                            invisible="not move_raw_ids or validate_button_style != 'secondary'"/>
+                    <button name="action_produce_warning" string="Produce" type="object" class="oe_highlight"
+                            data-hotkey="g"
+                            invisible="move_raw_ids or validate_button_style != 'primary'"
+                            confirm="There are no components to consume. Are you still sure you want to continue?"/>
+                    <button name="action_produce_warning" string="Produce" type="object" class="btn-secondary"
+                            data-hotkey="g"
+                            invisible="move_raw_ids or validate_button_style != 'secondary'"
+                            confirm="There are no components to consume. Are you still sure you want to continue?"/>
+                </xpath>
+
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_backorder_moves"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book">
+                        <field name="entries_counts" widget="statinfo" string="Entries"/>
+                    </button>
+
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/list/field[@name='quantity']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='move_raw_ids']/list/field[@name='quantity']" position="before">
+                    <field name="change_qty" column_invisible="parent.state in ['draft']"/>
+                    <field name="quantity_approve_state" decoration-info="quantity_approve_state != 'done'"
+                           decoration-success="quantity_approve_state == 'done'" widget="badge" readonly="1"
+                           optional="hide"
+                    />
+                    <button name="action_first_approve" groups="raval_mrp_custom.group_1st_mrp_qty" class="btn-warning"
+                            invisible="quantity_approve_state != '1st' or change_qty == 0"
+                            column_invisible="parent.state not in ['confirmed', 'to_close']"
+                            type="object" string="First Approve"/>
+                    <button name="action_second_approve" groups="raval_mrp_custom.group_2nd_mrp_qty" class="btn-warning"
+                            invisible="quantity_approve_state != '2nd' or change_qty == 0"
+                            column_invisible="parent.state not in ['confirmed', 'to_close']"
+                            type="object" string="Second Approve"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

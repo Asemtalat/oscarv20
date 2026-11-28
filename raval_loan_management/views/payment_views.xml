@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- HR employee inherit Loans -->
+    <record id="view_account_payment_search_inh" model="ir.ui.view">
+        <field name="name">account.payment.search.inh</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+        <search string="Payments">
+            <!-- Adding loan_id field to the filter group -->
+            <field name="loan_id" string="Loan"/>
+
+            <!-- Optional: Add grouping by Loan -->
+            <filter string="Loan" name="groupby_loan" domain="[]" context="{'group_by': 'loan_id'}"/>
+        </search>
+        </field>
+    </record>
+</odoo>

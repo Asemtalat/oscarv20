@@ -1,0 +1,2 @@
+id,name,model_id,group_id/id,operation,domain
+access_quant_wiz_warning,quant.wiz.warning,quant.wiz.warning,base.group_user,crud,

@@ -1,0 +1,9 @@
+id,name,model_id,group_id/id,operation,domain
+hr_loan_rule_group_user,Loan Request Multi Company,hr.loan,,crud,"['|', ('company_id', '=', False), ('company_id', 'child_of', [user.company_id.id])]"
+hr_loan_rule_group_user_own_loan,User: Modify own loan only,hr.loan,base.group_user,cru,"[('employee_id.user_id', '=', user.id)]"
+access_hr_jobuser,hr.job.group_user,hr.job,base.group_user,cru,
+access_hr_loan_line_user,hr.loan.line.group_user,hr.loan.line,base.group_user,cru,
+access_hr_loan_officer,hr.loan.group_hr_user,hr.loan,hr.group_hr_user,crud,
+access_hr_loan_line_officer,hr.loan.line.group_hr_user,hr.loan.line,hr.group_hr_user,crud,
+access_hr_loan_manager,hr.loan,hr.loan,hr.group_hr_manager,crud,
+access_hr_loan_line_manager,hr.loan.line,hr.loan.line,hr.group_hr_manager,crud,

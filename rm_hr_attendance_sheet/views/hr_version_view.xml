@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Odoo 20: there is no contract form anymore, the contract data is
+         edited on the employee form (Employee Record = hr.version). -->
+    <record id="hr_employee_form_attendance_policy" model="ir.ui.view">
+        <field name="name">hr.employee.form.attendance.policy</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='contract']//field[@name='structure_type_id']" position="after">
+                <field name="att_policy_id" groups="hr.group_hr_user"/>
+                <field name="auto_attendance_sheet" groups="hr.group_hr_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

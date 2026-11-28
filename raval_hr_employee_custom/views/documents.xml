@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="documents_document_form_inherit" model="ir.ui.view">
+            <field name="name">documents.document.form.inherit</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.documents_upload_url_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//footer" position="before">
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="document_type_id" readonly="not context.get('editable')"/>
+                    <field name="exp_date" readonly="not context.get('editable')"/>
+                </xpath>
+
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="description" readonly="not context.get('editable')"/>
+                </xpath>
+                 <xpath expr="//sheet" position="before">
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </xpath>
+
+                <xpath expr="//group" position="inside">
+                    <group>
+                        <field name="document_type_id"/>
+                        <field name="exp_date"/>
+                        <field name="description"/>
+                    </group>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <record id="documents_document_main_list_inherit" model="ir.ui.view">
+            <field name="name">documents.document.main.list.inherit</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.documents_view_list_main"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="document_type_id" optional="show"/>
+                    <field name="exp_date" optional="show"/>
+                    <field name="description" optional="show"/>
+                </xpath>
+
+                <xpath expr="//field[@name='mimetype']" position="after">
+                    <field name="state" optional="show"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
